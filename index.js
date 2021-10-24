@@ -1,0 +1,13 @@
+exports.Mapcraft = require('./modules/Mapcraft');
+exports.MCdatabase = require('./modules/MCdatabase');
+exports.MCeditor = require('./modules/MCeditor');
+exports.MCfs = require('./modules/MCfs');
+exports.MCipc = require('./modules/MCipc');
+exports.MClink = require('./modules/MClink');
+exports.MClog = require('./modules/MClog');
+exports.MCplugin = require('./modules/MCplugin');
+exports.MCshell = require('./modules/MCshell');
+exports.MCtemplate = require('./modules/MCtemplate');
+exports.MCutilities = require('./modules/MCutilities');
+exports.MCwindow = require('./modules/MCwindow');
+exports.MCworkInProgress = require('./modules/MCworkInProgress');

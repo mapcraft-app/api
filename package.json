@@ -1,0 +1,28 @@
+{
+  "name": "mapcraft-api",
+  "version": "1.1.1",
+  "description": "Official API for developping your own plugin for Mapcraft ecosystem",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://mapcraft.app"
+  },
+  "keywords": [],
+  "author": "Clément Bertrand (https://gitlab.com/cbertran/mapcraft-api)",
+  "license": "GPL-3.0",
+  "homepage": "https://mapcraft.app",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "axios": "^0.23.0",
+    "better-sqlite3": "^7.4.3",
+    "read-last-lines": "^1.8.0"
+  },
+  "devDependencies": {
+    "electron": "^15.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2"
+  }
+}
