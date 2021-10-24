@@ -1,0 +1,14 @@
+import Mapcraft = require("./declaration/Mapcraft");
+import MCdatabase = require("./declaration/MCdatabase");
+import MCeditor = require("./declaration/MCeditor");
+import MCfs = require("./declaration/MCfs");
+import MCipc = require("./declaration/MCipc");
+import MClink = require("./declaration/MClink");
+import MClog = require("./declaration/MClog");
+import MCplugin = require("./declaration/MCplugin");
+import MCshell = require("./declaration/MCshell");
+import MCtemplate = require("./declaration/MCtemplate");
+import MCutilities = require("./declaration/MCutilities");
+import MCwindow = require("./declaration/MCwindow");
+import MCworkInProgress = require("./declaration/MCworkInProgress");
+export { Mapcraft, MCdatabase, MCeditor, MCfs, MCipc, MClink, MClog, MCplugin, MCshell, MCtemplate, MCutilities, MCwindow, MCworkInProgress };
