@@ -6,6 +6,9 @@ const MC = require('./Mapcraft');
 
 class MClog
 {
+	/**
+	 * Reads and monitors the game log file
+	 */
 	constructor()
 	{
 		this.logLink = path.join(MC.GetConfig().Env.GamePath, 'logs/latest.log');
@@ -29,7 +32,7 @@ class MClog
 	 * Print lastest log in text area
 	 * @param {String} oldData
 	 */
-	static PrintToTextArea(data)
+	PrintToTextArea(data)
 	{
 		document.getElementById('log-textarea').innerHTML = data;
 		document.getElementById('log-textarea').scrollTop = document.getElementById('log-textarea').scrollHeight;

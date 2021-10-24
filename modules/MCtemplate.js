@@ -168,7 +168,7 @@ class Template
 	 * @param {string} HTML HTML raw
 	 * @param {json} args Valid json for replace variable(s)
 	 */
-	static parseRaw(HTML, args)
+	parseRaw(HTML, args)
 	{
 		let newHTML = HTML;
 		if (!newHTML)
@@ -232,7 +232,7 @@ class Template
 	 * @param {DOMelement} node DOMelement
 	 * @param {boolean} RemoveParent If true, function remove node after delete child. false by default
 	 */
-	static cleanNode(node, RemoveParent = false)
+	cleanNode(node, RemoveParent = false)
 	{
 		if (node && node.hasChildNodes())
 			while (node.firstChild)
@@ -243,7 +243,11 @@ class Template
 	// #endregion
 
 	// #region Private
-	static _cleanRender(template)
+	/**
+	 * Clean render
+	 * @private
+	 */
+	_cleanRender(template)
 	{
 		const DOMelement = document.querySelectorAll(`[tp="${template}"]`)[0];
 		if (DOMelement && DOMelement.hasChildNodes())
@@ -251,6 +255,10 @@ class Template
 				DOMelement.removeChild(DOMelement.firstChild);
 	}
 
+	/**
+	 * Clean includes
+	 * @private
+	 */
 	_cleanIncludes(OldDOMelement)
 	{
 		let attr = null;
@@ -269,6 +277,10 @@ class Template
 			}
 	}
 
+	/**
+	 * Clean template
+	 * @private
+	 */
 	_insertTemplate(DOMelement, template, str)
 	{
 		if (DOMelement === undefined || DOMelement === null)
@@ -283,6 +295,10 @@ class Template
 		this._includes();
 	}
 
+	/**
+	 * Includes
+	 * @private
+	 */
 	_includes()
 	{
 		const SameDirectory = this.directory.split('\\').pop();
@@ -307,7 +323,11 @@ class Template
 	}
 
 	/* NodeList*/
-	static _ifDOMelementIsLive(DOMelement)
+	/**
+	 * Check if DOMelement is live or not
+	 * @private
+	 */
+	_ifDOMelementIsLive(DOMelement)
 	{
 		let list;
 		if (HTMLCollection.prototype.isPrototypeOf(DOMelement)) // eslint-disable-line
@@ -329,6 +349,10 @@ class Template
 		return (live);
 	}
 
+	/**
+	 * Iterate on the list
+	 * @private
+	 */
 	_iterateNodeList(list, args)
 	{
 		for (const element of list)

@@ -4,17 +4,22 @@ const Database = require('better-sqlite3');
 
 class CreateDB
 {
+	/**
+	 * Create a new world database
+	 * @param {String} link Path to new database
+	 */
 	constructor(link)
 	{
 		this.db = new Database(link, { verbose: console.log });
 		console.log(__dirname);
-		this.AddTable();
+		this._AddTable();
 	}
 
 	/**
-	 * Add necessary tables in database
+	 * Add every tables
+	 * @private
 	 */
-	AddTable()
+	_AddTable()
 	{
 		this._AddTableUser();
 		this._AddTableTrigger();
@@ -22,7 +27,8 @@ class CreateDB
 	}
 
 	/**
-	 * Private function, do not use, prefer AddTable()
+	 * Add specific user table
+	 * @private
 	 */
 	_AddTableUser()
 	{
@@ -30,7 +36,8 @@ class CreateDB
 	}
 
 	/**
-	 * Private function, do not use, prefer AddTable()
+	 * Add specific trigger table
+	 * @private
 	 */
 	_AddTableTrigger()
 	{
@@ -38,7 +45,8 @@ class CreateDB
 	}
 
 	/**
-	 * Private function, do not use, prefer AddTable()
+	 * Add specific cutscene table
+	 * @private
 	 */
 	_AddTableCutscene()
 	{

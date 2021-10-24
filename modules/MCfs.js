@@ -2,6 +2,11 @@ const fs = require('fs');
 
 class MCfs
 {
+	/**
+	 * Add a line at the end of the file
+	 * @param {String} File File path
+	 * @param {String} Line Line appended to file
+	 */
 	static AddLine(File, Line)
 	{
 		fs.appendFile(File, Line, (err) =>
@@ -13,10 +18,10 @@ class MCfs
 
 	/**
 	 * Modify the line at the first occurrence find, add new line at the end of file if not exist if `AddIsNotExit` set to true
-	 * @param {string} File Path of File
+	 * @param {string} File File path
 	 * @param {string} Occurence Search string
 	 * @param {string} NewLine Line to record
-	 * @param {boolean} AddIfNotExit
+	 * @param {boolean} AddIfNotExit Set to true if the line must be added at the end of the file if it does not exist
 	 */
 	static async ModifyLine(File, Occurence, NewLine = undefined, AddIfNotExit = false)
 	{
@@ -68,7 +73,7 @@ class MCfs
 
 	/**
 	 * Delete the line on which the first occurrence is found
-	 * @param {String} File Path of file
+	 * @param {String} File File path
 	 * @param {String} Occurence Search string
 	 */
 	static DeleteLine(File, Occurence)

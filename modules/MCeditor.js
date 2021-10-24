@@ -3,6 +3,9 @@ const path = require('path');
 
 class MCeditor
 {
+	/**
+	 * Initialize the file edition in the integrated ide
+	 */
 	constructor()
 	{
 		this.state = {
@@ -51,6 +54,9 @@ class MCeditor
 			});
 	}
 
+	/**
+	 * Close file from edition
+	 */
 	CloseFile()
 	{
 		this.state.isEdit = false;

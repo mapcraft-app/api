@@ -7,17 +7,25 @@ const MCutilities = require('./MCutilities');
 MCutilities.GetAppDataPath();
 
 // API const
+const { AppDataPath } = process.env;
 const OSType = OS.platform();
 const pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', 'src/manifest'), { encoding: 'utf-8', flag: 'r' }));
 const _APIVersion = pack.version;
 const DefaultLang = pack.default_lang;
 const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
-const { AppDataPath } = process.env;
+const UserComponentsLink = path.join(AppDataPath, 'plugins');
 
 class MC
 {
+	/**
+	 * Function allowing to access all the configuration information of the user and more generally of the application (especially config.json).
+	 * Generates the necessary files if they do not exist.
+	 * Also allows you to reset the configuration file to the default values at any error.
+	 */
 	constructor()
 	{
+		if (!fs.existsSync(UserComponentsLink))
+			fs.mkdirSync(UserComponentsLink, { recursive: true, mode: 0o777 });
 		if (!fs.existsSync('config.json'))
 			this.ResetConfigFile();
 		this.UpdateAPIVersion();
@@ -26,7 +34,7 @@ class MC
 	/**
 	 * Update 'APIVersion' key with last API version
 	 */
-	static UpdateAPIVersion()
+	UpdateAPIVersion()
 	{
 		const data = JSON.parse(fs.readFileSync(path.join(AppDataPath, 'config.json'), { encoding: 'utf-8', flag: 'r' }));
 		data.Env.APIVersion = _APIVersion;
@@ -36,7 +44,7 @@ class MC
 	/**
 	 * Reset config.json file with default values
 	 */
-	static ResetConfigFile()
+	ResetConfigFile()
 	{
 		let linkToGame;
 		if (OS.platform() === 'win32')
@@ -54,6 +62,7 @@ class MC
 				SavePath: path.join(linkToGame, 'saves'),
 				Lang: DefaultLang,
 				Components: ComponentsLink,
+				PluginsComponents: UserComponentsLink,
 				APIVersion: _APIVersion,
 			},
 			Data: {
@@ -73,7 +82,7 @@ class MC
 	 * @param {String} resourcepack Name of resource pack, default 'Mapcraft-resource'
 	 * @param {String} datapack Name of data pack, default 'Mapcraft-data'
 	 */
-	static UpdateConfig(temp = OS.tmpdir(), data, save, lang = DefaultLang, resourcepack = 'Mapcraft-resource', datapack = 'Mapcraft-data')
+	UpdateConfig(temp = OS.tmpdir(), data, save, lang = DefaultLang, resourcepack = 'Mapcraft-resource', datapack = 'Mapcraft-data')
 	{
 		const config = {
 			Env: {
@@ -84,6 +93,7 @@ class MC
 				SavePath: save,
 				Lang: lang,
 				Components: ComponentsLink,
+				PluginsComponents: UserComponentsLink,
 				APIVersion: _APIVersion,
 			},
 			Data: {
@@ -94,23 +104,31 @@ class MC
 		fs.writeFileSync(path.join(AppDataPath, 'config.json'), JSON.stringify(config, null, 4), { encoding: 'utf-8', flag: 'w' });
 	}
 
-	// Getters
 	/**
 	 * Get config.json data
 	 * @returns {JSON} JSON data
 	 */
-	static GetConfig()
+	GetConfig()
 	{
 		return (JSON.parse(fs.readFileSync(path.join(AppDataPath, 'config.json'), { encoding: 'utf-8', flag: 'r' })));
 	}
 
 	/**
 	 * Get current lang of application
-	 * @returns {String}  Current lang
+	 * @returns {String} Current lang
 	 */
 	GetLang()
 	{
 		return (this.GetConfig().Env.Lang);
+	}
+
+	/**
+	 * Get manifest data
+	 * @returns {JSON} JSON data
+	 */
+	GetManifest()
+	{
+		return (pack);
 	}
 }
 

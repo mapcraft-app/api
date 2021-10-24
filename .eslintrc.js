@@ -14,6 +14,7 @@ module.exports = {
 	},
 	rules: {
 		'brace-style': ['warn', 'allman'],
+		'class-methods-use-this': 'off',
 		curly: ['warn', 'multi', 'consistent'],
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 		indent: ['error', 'tab', { SwitchCase: 1 }],

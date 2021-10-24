@@ -3,6 +3,11 @@ const LENGTH = COMMAND.length;
 
 class MCshell
 {
+	/**
+	 * Parse a line and return data if the program exists
+	 * @param {String} line Line to be parsed
+	 * @returns {JSON} Preformed data, or null if error
+	 */
 	static parse(line)
 	{
 		let ret = null;
@@ -28,6 +33,10 @@ class MCshell
 		return (ret);
 	}
 
+	/**
+	 * Trigger built-in
+	 * @private
+	 */
 	static _trigger(args)
 	{
 		return ({
@@ -40,6 +49,10 @@ class MCshell
 		});
 	}
 
+	/**
+	 * Cutscene built-in
+	 * @private
+	 */
 	static _cutscene(args)
 	{
 		const stof = (str) => parseFloat(parseFloat(str.slice(0, -1)).toFixed(1));
@@ -77,6 +90,10 @@ class MCshell
 		}
 	}
 
+	/**
+	 * Option built-in
+	 * @private
+	 */
 	static _option(args)
 	{
 		return ({

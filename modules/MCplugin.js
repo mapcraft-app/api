@@ -13,11 +13,14 @@ const MC = require('./Mapcraft');
 
 class MCplugin
 {
-	constructor()
+	/**
+	 * Preload plugins
+	 * @param {String} directory Folder where the plugins are located, @default path_to_builtin_plugins
+	 */
+	constructor(directory = path.join(__dirname, '../../../'))
 	{
 		this.Components = JSON.parse(fs.readFileSync(MC.GetConfig().Env.Components, 'utf-8'));
-		this.GoToParent = '../../../';
-		this.BaseLink = path.join(__dirname, this.GoToParent, 'src/dist/template/Main');
+		this.BaseLink = path.join(directory, 'src/dist/template/Main');
 		this.__default = null;
 		this.plugins = [];
 		for (const i in this.Components)
@@ -29,7 +32,7 @@ class MCplugin
 					Component: this.Components[i].Component,
 					IsNotification: this.Components[i].IsNotification,
 					Lang: path.join(this.BaseLink, this.Components[i].Lang),
-					Instance: require(path.join(__dirname, GoToParent, 'src/dist', `template/Main/${this.Components[i].Component}`)) // eslint-disable-line
+					Instance: require(path.join(directory, 'src/dist', `template/Main/${this.Components[i].Component}`)) // eslint-disable-line
 				});
 			}
 			else if (this.Components[i].Name === '__DEFAULT')
@@ -39,6 +42,11 @@ class MCplugin
 			}
 	}
 
+	/**
+	 * Get instance of component
+	 * @param {String} Name Name of component
+	 * @returns Instance function of component, or undefined if error
+	 */
 	Instance(Name)
 	{
 		for (const i in this.plugins)
@@ -47,6 +55,11 @@ class MCplugin
 		return (undefined);
 	}
 
+	/**
+	 * Get component
+	 * @param {String} Name Name of component
+	 * @returns Full component, or undefined if error
+	 */
 	Component(Name)
 	{
 		for (const i in this.plugins)
@@ -55,6 +68,11 @@ class MCplugin
 		return (undefined);
 	}
 
+	/**
+	 * Get lang data of component
+	 * @param {String} Name Name of component
+	 * @returns {JSON} Lang data
+	 */
 	Lang(Name)
 	{
 		let data = null;
@@ -74,6 +92,10 @@ class MCplugin
 		return (undefined);
 	}
 
+	/**
+	 * Get lang data of default component
+	 * @returns {JSON} Lang data
+	 */
 	Default()
 	{
 		let data = null;
@@ -93,6 +115,10 @@ class MCplugin
 		return (undefined);
 	}
 
+	/**
+	 * Get full list of components
+	 * @returns List of components
+	 */
 	ListComponents()
 	{
 		return (this.plugins);
