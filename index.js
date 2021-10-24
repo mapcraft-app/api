@@ -1,13 +1,29 @@
-exports.Mapcraft = require('./modules/Mapcraft');
-exports.MCdatabase = require('./modules/MCdatabase');
-exports.MCeditor = require('./modules/MCeditor');
-exports.MCfs = require('./modules/MCfs');
-exports.MCipc = require('./modules/MCipc');
-exports.MClink = require('./modules/MClink');
-exports.MClog = require('./modules/MClog');
-exports.MCplugin = require('./modules/MCplugin');
-exports.MCshell = require('./modules/MCshell');
-exports.MCtemplate = require('./modules/MCtemplate');
-exports.MCutilities = require('./modules/MCutilities');
-exports.MCwindow = require('./modules/MCwindow');
-exports.MCworkInProgress = require('./modules/MCworkInProgress');
+const Mapcraft = require('./modules/Mapcraft');
+const MCdatabase = require('./modules/MCdatabase');
+const MCeditor = require('./modules/MCeditor');
+const MCfs = require('./modules/MCfs');
+const MCipc = require('./modules/MCipc');
+const MClink = require('./modules/MClink');
+const MClog = require('./modules/MClog');
+const MCplugin = require('./modules/MCplugin');
+const MCshell = require('./modules/MCshell');
+const MCtemplate = require('./modules/MCtemplate');
+const MCutilities = require('./modules/MCutilities');
+const MCwindow = require('./modules/MCwindow');
+const MCworkInProgress = require('./modules/MCworkInProgress');
+
+module.exports = {
+	Mapcraft,
+	MCdatabase,
+	MCeditor,
+	MCfs,
+	MCipc,
+	MClink,
+	MClog,
+	MCplugin,
+	MCshell,
+	MCtemplate,
+	MCutilities,
+	MCwindow,
+	MCworkInProgress,
+};

@@ -1,8 +1,24 @@
 {
   "name": "mapcraft-api",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Official API for developping your own plugin for Mapcraft ecosystem",
   "main": "index.js",
+  "types": "declaration/index.d.ts",
+  "files": [
+    "declaration/modules/Mapcraft.d.ts",
+    "declaration/modules/MCdatabase.d.ts",
+    "declaration/modules/MCeditor.d.ts",
+    "declaration/modules/MCfs.d.ts",
+    "declaration/modules/MCipc.d.ts",
+    "declaration/modules/MClink.d.ts",
+    "declaration/modules/MClog.d.ts",
+    "declaration/modules/MCplugin.d.ts",
+    "declaration/modules/MCshell.d.ts",
+    "declaration/modules/MCtemplate.d.ts",
+    "declaration/modules/MCutilities.d.ts",
+    "declaration/modules/MCwindow.d.ts",
+    "declaration/modules/MCworkInProgress.d.ts"
+  ],
   "repository": {
     "type": "git",
     "url": "https://mapcraft.app"
