@@ -6,6 +6,8 @@ const process = require('process');
 const MCutilities = require('./MCutilities');
 
 MCutilities.GetAppDataPath();
+if (!process.env.AppPath)
+	process.env.AppPath = app.getAppPath();
 
 // API const
 const { AppDataPath, AppPath } = process.env;
