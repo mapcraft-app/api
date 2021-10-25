@@ -1,3 +1,4 @@
+const { app } = require('electron');
 const fs = require('fs');
 const OS = require('os');
 const path = require('path');
@@ -13,7 +14,7 @@ const pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', 'src/m
 const _APIVersion = pack.version;
 const DefaultLang = pack.default_lang;
 const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
-const UserComponentsLink = path.join(AppDataPath, 'plugins');
+const UserComponentsLink = path.join(app.getAppPath(), 'plugins');
 
 class MC
 {
