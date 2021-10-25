@@ -7,28 +7,28 @@ exports.component = {
 
 exports.help = {
 	main: `
-	mapcraft-api [command] <options>
+	\x1b[36mmapcraft-api\x1b[0m \x1b[32m[command]\x1b[0m \x1b[34m<options>\x1b[0m
 
-	init .................. Initiate the creation of a new plugin
-	version ............... Show package version
-	help .................. Show help menu for a command
+	\x1b[32minit\x1b[0m .................. Initiate the creation of a new plugin
+	\x1b[32mversion\x1b[0m ............... Show package version
+	\x1b[32mhelp\x1b[0m .................. Show help menu for a command
 	`,
 
 	init: `
-	mapcraft-api init <options>
-	--directory, --dir ..... Output folder, default to 'applicationFolder/out'
+	\x1b[36mmapcraft-api\x1b[0m \x1b[32minit\x1b[0m \x1b[34m<options>\x1b[0m
+	\x1b[34m--directory\x1b[0m, \x1b[34m--dir\x1b[0m ..... Output folder, default to \x1b[32m'applicationFolder/out'\x1b[0m
 
 	Initiate the creation of a new plugin
 	`,
 
 	version: `
-	mapcraft-api version
+	\x1b[36mmapcraft-api\x1b[0m \x1b[32mversion\x1b[0m
 
 	Show package version
 	`,
 
 	help: `
-	mapcraft-api help <options>
+	\x1b[36mmapcraft-api\x1b[0m help \x1b[34m<options>\x1b[0m
 	init, version, help
 	`,
 };

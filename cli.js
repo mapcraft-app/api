@@ -2,41 +2,24 @@
 const { app } = require('electron');
 const admZip = require('adm-zip');
 const fs = require('fs');
-const { constants } = require('fs');
 const path = require('path');
-const readline = require('readline');
-const { stdin: input, stdout: output } = require('process');
+const readline = require('readline-sync');
 const models = require('./models');
 
-if (!process.env.AppPath)
+if (app !== undefined && !process.env.AppPath)
 	process.env.AppPath = app.getAppPath();
+else
+	process.env.AppPath = __dirname;
 
 class CLI
 {
 	constructor()
 	{
 		this.json = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), { encoding: 'utf-8', flag: 'r' }));
+		this.ret = {};
 		this.questions = models.init;
-		this.Interface = readline.createInterface({ input, output });
 		this.Args = process.argv.slice(2);
-		this.Interface.on('close', () =>
-		{
-			process.exit(0);
-		});
-
 		this.main();
-	}
-
-	async AskingQuestion(_Question)
-	{
-		this.Interface.question(`${_Question.question} (default ${_Question.default}) :`, (_answer) =>
-		{
-			if (!_answer)
-				return _Question.default;
-			if (!_Question.regex.test(_answer))
-				throw new Error(_Question.warning);
-			return _answer;
-		});
 	}
 
 	main()
@@ -89,12 +72,28 @@ class CLI
 			if (finishArgs === true)
 				clearInterval(waitOutdirDir);
 		}
+
+		this.questions.forEach((question) =>
+		{
+			let answer = String;
+			while (true) // eslint-disable-line
+			{
+				answer = readline.question(`${question.question} (default \x1b[36m${question.default}\x1b[0m): `);
+				if (answer && !question.regex.test(answer))
+					console.log(`❌ ${question.warning}\x1b[0m`);
+				else
+					break;
+			}
+			if (answer.length === 0)
+				this.ret[question.input] = question.default;
+			else
+				this.ret[question.input] = answer;
+		});
 	}
 
 	version()
 	{
-		console.log(`${this.json.name} version ${this.json.version}`);
-		this.Interface.close();
+		console.log(`\x1b[4m\x1b[36m${this.json.name}\x1b[0m version \x1b[32m${this.json.version}\x1b[0m`);
 	}
 
 	help()
@@ -113,7 +112,6 @@ class CLI
 			default:
 				console.log(models.help.main);
 		}
-		this.Interface.close();
 	}
 	// #endregion
 }
