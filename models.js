@@ -53,7 +53,7 @@ exports.init = [
 		question: 'Will there be notifications ?',
 		regex: /^yes|no+$/,
 		warning: 'Must be only yes or no',
-		default: 'no',
+		default: false,
 	},
 	{
 		input: 'lang',
@@ -62,4 +62,57 @@ exports.init = [
 		warning: 'Must be only letters or underscore',
 		default: 'lang',
 	},
+	{
+		input: 'title',
+		question: 'What will be the name displayed in the application of your plugin ?',
+		regex: /^[a-zA-Z0-9-_\s]+$/,
+		warning: 'Must be only letters, numbers, underscore, dashed or space',
+		default: 'New Plugin',
+	},
 ];
+
+// eslint-disable-next-line operator-linebreak
+exports.mainjs =
+`const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
+
+const Template = new MCtemplate(__dirname);
+let LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang);
+
+class Component
+{
+	static main()
+	{
+		Template.render(document.body, 'main.tp', LANG);
+	}
+}
+
+module.exports = Component;
+`;
+
+// eslint-disable-next-line operator-linebreak
+exports.maintp =
+`[HTML]
+<div class="uk-container uk-margin-top">
+	<h2 class="custom-class">{CustomVar}</h2>	
+</div>
+[/HTML]
+
+[CSS]
+.custom-class {
+    color: rgb(211, 207, 201);
+}
+[/CSS]
+
+[JS]
+console.log('Hello from the plugin !');
+[/JS]
+`;
+
+exports.lang = {
+	Title: String,
+	Icon: String,
+	Notification: String,
+	Data: {
+		CustomVar: String,
+	},
+};

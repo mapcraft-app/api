@@ -18,6 +18,7 @@ module.exports = {
 		curly: ['warn', 'multi', 'consistent'],
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 		indent: ['error', 'tab', { SwitchCase: 1 }],
+		'max-classes-per-file': ['error', 2],
 		'max-len': ['warn', {
 			code: 180,
 			ignoreComments: true,

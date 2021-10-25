@@ -1,15 +1,38 @@
 #!/usr/bin/env node
-const { app } = require('electron');
-const admZip = require('adm-zip');
+const OS = require('os');
+// const admZip = require('adm-zip');
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline-sync');
 const models = require('./models');
 
-if (app !== undefined && !process.env.AppPath)
-	process.env.AppPath = app.getAppPath();
-else
-	process.env.AppPath = __dirname;
+const AppPath = path.join(__dirname, '../../');
+const PluginsPath = path.join(__dirname, '../../', 'plugins');
+let saveInterval;
+
+class Spinner
+{
+	static spin(string)
+	{
+		process.stdout.write('\x1B[?25l');
+		const spinners = ['⣷', '⣯', '⣟', '⡿', '⢿', '⣻', '⣽', '⣾'];
+		let index = 0;
+		saveInterval = setInterval(() =>
+		{
+			let line = spinners[index];
+			if (line === undefined)
+			{
+				index = 0;
+				line = spinners[index];
+			}
+			if (OS.platform === 'win32')
+				process.stdout.write(`${line} ${string}\x1b[0G`);
+			else
+				process.stdout.write(`${line} ${string}\r`);
+			index = index >= spinners.length ? 0 : ++index;
+		}, 80);
+	}
+}
 
 class CLI
 {
@@ -17,6 +40,8 @@ class CLI
 	{
 		this.json = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), { encoding: 'utf-8', flag: 'r' }));
 		this.ret = {};
+		// eslint-disable-next-line no-unused-expressions
+		this.Components;
 		this.questions = models.init;
 		this.Args = process.argv.slice(2);
 		this.main();
@@ -42,37 +67,14 @@ class CLI
 	// #region cli command
 	init()
 	{
-		let finishArgs = false;
-		let outputDir = String;
+		let outputDir = PluginsPath;
 		if (this.Args[1])
 		{
 			const regex = /((?<=(--directory=))|(?<=(--dir=))).*$/gm;
-			if (!regex.test(this.Args[1]))
-				outputDir = path.join(process.env.AppPath, this.json.out);
-			else
-				outputDir = path.join(process.env.AppPath, this.Args[1].match(regex));
-			fs.mkdir(path.join(outputDir), (err) =>
-			{
-				if (!err)
-				{
-					console.error(err);
-					this.Interface.close();
-				}
-				finishArgs = true;
-			});
+			if (regex.test(this.Args[1]))
+				outputDir = path.join(AppPath, this.Args[1].match(regex));
 		}
-		else
-		{
-			outputDir = this.json.out;
-			finishArgs = true;
-		}
-		const waitOutdirDir = setInterval(wait, 200); // eslint-disable-line
-		function wait()
-		{
-			if (finishArgs === true)
-				clearInterval(waitOutdirDir);
-		}
-
+		fs.mkdirSync(path.join(outputDir), { recursive: true });
 		this.questions.forEach((question) =>
 		{
 			let answer = String;
@@ -86,8 +88,56 @@ class CLI
 			}
 			if (answer.length === 0)
 				this.ret[question.input] = question.default;
+			else if (question.input === 'isNotification')
+				this.ret[question.input] = true;
 			else
 				this.ret[question.input] = answer;
+		});
+
+		fs.readFile(path.join(PluginsPath, 'components.json'), { encoding: 'utf-8', flag: 'r' }, (err, data) =>
+		{
+			let json;
+			if (err)
+				try
+				{
+					fs.writeFileSync(path.join(PluginsPath, 'components.json'), JSON.stringify('[]', null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					json = [];
+				}
+				catch (err2)
+				{
+					console.error(err2);
+					process.exit(-1);
+				}
+			else
+				json = JSON.parse(data);
+			json.push(this.ret);
+			const newPluginPath = path.join(PluginsPath, this.ret.name);
+			fs.writeFile(path.join(PluginsPath, 'components.json'), JSON.stringify(json, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' }, (errWrite) =>
+			{
+				if (errWrite)
+					console.error(errWrite);
+				Spinner.spin('The plugin is being created');
+				try
+				{
+					fs.mkdirSync(newPluginPath, { recursive: false });
+					fs.mkdirSync(path.join(newPluginPath, this.ret.lang), { recursive: false });
+					fs.writeFileSync(path.join(newPluginPath, 'main.js'), models.mainjs, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, 'main.tp'), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					const newJsonLang = models.lang;
+					newJsonLang.Title = this.ret.title;
+					newJsonLang.Icon = 'code';
+					newJsonLang.Notification = `Here is a notification from ${this.ret.title}`;
+					newJsonLang.Data.CustomVar = `Hello from ${this.ret.title}`;
+					fs.writeFileSync(path.join(newPluginPath, this.ret.lang, 'en_US.json'), JSON.stringify(newJsonLang, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+				}
+				catch (errBase)
+				{
+					console.error(errBase);
+				}
+				clearInterval(saveInterval);
+				console.log('The plugin is ready !');
+				process.exit(0);
+			});
 		});
 	}
 
