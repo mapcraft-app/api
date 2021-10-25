@@ -8,13 +8,13 @@ const MCutilities = require('./MCutilities');
 MCutilities.GetAppDataPath();
 
 // API const
-const { AppDataPath } = process.env;
+const { AppDataPath, AppPath } = process.env;
 const OSType = OS.platform();
 const pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', 'src/manifest'), { encoding: 'utf-8', flag: 'r' }));
 const _APIVersion = pack.version;
 const DefaultLang = pack.default_lang;
 const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
-const UserComponentsLink = path.join(app.getAppPath(), 'plugins');
+const UserComponentsLink = path.join(AppPath, 'plugins');
 
 class MC
 {
@@ -26,7 +26,10 @@ class MC
 	constructor()
 	{
 		if (!fs.existsSync(UserComponentsLink))
+		{
 			fs.mkdirSync(UserComponentsLink, { recursive: true, mode: 0o777 });
+			fs.writeFileSync(path.join(UserComponentsLink, 'components.json'), '[]', { encoding: 'utf-8' });
+		}
 		if (!fs.existsSync('config.json'))
 			this.ResetConfigFile();
 		this.UpdateAPIVersion();
