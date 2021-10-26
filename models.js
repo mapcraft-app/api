@@ -100,6 +100,7 @@ exports.package = {
 	description: String,
 	keywords: Array,
 	license: String,
+	uuid: String,
 	bin: {
 		component: String,
 		lang: String,
@@ -109,6 +110,7 @@ exports.package = {
 
 exports.component = {
 	name: String,
+	uuid: String,
 	component: String,
 	isNotification: Boolean,
 	lang: String,

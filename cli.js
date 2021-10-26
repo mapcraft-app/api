@@ -2,6 +2,7 @@
 const OS = require('os');
 // const admZip = require('adm-zip');
 const fs = require('fs');
+const crypto = require('crypto');
 const path = require('path');
 const readline = require('readline-sync');
 const models = require('./models');
@@ -67,6 +68,7 @@ class CLI
 	// #region cli command
 	init()
 	{
+		const newUUID = crypto.randomUUID();
 		let outputDir = PluginsPath;
 		if (this.Args[1])
 		{
@@ -102,12 +104,14 @@ class CLI
 		newPackage.author = this.ret.author;
 		newPackage.description = this.ret.description;
 		newPackage.license = this.ret.license;
+		newPackage.uuid = newUUID;
 		newPackage.bin.component = this.ret.component;
 		newPackage.bin.lang = this.ret.lang;
 		newPackage.bin.isNotification = this.ret.isNotification;
 
 		const newComponent = models.component;
 		newComponent.name = this.ret.name;
+		newComponent.uuid = newUUID;
 		newComponent.component = this.ret.component;
 		newComponent.isNotification = (this.ret.isNotification === 'true');
 		newComponent.lang = this.ret.lang;
