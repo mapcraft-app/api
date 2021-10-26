@@ -121,20 +121,20 @@ class CLI
 				{
 					fs.mkdirSync(newPluginPath, { recursive: false });
 					fs.mkdirSync(path.join(newPluginPath, this.ret.lang), { recursive: false });
-					fs.writeFileSync(path.join(newPluginPath, this.ret.component), models.mainjs, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
-					fs.writeFileSync(path.join(newPluginPath, 'main.tp'), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, this.ret.component), models.mainjs(this.ret.name), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, `${this.ret.name}.tp`), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					const newJsonLang = models.lang;
 					newJsonLang.Title = this.ret.title;
 					newJsonLang.Icon = 'code';
 					newJsonLang.Notification = `Here is a notification from ${this.ret.title}`;
 					newJsonLang.Data.CustomVar = `Hello from ${this.ret.title}`;
 					fs.writeFileSync(path.join(newPluginPath, this.ret.lang, 'en_US.json'), JSON.stringify(newJsonLang, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					clearInterval(saveInterval);
 				}
 				catch (errBase)
 				{
 					console.error(errBase);
 				}
-				clearInterval(saveInterval);
 				console.log('The plugin is ready !');
 				process.exit(0);
 			});

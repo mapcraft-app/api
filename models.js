@@ -72,22 +72,24 @@ exports.init = [
 ];
 
 // eslint-disable-next-line operator-linebreak
-exports.mainjs =
-`const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
+exports.mainjs = (pluginName) => {
+	const data = `const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
 
 const Template = new MCtemplate(__dirname);
-let LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang);
+const LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang);
 
 class Component
 {
 	static main()
 	{
-		Template.render(document.getElementById('content'), 'main.tp', LANG);
+		Template.render(document.getElementById('content'), '${pluginName}.tp', LANG.Data);
 	}
 }
 
 module.exports = Component;
 `;
+	return (data);
+};
 
 // eslint-disable-next-line operator-linebreak
 exports.maintp =
