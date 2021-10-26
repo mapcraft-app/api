@@ -32,7 +32,7 @@ exports.init = [
 		question: 'What is the name of your plugin ?',
 		regex: /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/,
 		warning: 'Must be lowercase and one word, and may contain hyphens and underscores',
-		default: 'newPlugin',
+		default: 'new_plugin',
 	},
 	{
 		input: 'title',
