@@ -30,8 +30,8 @@ exports.init = [
 	{
 		input: 'name',
 		question: 'What is the name of your plugin ?',
-		regex: /^[a-zA-Z0-9-]+$/,
-		warning: 'Must be only letters, number or dashes',
+		regex: /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/,
+		warning: 'Must be lowercase and one word, and may contain hyphens and underscores',
 		default: 'newPlugin',
 	},
 	{
@@ -88,7 +88,7 @@ exports.init = [
 		question: 'Will there be notifications ?',
 		regex: /^yes|no+$/,
 		warning: 'Must be only yes or no',
-		default: false,
+		default: 'false',
 	},
 ];
 

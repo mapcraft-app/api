@@ -89,7 +89,7 @@ class CLI
 			if (answer.length === 0)
 				this.ret[question.input] = question.default;
 			else if (question.input === 'isNotification')
-				this.ret[question.input] = true;
+				this.ret[question.input] = 'true';
 			else
 				this.ret[question.input] = answer;
 		});
