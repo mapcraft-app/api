@@ -121,7 +121,7 @@ class CLI
 				{
 					fs.mkdirSync(newPluginPath, { recursive: false });
 					fs.mkdirSync(path.join(newPluginPath, this.ret.lang), { recursive: false });
-					fs.writeFileSync(path.join(newPluginPath, 'main.js'), models.mainjs, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, this.ret.component), models.mainjs, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					fs.writeFileSync(path.join(newPluginPath, 'main.tp'), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					const newJsonLang = models.lang;
 					newJsonLang.Title = this.ret.title;
