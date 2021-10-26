@@ -82,7 +82,7 @@ class Component
 {
 	static main()
 	{
-		Template.render(document.body, 'main.tp', LANG);
+		Template.render(document.getElementById('content'), 'main.tp', LANG);
 	}
 }
 
