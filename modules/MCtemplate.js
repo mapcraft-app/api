@@ -14,10 +14,12 @@ class Template
 	/**
 	 * Folder in which all template files of the module are placed
 	 * @param {string} directory Relative link of the file to the module
+	 * @param {string} preGenerateID (Optional) Force the use of its own template identifier. Be careful if this function is badly used it can generate many strange problems
 	 */
-	constructor(directory)
+	constructor(directory, preGenerateID = undefined)
 	{
 		this.directory = directory;
+		this.preGenerateID = preGenerateID;
 		this.DIRMAIN = path.join(process.env.AppDataPath, 'template');
 		if (!fs.existsSync(this.DIRMAIN))
 			fs.mkdirSync(this.DIRMAIN, '0777', true);
@@ -291,7 +293,10 @@ class Template
 		const DOM = document.createElement('template');
 		DOM.innerHTML = str;
 		DOMelement.appendChild(DOM.content.cloneNode(true));
-		DOMelement.setAttribute('tp', template.toLowerCase());
+		if (this.preGenerateID !== undefined)
+			DOMelement.setAttribute('tp', `${this.preGenerateID}.tp`);
+		else
+			DOMelement.setAttribute('tp', template.toLowerCase());
 		this._includes();
 	}
 

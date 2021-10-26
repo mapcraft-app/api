@@ -32,9 +32,15 @@ declare class MCutilities {
      * Get lang of component
      * @param {string} _dirname __dirname of component
      * @param {string} _langPath MC.GetConfig().Env.Lang
-     * @returns Lang file
+     * @returns {JSON} JSON data of lang file, or undefined if error
      */
-    static GetLang(_dirname: string, _langPath: string): any;
+    static GetLang(_dirname: string, _langPath: string): JSON;
+    /**
+     * Retrieved data from package.json
+     * @param {string} _dirname Folder in which you want to search
+     * @returns {JSON} JSON data of package, or undefined if error
+     */
+    static GetPackage(_dirname: string): JSON;
     /**
      * Print alert in DOMelement
      * @param {string} type Type of error (primary, success, warning, danger)

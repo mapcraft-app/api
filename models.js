@@ -119,17 +119,25 @@ exports.component = {
 // eslint-disable-next-line operator-linebreak
 exports.mainjs = (pluginName) =>
 {
-	const data = `const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
+	const data = `/**
+* @file A plugin contains three variables and a class, which are imperative :
+* @constant LANG ....... contains all data corresponding to the language chosen by the user, or 'en_US.json' by default, in JSON format.
+* @constant PACKAGE .... contains all the data present in the 'package.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
+* @constant TEMPLATE ... Represents the class allowing you to display or delete things on the user interface.
+* @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the 'main()' function, which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
+*/
+const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
 
-const Template = new MCtemplate(__dirname);
 const LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang);
+const PACKAGE = MCutilities.GetPackage(__dirname);
+const TEMPLATE = new MCtemplate(__dirname, PACKAGE.uuid);
 
 class Component
 {
-	static main()
-	{
-		Template.render(document.getElementById('content'), '${pluginName}.tp', LANG.Data);
-	}
+   static main()
+   {
+	   TEMPLATE.render(document.getElementById('content'), '${pluginName}.tp', LANG.Data);
+   }
 }
 
 module.exports = Component;

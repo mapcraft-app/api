@@ -116,7 +116,7 @@ class MCutilities
 	 * Get lang of component
 	 * @param {string} _dirname __dirname of component
 	 * @param {string} _langPath MC.GetConfig().Env.Lang
-	 * @returns Lang file
+	 * @returns {JSON} JSON data of lang file, or undefined if error
 	 */
 	static GetLang(_dirname, _langPath)
 	{
@@ -128,6 +128,25 @@ class MCutilities
 		catch (err)
 		{
 			throw new Error(err);
+		}
+		return (data);
+	}
+
+	/**
+	 * Retrieved data from package.json
+	 * @param {string} _dirname Folder in which you want to search
+	 * @returns {JSON} JSON data of package, or undefined if error
+	 */
+	static GetPackage(_dirname)
+	{
+		let data;
+		try
+		{
+			data = JSON.parse(fs.readFileSync(path.join(_dirname, 'package.json')));
+		}
+		catch (err)
+		{
+			data = undefined;
 		}
 		return (data);
 	}

@@ -3,9 +3,11 @@ declare class Template {
     /**
      * Folder in which all template files of the module are placed
      * @param {string} directory Relative link of the file to the module
+     * @param {string} preGenerateID (Optional) Force the use of its own template identifier. Be careful if this function is badly used it can generate many strange problems
      */
-    constructor(directory: string);
+    constructor(directory: string, preGenerateID?: string);
     directory: string;
+    preGenerateID: string;
     DIRMAIN: string;
     DIRFile: string;
     DIRLink: string;
