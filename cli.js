@@ -94,6 +94,24 @@ class CLI
 				this.ret[question.input] = answer;
 		});
 
+		Spinner.spin('The plugin is being created');
+		const newPackage = models.package;
+		newPackage.name = this.ret.name;
+		newPackage.title = this.ret.title;
+		newPackage.version = this.ret.version;
+		newPackage.author = this.ret.author;
+		newPackage.description = this.ret.description;
+		newPackage.license = this.ret.license;
+		newPackage.bin.component = this.ret.component;
+		newPackage.bin.lang = this.ret.lang;
+		newPackage.bin.isNotification = this.ret.isNotification;
+
+		const newComponent = models.component;
+		newComponent.name = this.ret.name;
+		newComponent.component = this.ret.component;
+		newComponent.isNotification = this.ret.isNotification;
+		newComponent.lang = this.ret.lang;
+
 		fs.readFile(path.join(PluginsPath, 'components.json'), { encoding: 'utf-8', flag: 'r' }, (err, data) =>
 		{
 			let json;
@@ -110,19 +128,19 @@ class CLI
 				}
 			else
 				json = JSON.parse(data);
-			json.push(this.ret);
+			json.push(newComponent);
 			const newPluginPath = path.join(PluginsPath, this.ret.name);
 			fs.writeFile(path.join(PluginsPath, 'components.json'), JSON.stringify(json, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' }, (errWrite) =>
 			{
 				if (errWrite)
 					console.error(errWrite);
-				Spinner.spin('The plugin is being created');
 				try
 				{
 					fs.mkdirSync(newPluginPath, { recursive: false });
 					fs.mkdirSync(path.join(newPluginPath, this.ret.lang), { recursive: false });
 					fs.writeFileSync(path.join(newPluginPath, this.ret.component), models.mainjs(this.ret.name), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					fs.writeFileSync(path.join(newPluginPath, `${this.ret.name}.tp`), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, 'package.json'), JSON.stringify(newPackage, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					const newJsonLang = models.lang;
 					newJsonLang.Title = this.ret.title;
 					newJsonLang.Icon = 'code';
@@ -135,7 +153,7 @@ class CLI
 				{
 					console.error(errBase);
 				}
-				console.log('The plugin is ready !');
+				console.log('🚀 The plugin is ready !');
 				process.exit(0);
 			});
 		});

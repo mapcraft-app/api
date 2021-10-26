@@ -1,10 +1,3 @@
-exports.component = {
-	name: String,
-	component: String,
-	isNotification: Boolean,
-	lang: String,
-};
-
 exports.help = {
 	main: `
 	\x1b[36mmapcraft-api\x1b[0m \x1b[32m[command]\x1b[0m \x1b[34m<options>\x1b[0m
@@ -42,18 +35,46 @@ exports.init = [
 		default: 'newPlugin',
 	},
 	{
+		input: 'title',
+		question: 'What will be the name displayed in the application of your plugin ?',
+		regex: /^[a-zA-Z0-9-_\s]+$/,
+		warning: 'Must be only letters, numbers, underscore, dashed or space',
+		default: 'New Plugin',
+	},
+	{
+		input: 'version',
+		question: 'What will be the first version ?',
+		regex: /^([0-9]\.[0-9]\.[0-9])$/,
+		warning: 'The format is (0-9).(0-9).(0-9)',
+		default: '1.0.0',
+	},
+	{
+		input: 'author',
+		question: 'What is the name of the author ?',
+		regex: /^.*$/,
+		warning: '',
+		default: 'John Doe',
+	},
+	{
+		input: 'description',
+		question: 'Write a quick description of your plugin',
+		regex: /^.*$/,
+		warning: '',
+		default: 'My wonderful plugin',
+	},
+	{
+		input: 'license',
+		question: 'What license will your plugin be under ?',
+		regex: /^.*$/,
+		warning: '',
+		default: 'MIT',
+	},
+	{
 		input: 'component',
 		question: 'What will be the name of the main input file ?',
 		regex: /^[a-zA-Z_]+$/,
 		warning: 'Must be only letters or underscore',
 		default: 'index.js',
-	},
-	{
-		input: 'isNotification',
-		question: 'Will there be notifications ?',
-		regex: /^yes|no+$/,
-		warning: 'Must be only yes or no',
-		default: false,
 	},
 	{
 		input: 'lang',
@@ -63,13 +84,35 @@ exports.init = [
 		default: 'lang',
 	},
 	{
-		input: 'title',
-		question: 'What will be the name displayed in the application of your plugin ?',
-		regex: /^[a-zA-Z0-9-_\s]+$/,
-		warning: 'Must be only letters, numbers, underscore, dashed or space',
-		default: 'New Plugin',
+		input: 'isNotification',
+		question: 'Will there be notifications ?',
+		regex: /^yes|no+$/,
+		warning: 'Must be only yes or no',
+		default: false,
 	},
 ];
+
+exports.package = {
+	name: String,
+	title: String,
+	version: Number,
+	author: String,
+	description: String,
+	keywords: Array,
+	license: String,
+	bin: {
+		component: String,
+		lang: String,
+		isNotification: Boolean,
+	},
+};
+
+exports.component = {
+	name: String,
+	component: String,
+	isNotification: Boolean,
+	lang: String,
+};
 
 // eslint-disable-next-line operator-linebreak
 exports.mainjs = (pluginName) => {
