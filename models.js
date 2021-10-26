@@ -134,10 +134,10 @@ const TEMPLATE = new MCtemplate(__dirname, PACKAGE.uuid);
 
 class Component
 {
-   static main()
-   {
-	   TEMPLATE.render(document.getElementById('content'), '${pluginName}.tp', LANG.Data);
-   }
+	static main()
+	{
+		TEMPLATE.render(document.getElementById('content'), '${pluginName}.tp', LANG.Data);
+	}
 }
 
 module.exports = Component;
