@@ -95,7 +95,7 @@ exports.init = [
 exports.package = {
 	name: String,
 	title: String,
-	version: Number,
+	version: String,
 	author: String,
 	description: String,
 	keywords: Array,
@@ -103,7 +103,7 @@ exports.package = {
 	bin: {
 		component: String,
 		lang: String,
-		isNotification: Boolean,
+		isNotification: String,
 	},
 };
 
@@ -115,7 +115,8 @@ exports.component = {
 };
 
 // eslint-disable-next-line operator-linebreak
-exports.mainjs = (pluginName) => {
+exports.mainjs = (pluginName) =>
+{
 	const data = `const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
 
 const Template = new MCtemplate(__dirname);

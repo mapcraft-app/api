@@ -109,7 +109,7 @@ class CLI
 		const newComponent = models.component;
 		newComponent.name = this.ret.name;
 		newComponent.component = this.ret.component;
-		newComponent.isNotification = this.ret.isNotification;
+		newComponent.isNotification = (this.ret.isNotification === 'true');
 		newComponent.lang = this.ret.lang;
 
 		fs.readFile(path.join(PluginsPath, 'components.json'), { encoding: 'utf-8', flag: 'r' }, (err, data) =>
