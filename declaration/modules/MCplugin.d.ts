@@ -9,11 +9,11 @@ declare class MCplugin {
     BaseLink: string;
     __default: any;
     plugins: {
-        Name: any;
-        Component: any;
-        IsNotification: any;
-        Lang: string;
-        Instance: any;
+        name: any;
+        component: any;
+        isNotification: any;
+        lang: string;
+        instance: any;
     }[];
     /**
      * Get instance of component
@@ -27,11 +27,11 @@ declare class MCplugin {
      * @returns Full component, or undefined if error
      */
     Component(Name: string): {
-        Name: any;
-        Component: any;
-        IsNotification: any;
-        Lang: string;
-        Instance: any;
+        name: any;
+        component: any;
+        isNotification: any;
+        lang: string;
+        instance: any;
     };
     /**
      * Get lang data of component
@@ -49,10 +49,10 @@ declare class MCplugin {
      * @returns List of components
      */
     ListComponents(): {
-        Name: any;
-        Component: any;
-        IsNotification: any;
-        Lang: string;
-        Instance: any;
+        name: any;
+        component: any;
+        isNotification: any;
+        lang: string;
+        instance: any;
     }[];
 }

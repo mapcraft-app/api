@@ -1,9 +1,9 @@
 /* {
-**	 "Name": string,
-**	 "Component": string [.js],
-**	 "Lang": string,
-**	 "IsNotification" : true | false,
-**	 "Using": (Optional) true | false
+**	 "name": string,
+**	 "component": string [.js],
+**	 "lang": string,
+**	 "isNotification" : true | false,
+**	 "using": (Optional) true | false
 ** }
 */
 
@@ -24,21 +24,21 @@ class MCplugin
 		this.__default = null;
 		this.plugins = [];
 		for (const i in this.Components)
-			if (this.Components[i].Name !== '__DEFAULT'
-			&& (typeof this.Components[i].Using === 'undefined' || this.Components[i].Using === true))
+			if (this.Components[i].name !== '__DEFAULT'
+			&& (typeof this.Components[i].using === 'undefined' || this.Components[i].using === true))
 			{
 				this.plugins.push({
-					Name: this.Components[i].Name,
-					Component: this.Components[i].Component,
-					IsNotification: this.Components[i].IsNotification,
-					Lang: path.join(this.BaseLink, this.Components[i].Lang),
-					Instance: require(path.join(directory, 'src/dist', `template/Main/${this.Components[i].Component}`)) // eslint-disable-line
+					name: this.Components[i].name,
+					component: this.Components[i].component,
+					isNotification: this.Components[i].isNotification,
+					lang: path.join(this.BaseLink, this.Components[i].lang),
+					instance: require(path.join(directory, 'src/dist', `template/Main/${this.Components[i].component}`)) // eslint-disable-line
 				});
 			}
-			else if (this.Components[i].Name === '__DEFAULT')
+			else if (this.Components[i].name === '__DEFAULT')
 			{
-				localStorage.setItem('Mapcraft_Plugin', this.Components[i].Component);
-				this.__default = this.Components[i].Component;
+				localStorage.setItem('Mapcraft_Plugin', this.Components[i].component);
+				this.__default = this.Components[i].component;
 			}
 	}
 
@@ -50,8 +50,8 @@ class MCplugin
 	Instance(Name)
 	{
 		for (const i in this.plugins)
-			if (this.plugins[i].Name === Name)
-				return (this.plugins[i].Instance);
+			if (this.plugins[i].name === Name)
+				return (this.plugins[i].instance);
 		return (undefined);
 	}
 
@@ -63,7 +63,7 @@ class MCplugin
 	Component(Name)
 	{
 		for (const i in this.plugins)
-			if (this.plugins[i].Name === Name)
+			if (this.plugins[i].name === Name)
 				return (this.plugins[i]);
 		return (undefined);
 	}
@@ -77,11 +77,11 @@ class MCplugin
 	{
 		let data = null;
 		for (const i in this.plugins)
-			if (this.plugins[i].Name === Name)
+			if (this.plugins[i].name === Name)
 			{
 				try
 				{
-					data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].Lang, `${MC.GetConfig().Env.Lang}.json`)));
+					data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
 				}
 				catch (err)
 				{
@@ -100,11 +100,11 @@ class MCplugin
 	{
 		let data = null;
 		for (const i in this.plugins)
-			if (this.plugins[i].Name === this.__default)
+			if (this.plugins[i].name === this.__default)
 			{
 				try
 				{
-					data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].Lang, `${MC.GetConfig().Env.Lang}.json`)));
+					data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
 				}
 				catch (err)
 				{
