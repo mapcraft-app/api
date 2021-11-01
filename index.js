@@ -6,6 +6,7 @@ const MCipc = require('./modules/MCipc');
 const MClink = require('./modules/MClink');
 const MClog = require('./modules/MClog');
 const MCplugin = require('./modules/MCplugin');
+const MCsearch = require('./modules/MCsearch');
 const MCshell = require('./modules/MCshell');
 const MCtemplate = require('./modules/MCtemplate');
 const MCutilities = require('./modules/MCutilities');
@@ -21,6 +22,7 @@ module.exports = {
 	MClink,
 	MClog,
 	MCplugin,
+	MCsearch,
 	MCshell,
 	MCtemplate,
 	MCutilities,
