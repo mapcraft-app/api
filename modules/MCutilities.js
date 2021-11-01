@@ -152,6 +152,24 @@ class MCutilities
 	}
 
 	/**
+	 * Retrieved data on game elements
+	 * @param {String} type Type of data to be retrieved (blocks, items, potions, tags, triggers)
+	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @returns {JSON} JSON data, or undefined if error
+	 */
+	static GetDataGameElement(type, minecraftVersion = '1.17')
+	{
+		try
+		{
+			return JSON.parse(fs.readFileSync(path.join(__dirname, `./json/${minecraftVersion}/${type}.json`), { encoding: 'utf-8', flag: 'r' }));
+		}
+		catch (err)
+		{
+			return undefined;
+		}
+	}
+
+	/**
 	 * Print alert in DOMelement
 	 * @param {string} type Type of error (primary, success, warning, danger)
 	 * @param {DOMelement} DOMelement
