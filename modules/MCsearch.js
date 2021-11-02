@@ -79,6 +79,53 @@ class MCsearch
 	}
 
 	/**
+	 * Implements a enchantement search system via a drop-down menu
+	 * @param {Element} DOM The Element object in which the search will be inserted
+	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
+	 */
+	static ENCHANTEMENTS(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	{
+		const idOfSearch = hexaID();
+		const DOMelementBase = BaseNode(idOfSearch);
+		const DOMelementSpan = document.createElement('div'); DOMelementSpan.classList.add('search-dropdown-span'); DOMelementSpan.id = `search-dropdown-span-${idOfSearch}`;
+		let ListOfEnchantements;
+		try
+		{
+			ListOfEnchantements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/blocks.json`), { encoding: 'utf-8', flag: 'r' }));
+		}
+		catch (err)
+		{
+			throw new Error('mapcraft-api/MCsearch/BLOCKS', err);
+		}
+		for (const enchantement of ListOfEnchantements)
+		{
+			const SpanElementOfList = document.createElement('span');
+			SpanElementOfList.setAttribute('value', enchantement.id);
+			SpanElementOfList.innerText = enchantement.id;
+			DOMelementSpan.appendChild(SpanElementOfList);
+		}
+		DOMelementBase.Base.appendChild(DOMelementSpan);
+		DOMelementBase.Input.addEventListener('click', () => DOMelementSpan.classList.toggle('search-dropdown-span-show'));
+		document.addEventListener('click', (event) =>
+		{
+			if (DOMelementSpan.classList.contains('search-dropdown-span-show') && !event.target.closest(`.search-dropdown-${idOfSearch}`))
+				DOMelementSpan.classList.toggle('search-dropdown-span-show');
+		});
+		DOMelementBase.Input.addEventListener('input', (element) => InputSearch(element.target, idOfSearch));
+		DOMelementSpan.addEventListener('click', (event) =>
+		{
+			if (event.target.tagName === 'SPAN')
+			{
+				DOMelementBase.Input.value = event.target.getAttribute('value');
+				DOMelementBase.Input.dispatchEvent(new Event('input'));
+			}
+		});
+		DOM.appendChild(DOMelementBase.Base);
+		return (idOfSearch);
+	}
+
+	/**
 	 * Implements a entitie search system via a drop-down menu
 	 * @param {Element} DOM The Element object in which the search will be inserted
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft

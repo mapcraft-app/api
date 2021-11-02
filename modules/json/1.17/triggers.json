@@ -4,15 +4,15 @@
 		"description": "Triggers when the player breaks a bee nest or beehive",
 		"form": [
 			{
-				"lang": "Form.Block",
+				"lang": "Block",
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
-				"lang": "Form.Item",
-				"predefined": "__FORM_ITEM"
+				"lang": "Item",
+				"predefined": "__FORM_ITEMS"
 			},
 			{
-				"lang": "Form.NumberOfBeesInside",
+				"lang": "NumberOfBeesInside",
 				"tag": "input",
 				"type": "number"
 			}
