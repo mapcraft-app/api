@@ -76,14 +76,36 @@ class MCsearch
 	}
 
 	/**
+	 * Implements a biome search system via a drop-down menu
+	 * @param {Element} DOM The Element object in which the search will be inserted
+	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
+	 */
+	static biomes(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	{
+		return this.BaseImplementation(DOM, 'biomes', 'id', MinecraftVersion);
+	}
+
+	/**
 	 * Implements a block search system via a drop-down menu
 	 * @param {Element} DOM The Element object in which the search will be inserted
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static BLOCKS(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static blocks(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'blocks', 'name', MinecraftVersion);
+	}
+
+	/**
+	 * Implements a effect search system via a drop-down menu
+	 * @param {Element} DOM The Element object in which the search will be inserted
+	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
+	 */
+	static effects(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	{
+		return this.BaseImplementation(DOM, 'effects', 'name', MinecraftVersion);
 	}
 
 	/**
@@ -92,7 +114,7 @@ class MCsearch
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static ENCHANTEMENTS(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static enchantements(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'enchantements', 'id', MinecraftVersion);
 	}
@@ -103,7 +125,7 @@ class MCsearch
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static ENTITIES(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static entities(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'entities', 'name', MinecraftVersion);
 	}
@@ -114,7 +136,7 @@ class MCsearch
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static ITEMS(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static items(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'items', 'name', MinecraftVersion);
 	}
@@ -125,7 +147,7 @@ class MCsearch
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static POTIONS(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static potions(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'potions', 'name', MinecraftVersion);
 	}
@@ -136,7 +158,7 @@ class MCsearch
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static TRIGGER(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static triggers(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'triggers', 'id', MinecraftVersion);
 	}

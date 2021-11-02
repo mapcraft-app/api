@@ -43,16 +43,16 @@ declare class MCutilities {
     static GetPackage(_dirname: string): JSON;
     /**
      * Retrieved data on game elements
-     * @param {String} type Type of data to be retrieved (blocks, enchantements, entities, items, potions, tags, triggers)
+     * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `tags`, `triggers`)
      * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns {JSON} JSON data, or undefined if error
      */
     static GetDataGameElement(type: string, minecraftVersion?: string): JSON;
     /**
-     * Print alert in DOMelement
-     * @param {string} type Type of error (primary, success, warning, danger)
-     * @param {DOMelement} DOMelement
-     * @param {string} str Error string
+     * Print alert in HTMLelement
+     * @param {string} type Type of error (`primary`, `success`, `warning`, `danger`)
+     * @param {Element} DOMelement Element in which alert will be displayed
+     * @param {string} str Error message
      */
-    static CreateAlert(type: string, DOMelement: any, str: string): void;
+    static CreateAlert(type: string, DOMelement: Element, str: string): void;
 }

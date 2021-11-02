@@ -20,7 +20,21 @@
 	},
 	{
 		"id": "bred_animals",
-		"description": "Triggers after the player breeds 2 animals"
+		"description": "Triggers after the player breeds 2 animals",
+		"form": [
+			{
+				"lang": "Child",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Parent",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Partner",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "brewed_potion",

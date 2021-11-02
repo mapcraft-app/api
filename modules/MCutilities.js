@@ -153,7 +153,7 @@ class MCutilities
 
 	/**
 	 * Retrieved data on game elements
-	 * @param {String} type Type of data to be retrieved (blocks, enchantements, entities, items, potions, tags, triggers)
+	 * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `tags`, `triggers`)
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns {JSON} JSON data, or undefined if error
 	 */
@@ -170,10 +170,10 @@ class MCutilities
 	}
 
 	/**
-	 * Print alert in DOMelement
-	 * @param {string} type Type of error (primary, success, warning, danger)
-	 * @param {DOMelement} DOMelement
-	 * @param {string} str Error string
+	 * Print alert in HTMLelement
+	 * @param {string} type Type of error (`primary`, `success`, `warning`, `danger`)
+	 * @param {Element} DOMelement Element in which alert will be displayed
+	 * @param {string} str Error message
 	 */
 	static CreateAlert(type, DOMelement, str)
 	{
