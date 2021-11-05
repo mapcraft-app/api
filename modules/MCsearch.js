@@ -56,19 +56,92 @@ class MCsearch
 			DOMelementSpan.appendChild(SpanElementOfList);
 		}
 		DOMelementBase.Base.appendChild(DOMelementSpan);
-		DOMelementBase.Input.addEventListener('click', () => DOMelementSpan.classList.toggle('search-dropdown-span-show'));
+
+		let isHoverList = false;
+		DOMelementSpan.addEventListener('mouseover', () =>
+		{
+			isHoverList = true;
+		});
+		DOMelementSpan.addEventListener('mouseout', () =>
+		{
+			isHoverList = false;
+		});
 		document.addEventListener('click', (event) =>
 		{
-			if (DOMelementSpan.classList.contains('search-dropdown-span-show') && !event.target.closest(`.search-dropdown-${idOfSearch}`))
-				DOMelementSpan.classList.toggle('search-dropdown-span-show');
+			if (DOMelementSpan.classList.contains('search-dropdown-span-show') && !event.target.closest(`.search-dropdown-${idOfSearch}`) && !isHoverList)
+				DOMelementSpan.classList.remove('search-dropdown-span-show');
 		});
-		DOMelementBase.Input.addEventListener('input', (element) => InputSearch(element.target, idOfSearch));
+		DOMelementBase.Input.addEventListener('focus', () => DOMelementSpan.classList.add('search-dropdown-span-show'));
+		DOMelementBase.Input.addEventListener('blur', () =>
+		{
+			if (!isHoverList)
+				DOMelementSpan.classList.remove('search-dropdown-span-show');
+		});
+
 		DOMelementSpan.addEventListener('click', (event) =>
 		{
 			if (event.target.tagName === 'SPAN')
 			{
 				DOMelementBase.Input.value = event.target.getAttribute('value');
 				DOMelementBase.Input.dispatchEvent(new Event('input'));
+			}
+		});
+
+		const LIST = DOMelementSpan.getElementsByTagName('span');
+		let LISTiterator = 0;
+		LIST[LISTiterator].classList.add('span-select');
+		DOMelementBase.Input.addEventListener('keydown', (keyInput) =>
+		{
+			if (keyInput.code === 'Escape')
+			{
+				keyInput.preventDefault();
+				keyInput.stopImmediatePropagation();
+				if (DOMelementBase.Input.value)
+					DOMelementBase.Input.value = '';
+				else
+					DOMelementSpan.classList.toggle('search-dropdown-span-show');
+			}
+			else if (DOMelementSpan.classList.contains('search-dropdown-span-show'))
+			{
+				if (keyInput.code === 'Enter')
+				{
+					keyInput.preventDefault();
+					keyInput.stopImmediatePropagation();
+					DOMelementBase.Input.value = LIST[LISTiterator].getAttribute('value');
+					return;
+				}
+				LIST[LISTiterator].classList.remove('span-select');
+				if (keyInput.code === 'ArrowUp' && LISTiterator > 0)
+					if (LIST[LISTiterator].style.display === 'none')
+						while (LIST[LISTiterator].style.display === 'none')
+							--LISTiterator;
+					else
+						--LISTiterator;
+				else if (keyInput.code === 'ArrowDown' && LISTiterator < LIST.length - 1)
+					if (LIST[LISTiterator].style.display === 'none')
+						while (LIST[LISTiterator].style.display === 'none')
+							++LISTiterator;
+					else
+						++LISTiterator;
+				LIST[LISTiterator].classList.add('span-select');
+				LIST[LISTiterator].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
+			}
+		});
+		DOMelementBase.Input.addEventListener('input', (element) =>
+		{
+			let it = 0;
+			let isFound = false;
+			InputSearch(element.target, idOfSearch);
+			for (const span of LIST)
+			{
+				span.classList.remove('span-select');
+				if (!isFound && span.style.display !== 'none')
+				{
+					span.classList.add('span-select');
+					LISTiterator = it;
+					isFound = true;
+				}
+				++it;
 			}
 		});
 		DOM.appendChild(DOMelementBase.Base);

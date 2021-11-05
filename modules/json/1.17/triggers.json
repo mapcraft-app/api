@@ -4,17 +4,21 @@
 		"description": "Triggers when the player breaks a bee nest or beehive",
 		"form": [
 			{
-				"lang": "Block",
+				"lang": "Edit.Criteria.Form.Block",
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
-				"lang": "Item",
+				"lang": "Edit.Criteria.Form.Item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
-				"lang": "NumberOfBeesInside",
-				"tag": "input",
-				"type": "number"
+				"lang": "Edit.Criteria.Form.NumberOfBeesInside",
+				"element": {
+					"tag": "input",
+					"class": "uk-input",
+					"type": "number",
+					"min": "0"
+				}
 			}
 		]
 	},
@@ -23,74 +27,243 @@
 		"description": "Triggers after the player breeds 2 animals",
 		"form": [
 			{
-				"lang": "Child",
+				"lang": "Edit.Criteria.Form.Child",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
-				"lang": "Parent",
+				"lang": "Edit.Criteria.Form.Parent",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
-				"lang": "Partner",
+				"lang": "Edit.Criteria.Form.Partner",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
 	},
 	{
 		"id": "brewed_potion",
-		"description": "Triggers after the player takes any item out of a brewing stand"
+		"description": "Triggers after the player takes any item out of a brewing stand",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Potion",
+				"predefined": "__SEARCH_POTIONS"
+			}
+		]
 	},
 	{
 		"id": "changed_dimension",
-		"description": "Triggers after the player travels between two dimensions"
+		"description": "Triggers after the player travels between two dimensions",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.From",
+				"element": {
+					"tag": "select",
+					"class": "uk-select",
+					"childs": [
+						{
+							"tag": "option",
+							"lang": "Edit.Criteria.Location.Overworld"
+						},
+						{
+							"tag": "option",
+							"lang": "Edit.Criteria.Location.Nether"
+						},
+						{
+							"tag": "option",
+							"lang": "Edit.Criteria.Location.End"
+						}
+					]
+				}
+			},
+			{
+				"lang": "Edit.Criteria.Form.To",
+				"element": {
+					"tag": "select",
+					"class": "uk-select",
+					"childs": [
+						{
+							"tag": "option",
+							"lang": "Edit.Criteria.Location.Overworld"
+						},
+						{
+							"tag": "option",
+							"lang": "Edit.Criteria.Location.Nether"
+						},
+						{
+							"tag": "option",
+							"lang": "Edit.Criteria.Location.End"
+						}
+					]
+				}
+			}
+		]
 	},
 	{
 		"id": "channeled_lightning",
-		"description": "Triggers after the player successfully uses the Channeling enchantment on an entity or a lightning rod"
+		"description": "Triggers after the player successfully uses the Channeling enchantment on an entity or a lightning rod",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Victims.Victims",
+				"predefined": "__FORM_VICTIMS"
+			}
+		]
 	},
 	{
 		"id": "construct_beacon",
-		"description": "Triggers after the player changes the structure of a beacon"
+		"description": "Triggers after the player changes the structure of a beacon",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Level",
+				"element": {
+					"tag": "div",
+					"childs": [
+						{
+							"lang": "Edit.Criteria.Item.Minimum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						},
+						{
+							"lang": "Edit.Criteria.Item.Maximum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						}
+					]
+				}
+			}
+		]
 	},
 	{
 		"id": "consume_item",
-		"description": "Triggers when the player consumes an item"
+		"description": "Triggers when the player consumes an item",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "cured_zombie_villager",
-		"description": "Triggers when the player cures a zombie villager"
+		"description": "Triggers when the player cures a zombie villager",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Villager",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Form.Zombie",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "effects_changed",
-		"description": "Triggers after the player gets a status effect applied or taken from them"
+		"description": "Triggers after the player gets a status effect applied or taken from them",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Effect",
+				"predefined": "__FORM_EFFECTS"
+			}
+		]
 	},
 	{
 		"id": "enchanted_item",
-		"description": "Triggers after the player enchants an item through an enchanting table (does not get triggered through an anvil, or through commands)."
+		"description": "Triggers after the player enchants an item through an enchanting table (does not get triggered through an anvil, or through commands).",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Level",
+				"element": {
+					"tag": "input",
+					"type": "number",
+					"min": "0",
+					"class": "uk-input"
+				}
+			},
+			{
+				"lang": "Edit.Criteria.Form.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "enter_block",
-		"description": "Triggers when the player stands in a block. Checks every tick and will try to trigger for each successful match (up to 8 times, the maximum amount of blocks a player can stand in), which only works if the advancement is revoked from within the advancement using a function reward"
+		"description": "Triggers when the player stands in a block. Checks every tick and will try to trigger for each successful match (up to 8 times, the maximum amount of blocks a player can stand in), which only works if the advancement is revoked from within the advancement using a function reward",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Block",
+				"predefined": "__SEARCH_BLOCKS"
+			},
+			{
+				"lang": "Edit.Criteria.Form.State",
+				"predefined": "__FORM_STATE"
+			}
+		]
 	},
 	{
 		"id": "entity_hurt_player",
-		"description": "Triggers after a player gets hurt, even without a source entity"
+		"description": "Triggers after a player gets hurt, even without a source entity",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Damage.Damage",
+				"predefined": "__FORM_DAMAGE"
+			}
+		]
 	},
 	{
 		"id": "entity_killed_player",
-		"description": "Triggers after a living entity kills a player"
+		"description": "Triggers after a living entity kills a player",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Entity",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Form.KillingBlow",
+				"predefined": "__FORM_TYPE"
+			}
+		]
 	},
 	{
 		"id": "filled_bucket",
-		"description": "Triggers after the player fills a bucket"
+		"description": "Triggers after the player fills a bucket",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "fishing_rod_hooked",
-		"description": "Triggers after the player successfully catches an item with a fishing rod or pulls an entity with a fishing rod"
+		"description": "Triggers after the player successfully catches an item with a fishing rod or pulls an entity with a fishing rod",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Entity",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Form.Item",
+				"predefined": "__FORM_ITEMS"
+			},
+			{
+				"lang": "Edit.Criteria.Form.Rod",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "hero_of_the_village",
-		"description": "Triggers when the player defeats a raid and checks where the player is"
+		"description": "Triggers when the player defeats a raid and checks where the player is",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Location.Location",
+				"predefined": "__FORM_LOCATION"
+			}
+		]
 	},
 	{
 		"id": "impossible",
@@ -98,7 +271,12 @@
 	},
 	{
 		"id": "inventory_changed",
-		"description": "Triggers after any changes happen to the player's inventory"
+		"description": "Triggers after any changes happen to the player's inventory",
+		"form": [
+			{
+				
+			}
+		]
 	},
 	{
 		"id": "item_durability_changed",
