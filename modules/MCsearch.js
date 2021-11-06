@@ -4,15 +4,14 @@ const crypto = require('crypto');
 
 const DefaultMinecraftVersion = '1.17';
 const hexaID = () => crypto.randomBytes(Math.ceil(24 / 2)).toString('hex').slice(0, 24);
-const InputSearch = (target, id) =>
+const InputSearch = (target, LIST) =>
 {
 	const filter = target.value;
-	const spanElement = document.getElementById(`search-dropdown-span-${id}`).getElementsByTagName('span');
-	for (let x = 0; x < spanElement.length; x++)
-		if (spanElement[x].getAttribute('value').indexOf(filter) > -1)
-			spanElement[x].style.display = '';
+	for (let x = 0; x < LIST.length; x++)
+		if (LIST[x].getAttribute('value').indexOf(filter) > -1)
+			LIST[x].style.display = ''; // eslint-disable-line no-param-reassign
 		else
-			spanElement[x].style.display = 'none';
+			LIST[x].style.display = 'none'; // eslint-disable-line no-param-reassign
 };
 const BaseNode = (idOfSearch) =>
 {
@@ -90,39 +89,57 @@ class MCsearch
 		const LIST = DOMelementSpan.getElementsByTagName('span');
 		let LISTiterator = 0;
 		LIST[LISTiterator].classList.add('span-select');
-		DOMelementBase.Input.addEventListener('keydown', (keyInput) =>
+		DOMelementBase.Input.addEventListener('keydown', (Inputkey) =>
 		{
-			if (keyInput.code === 'Escape')
+			if (Inputkey.code === 'Escape')
 			{
-				keyInput.preventDefault();
-				keyInput.stopImmediatePropagation();
+				Inputkey.preventDefault();
+				Inputkey.stopImmediatePropagation();
 				if (DOMelementBase.Input.value)
 					DOMelementBase.Input.value = '';
 				else
 					DOMelementSpan.classList.toggle('search-dropdown-span-show');
+				for (const span of LIST)
+					span.style.display = '';
+				LIST[0].classList.add('span-select');
 			}
 			else if (DOMelementSpan.classList.contains('search-dropdown-span-show'))
 			{
-				if (keyInput.code === 'Enter')
+				if (Inputkey.code === 'Enter')
 				{
-					keyInput.preventDefault();
-					keyInput.stopImmediatePropagation();
+					Inputkey.preventDefault();
+					Inputkey.stopImmediatePropagation();
 					DOMelementBase.Input.value = LIST[LISTiterator].getAttribute('value');
 					return;
 				}
 				LIST[LISTiterator].classList.remove('span-select');
-				if (keyInput.code === 'ArrowUp' && LISTiterator > 0)
+				const saveIterator = LISTiterator;
+				if (Inputkey.code === 'ArrowUp' && LISTiterator > 0)
+				{
+					Inputkey.preventDefault();
+					Inputkey.stopImmediatePropagation();
+					--LISTiterator;
 					if (LIST[LISTiterator].style.display === 'none')
-						while (LIST[LISTiterator].style.display === 'none')
+					{
+						while (LIST[LISTiterator].style.display === 'none' && LISTiterator > 0)
 							--LISTiterator;
-					else
-						--LISTiterator;
-				else if (keyInput.code === 'ArrowDown' && LISTiterator < LIST.length - 1)
+						if (LISTiterator <= 0)
+							LISTiterator = saveIterator;
+					}
+				}
+				else if (Inputkey.code === 'ArrowDown' && LISTiterator < LIST.length - 1)
+				{
+					Inputkey.preventDefault();
+					Inputkey.stopImmediatePropagation();
+					++LISTiterator;
 					if (LIST[LISTiterator].style.display === 'none')
-						while (LIST[LISTiterator].style.display === 'none')
+					{
+						while (LIST[LISTiterator].style.display === 'none' && LISTiterator < LIST.length - 1)
 							++LISTiterator;
-					else
-						++LISTiterator;
+						if (LISTiterator >= LIST.length - 1)
+							LISTiterator = saveIterator;
+					}
+				}
 				LIST[LISTiterator].classList.add('span-select');
 				LIST[LISTiterator].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
 			}
@@ -130,16 +147,15 @@ class MCsearch
 		DOMelementBase.Input.addEventListener('input', (element) =>
 		{
 			let it = 0;
-			let isFound = false;
-			InputSearch(element.target, idOfSearch);
+			LIST[LISTiterator].classList.remove('span-select');
+			InputSearch(element.target, LIST);
 			for (const span of LIST)
 			{
-				span.classList.remove('span-select');
-				if (!isFound && span.style.display !== 'none')
+				if (span.style.display !== 'none')
 				{
 					span.classList.add('span-select');
 					LISTiterator = it;
-					isFound = true;
+					break;
 				}
 				++it;
 			}

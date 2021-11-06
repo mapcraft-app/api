@@ -54,6 +54,13 @@ declare class MCsearch {
      */
     static potions(DOM: Element, MinecraftVersion?: string): string;
     /**
+     * Implements a structure search system via a drop-down menu
+     * @param {Element} DOM The Element object in which the search will be inserted
+     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
+     */
+    static structures(DOM: Element, MinecraftVersion?: string): string;
+    /**
      * Implements a trigger search system via a drop-down menu
      * @param {Element} DOM The Element object in which the search will be inserted
      * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft

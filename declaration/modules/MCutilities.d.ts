@@ -43,7 +43,7 @@ declare class MCutilities {
     static GetPackage(_dirname: string): JSON;
     /**
      * Retrieved data on game elements
-     * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `tags`, `triggers`)
+     * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `structures`, `tags`, `triggers`)
      * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns {JSON} JSON data, or undefined if error
      */
