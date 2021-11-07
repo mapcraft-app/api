@@ -20,6 +20,11 @@ declare class MC {
      */
     UpdateConfig(temp: string, data: string, save: string, lang?: string, resourcepack?: string, datapack?: string): void;
     /**
+     * Set selected minecraft version by user
+     * @param {String} version Selected version
+     */
+    SetSelectedVersion(version?: string): void;
+    /**
      * Get config.json data
      * @returns {JSON} JSON data
      */
