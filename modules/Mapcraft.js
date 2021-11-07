@@ -5,6 +5,11 @@ const path = require('path');
 const process = require('process');
 const MCutilities = require('./MCutilities');
 
+const MinecraftVersion = {
+	Versions: ['1.17'],
+	LastestVersion: '1.17',
+	SelectedVersion: '1.17',
+};
 MCutilities.GetAppDataPath();
 if (!process.env.AppPath)
 	process.env.AppPath = app.getAppPath();
@@ -60,6 +65,7 @@ class MC
 		else if (OS.platform() === 'darwin')
 			linkToGame = path.join(process.env.HOME, 'Library', 'Application Support', 'minecraft');
 		const config = {
+			Minecraft: MinecraftVersion,
 			Env: {
 				OS: OSType,
 				TempPath: OS.tmpdir(),
@@ -91,6 +97,7 @@ class MC
 	UpdateConfig(temp = OS.tmpdir(), data, save, lang = DefaultLang, resourcepack = 'Mapcraft-resource', datapack = 'Mapcraft-data')
 	{
 		const config = {
+			Minecraft: MinecraftVersion,
 			Env: {
 				OS: OSType,
 				TempPath: temp,
@@ -107,6 +114,17 @@ class MC
 				DataPack: datapack,
 			},
 		};
+		fs.writeFileSync(path.join(AppDataPath, 'config.json'), JSON.stringify(config, null, 4), { encoding: 'utf-8', flag: 'w' });
+	}
+
+	/**
+	 * Set selected minecraft version by user
+	 * @param {String} version Selected version
+	 */
+	SetSelectedVersion(version = MinecraftVersion.LastestVersion)
+	{
+		const config = this.GetConfig();
+		config.Minecraft.SelectedVersion = version;
 		fs.writeFileSync(path.join(AppDataPath, 'config.json'), JSON.stringify(config, null, 4), { encoding: 'utf-8', flag: 'w' });
 	}
 
