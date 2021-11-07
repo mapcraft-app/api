@@ -110,6 +110,7 @@ class MCsearch
 					Inputkey.preventDefault();
 					Inputkey.stopImmediatePropagation();
 					DOMelementBase.Input.value = LIST[LISTiterator].getAttribute('value');
+					DOMelementBase.Input.dispatchEvent(new Event('input'));
 					return;
 				}
 				LIST[LISTiterator].classList.remove('span-select');

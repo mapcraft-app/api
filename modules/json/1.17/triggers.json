@@ -8,7 +8,7 @@
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
-				"lang": "Edit.Criteria.Form.Item",
+				"lang": "Edit.Criteria.Item.Item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
@@ -141,7 +141,7 @@
 		"description": "Triggers when the player consumes an item",
 		"form": [
 			{
-				"lang": "Edit.Criteria.Form.Item",
+				"lang": "Edit.Criteria.Item.Item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -184,7 +184,7 @@
 				}
 			},
 			{
-				"lang": "Edit.Criteria.Form.Item",
+				"lang": "Edit.Criteria.Item.Item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -198,7 +198,7 @@
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
-				"lang": "Edit.Criteria.Form.State",
+				"lang": "Edit.Criteria.State.State",
 				"predefined": "__FORM_STATE"
 			}
 		]
@@ -218,7 +218,7 @@
 		"description": "Triggers after a living entity kills a player",
 		"form": [
 			{
-				"lang": "Edit.Criteria.Form.Entity",
+				"lang": "Edit.Criteria.Entity.Entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
@@ -232,7 +232,7 @@
 		"description": "Triggers after the player fills a bucket",
 		"form": [
 			{
-				"lang": "Edit.Criteria.Form.Item",
+				"lang": "Edit.Criteria.Item.Item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -242,11 +242,11 @@
 		"description": "Triggers after the player successfully catches an item with a fishing rod or pulls an entity with a fishing rod",
 		"form": [
 			{
-				"lang": "Edit.Criteria.Form.Entity",
+				"lang": "Edit.Criteria.Entity.Entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
-				"lang": "Edit.Criteria.Form.Item",
+				"lang": "Edit.Criteria.Item.Item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
@@ -274,116 +274,405 @@
 		"description": "Triggers after any changes happen to the player's inventory",
 		"form": [
 			{
-				
+				"lang": "Edit.Criteria.Item.Items",
+				"predefined": "__FORM_ITEMS_LIST"
+			},
+			{
+				"lang": "Edit.Criteria.Slots.Slots",
+				"predefined": "__FORM_SLOT"
 			}
 		]
 	},
 	{
 		"id": "item_durability_changed",
-		"description": "Triggers after any item in the inventory has been damaged in any form"
+		"description": "Triggers after any item in the inventory has been damaged in any form",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Durability.EditDurability",
+				"predefined": "__FORM_DURABILITY"
+			}
+		]
 	},
 	{
 		"id": "item_used_on_block",
-		"description": "riggers when the player uses their hand or an item on a block"
+		"description": "riggers when the player uses their hand or an item on a block",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Location.Location",
+				"predefined": "__FORM_LOCATION"
+			},
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "killed_by_crossbow",
-		"description": "Triggers after the player kills a mob or player using a crossbow in ranged combat"
+		"description": "Triggers after the player kills a mob or player using a crossbow in ranged combat",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.UniqueEntityTypes",
+				"element": {
+					"tag": "div",
+					"childs": [
+						{
+							"lang": "Edit.Criteria.Item.Minimum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						},
+						{
+							"lang": "Edit.Criteria.Item.Maximum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						}
+					]
+				}
+			},
+			{
+				"lang": "Edit.Criteria.Victims.Victims",
+				"predefined": "__FORM_VICTIMS"
+			}
+		]
 	},
 	{
 		"id": "levitation",
-		"description": "Triggers when the player has the levitation status effect"
+		"description": "Triggers when the player has the levitation status effect",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Distance.Distance",
+				"predefined": "__FORM_DISTANCE"
+			},
+			{
+				"lang": "Edit.Criteria.Effects.Duration",
+				"element": {
+					"tag": "div",
+					"childs": [
+						{
+							"lang": "Edit.Criteria.Item.Minimum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						},
+						{
+							"lang": "Edit.Criteria.Item.Maximum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						}
+					]
+				}
+			}
+		]
 	},
 	{
 		"id": "lightning_strike",
-		"description": "Triggers when a lightning bolt disappears from the world, only for players within a 256 block radius of the lightning bolt"
+		"description": "Triggers when a lightning bolt disappears from the world, only for players within a 256 block radius of the lightning bolt",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Lightning.Lightning",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Lightning.Bystander",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "location",
-		"description": "Triggers every 20 ticks (1 second) and checks where the player is"
+		"description": "Triggers every 20 ticks (1 second) and checks where the player is",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Location.Location",
+				"predefined": "__FORM_LOCATION"
+			}
+		]
 	},
 	{
 		"id": "nether_travel",
-		"description": "Triggers when the player travels to the Nether and then returns to the Overworld"
+		"description": "Triggers when the player travels to the Nether and then returns to the Overworld",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Distance.Distance",
+				"predefined": "__FORM_DISTANCE"
+			}
+		]
 	},
 	{
 		"id": "placed_block",
-		"description": "Triggers when the player places a block"
+		"description": "Triggers when the player places a block",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Block",
+				"predefined": "__SEARCH_BLOCKS"
+			},
+			{
+				"lang": "Edit.Criteria.State.State",
+				"predefined": "__FORM_STATE"
+			},
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			},
+			{
+				"lang": "Edit.Criteria.Location.Location",
+				"predefined": "__FORM_LOCATION"
+			}
+		]
 	},
 	{
 		"id": "player_generates_container_loot",
-		"description": "Triggers when the player generates the contents of a container with a loot table set"
+		"description": "Triggers when the player generates the contents of a container with a loot table set",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.LootTable",
+				"element": {
+					"tag": "input",
+					"type": "text",
+					"class": "uk-input"
+				}
+			}
+		]
 	},
 	{
 		"id": "player_hurt_entity",
-		"description": "Triggers after the player hurts a mob or player"
+		"description": "Triggers after the player hurts a mob or player",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Damage.Damage",
+				"predefined": "__FORM_DAMAGE"
+			}
+		]
 	},
 	{
 		"id": "player_interacted_with_entity",
-		"description": "Triggers when the player interacts with an entity"
+		"description": "Triggers when the player interacts with an entity",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			},
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "player_killed_entity",
-		"description": "Triggers after a player is the source of a mob or player being killed"
+		"description": "Triggers after a player is the source of a mob or player being killed",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Form.KillingBlow",
+				"predefined": "__FORM_TYPE"
+			}
+		]
 	},
 	{
 		"id": "recipe_unlocked",
-		"description": "Triggers after the player unlocks a recipe"
+		"description": "Triggers after the player unlocks a recipe",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Recipe",
+				"element": {
+					"tag": "input",
+					"type": "text",
+					"class": "uk-input"
+				}
+			}
+		]
 	},
 	{
 		"id": "shot_crossbow",
-		"description": "Triggers when the player shoots a crossbow"
+		"description": "Triggers when the player shoots a crossbow",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "slept_in_bed",
-		"description": "Triggers when the player enters a bed"
+		"description": "Triggers when the player enters a bed",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Location.Location",
+				"predefined": "__FORM_LOCATION"
+			}
+		]
 	},
 	{
 		"id": "slide_down_block",
-		"description": "Triggers when the player slides down a block"
+		"description": "Triggers when the player slides down a block",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.Block",
+				"predefined": "__SEARCH_BLOCKS"
+			}
+		]
 	},
 	{
 		"id": "started_riding",
-		"description": "Triggers when the player starts riding a vehicle or an entity starts riding a vehicle currently ridden by the player"
+		"description": "Triggers when the player starts riding a vehicle or an entity starts riding a vehicle currently ridden by the player",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "summoned_entity",
-		"description": "Triggers after an entity has been summoned. Works with iron golems (pumpkin and iron blocks), snow golems (pumpkin and snow blocks), the ender dragon (end crystals) and the wither (wither skulls and soul sand/soul soil). Using dispensers to place the wither skulls or pumpkins will still activate this trigger. Spawn eggs, commands and mob spawners will not work however"
+		"description": "Triggers after an entity has been summoned. Works with iron golems (pumpkin and iron blocks), snow golems (pumpkin and snow blocks), the ender dragon (end crystals) and the wither (wither skulls and soul sand/soul soil). Using dispensers to place the wither skulls or pumpkins will still activate this trigger. Spawn eggs, commands and mob spawners will not work however",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "tame_animal",
-		"description": "Triggers after the player tames an animal"
+		"description": "Triggers after the player tames an animal",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "target_hit",
-		"description": "Triggers when the player shoots a target block"
+		"description": "Triggers when the player shoots a target block",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Form.SignalStrength",
+				"element": {
+					"tag": "input",
+					"type": "number",
+					"class": "uk-input",
+					"min": "0"
+				}
+			},
+			{
+				"lang": "Edit.Criteria.Form.Projectile",
+				"element": {
+					"tag": "input",
+					"type": "text",
+					"class": "uk-input"
+				}
+			},
+			{
+				"lang": "Edit.Criteria.Form.Shooter",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "thrown_item_picked_up_by_entity",
-		"description": "Triggers after the player throws an item and another entity picks it up"
+		"description": "Triggers after the player throws an item and another entity picks it up",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Entity.Entity",
+				"predefined": "__FORM_ENTITIES"
+			},
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "tick",
-		"description": "Triggers every tick (20 times per second)"
+		"description": "Triggers every tick (20 times per second)",
+		"form": []
 	},
 	{
 		"id": "used_ender_eye",
-		"description": "Triggers when the player uses an eye of ender (in a world where strongholds generate)"
+		"description": "Triggers when the player uses an eye of ender (in a world where strongholds generate)",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Distance.Distance",
+				"element": {
+					"tag": "div",
+					"childs": [
+						{
+							"lang": "Edit.Criteria.Item.Minimum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						},
+						{
+							"lang": "Edit.Criteria.Item.Maximum",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						}
+					]
+				}
+			}
+		]
 	},
 	{
 		"id": "used_totem",
-		"description": "Triggers when the player uses a totem"
+		"description": "Triggers when the player uses a totem",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "using_item",
-		"description": "Triggers for every tick that the player uses an item that is used continuously. It is known to trigger for bows, crossbows, honey bottles, milk buckets, potions, shields, spyglasses, tridents, food items and eyes of ender. Most items that activate from a single click, such as fishing rods, do not affect this trigger"
+		"description": "Triggers for every tick that the player uses an item that is used continuously. It is known to trigger for bows, crossbows, honey bottles, milk buckets, potions, shields, spyglasses, tridents, food items and eyes of ender. Most items that activate from a single click, such as fishing rods, do not affect this trigger",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			}
+		]
 	},
 	{
 		"id": "villager_trade",
-		"description": "Triggers after the player trades with a villager or a wandering trader"
+		"description": "Triggers after the player trades with a villager or a wandering trader",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Item.Item",
+				"predefined": "__FORM_ITEMS"
+			},
+			{
+				"lang": "Edit.Criteria.Form.Villager",
+				"predefined": "__FORM_ENTITIES"
+			}
+		]
 	},
 	{
 		"id": "voluntary_exile",
-		"description": "Triggers when the player causes a raid and checks where the player is"
+		"description": "Triggers when the player causes a raid and checks where the player is",
+		"form": [
+			{
+				"lang": "Edit.Criteria.Location.Location",
+				"predefined": "__FORM_LOCATION"
+			}
+		]
 	}
 ]
