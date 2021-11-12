@@ -41,7 +41,15 @@ class MCsearch
 		let ListOfElements;
 		try
 		{
-			ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/${type}.json`), { encoding: 'utf-8', flag: 'r' }));
+			if (type === 'blocksItems')
+			{
+				ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/blocks.json`), { encoding: 'utf-8', flag: 'r' }));
+				ListOfElements.concat(JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/items.json`), { encoding: 'utf-8', flag: 'r' })));
+			}
+			else
+			{
+				ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/${type}.json`), { encoding: 'utf-8', flag: 'r' }));
+			}
 		}
 		catch (err)
 		{
@@ -188,6 +196,17 @@ class MCsearch
 	}
 
 	/**
+	 * Implements a block and item search system via a drop-down menu
+	 * @param {Element} DOM The Element object in which the search will be inserted
+	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
+	 */
+	static blocksItems(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	{
+		return this.BaseImplementation(DOM, 'blocksItems', 'name', MinecraftVersion);
+	}
+
+	/**
 	 * Implements a effect search system via a drop-down menu
 	 * @param {Element} DOM The Element object in which the search will be inserted
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
@@ -262,6 +281,31 @@ class MCsearch
 	static triggers(DOM, MinecraftVersion = DefaultMinecraftVersion)
 	{
 		return this.BaseImplementation(DOM, 'triggers', 'id', MinecraftVersion);
+	}
+
+	/**
+	 * Get value of search system
+	 * @param {Element} DOM Element in which the search system is located
+	 * @returns Value of search
+	 */
+	static GetValue(DOM)
+	{
+		if (DOM.nodeName === 'INPUT')
+			return DOM.value;
+		return DOM.querySelector('input.search-dropdown-input').value;
+	}
+
+	/**
+	 * Set value of search system
+	 * @param {Element} DOM Element in which the search system is located
+	 * @param {String} value New value of element
+	 */
+	static SetValue(DOM, value)
+	{
+		if (DOM.nodeName === 'INPUT')
+			DOM.value = value; // eslint-disable-line no-param-reassign
+		else
+			DOM.querySelector('input.search-dropdown-input').value = value; // eslint-disable-line no-param-reassign
 	}
 }
 

@@ -5,16 +5,19 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Block",
+				"key": "block",
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
 				"lang": "Edit.Criteria.Form.NumberOfBeesInside",
 				"element": {
 					"tag": "input",
+					"id": "num_bees_inside",
 					"class": "uk-input",
 					"type": "number",
 					"min": "0"
@@ -28,14 +31,17 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Child",
+				"key": "child",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Form.Parent",
+				"key": "parent",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Form.Partner",
+				"key": "partner",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -46,6 +52,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Potion",
+				"key": "potion",
 				"predefined": "__SEARCH_POTIONS"
 			}
 		]
@@ -59,17 +66,21 @@
 				"element": {
 					"tag": "select",
 					"class": "uk-select",
+					"id": "from",
 					"childs": [
 						{
 							"tag": "option",
+							"value": "overworld",
 							"lang": "Edit.Criteria.Location.Overworld"
 						},
 						{
 							"tag": "option",
+							"value": "the_nether",
 							"lang": "Edit.Criteria.Location.Nether"
 						},
 						{
 							"tag": "option",
+							"value": "the_end",
 							"lang": "Edit.Criteria.Location.End"
 						}
 					]
@@ -80,17 +91,21 @@
 				"element": {
 					"tag": "select",
 					"class": "uk-select",
+					"id": "to",
 					"childs": [
 						{
 							"tag": "option",
+							"value": "overworld",
 							"lang": "Edit.Criteria.Location.Overworld"
 						},
 						{
 							"tag": "option",
+							"value": "the_nether",
 							"lang": "Edit.Criteria.Location.Nether"
 						},
 						{
 							"tag": "option",
+							"value": "the_end",
 							"lang": "Edit.Criteria.Location.End"
 						}
 					]
@@ -104,6 +119,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Victims.Victims",
+				"key": "victims",
 				"predefined": "__FORM_VICTIMS"
 			}
 		]
@@ -116,9 +132,11 @@
 				"lang": "Edit.Criteria.Form.Level",
 				"element": {
 					"tag": "div",
+					"id": "level",
 					"childs": [
 						{
 							"lang": "Edit.Criteria.Item.Minimum",
+							"id": "min",
 							"tag": "input",
 							"class": "uk-input",
 							"type": "number",
@@ -126,6 +144,7 @@
 						},
 						{
 							"lang": "Edit.Criteria.Item.Maximum",
+							"id": "max",
 							"tag": "input",
 							"class": "uk-input",
 							"type": "number",
@@ -142,6 +161,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -152,10 +172,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Villager",
+				"key": "villager",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Form.Zombie",
+				"key": "zombie",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -166,6 +188,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Effect",
+				"key": "effects",
 				"predefined": "__FORM_EFFECTS"
 			}
 		]
@@ -177,14 +200,31 @@
 			{
 				"lang": "Edit.Criteria.Form.Level",
 				"element": {
-					"tag": "input",
-					"type": "number",
-					"min": "0",
-					"class": "uk-input"
+					"tag": "div",
+					"id": "levels",
+					"childs": [
+						{
+							"lang": "Edit.Criteria.Item.Minimum",
+							"id": "min",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						},
+						{
+							"lang": "Edit.Criteria.Item.Maximum",
+							"id": "max",
+							"tag": "input",
+							"class": "uk-input",
+							"type": "number",
+							"min": "0"
+						}
+					]
 				}
 			},
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -195,10 +235,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Block",
+				"key": "block",
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
 				"lang": "Edit.Criteria.State.State",
+				"key": "state",
 				"predefined": "__FORM_STATE"
 			}
 		]
@@ -209,6 +251,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Damage.Damage",
+				"key": "damage",
 				"predefined": "__FORM_DAMAGE"
 			}
 		]
@@ -219,10 +262,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Form.KillingBlow",
+				"key": "killing_blow",
 				"predefined": "__FORM_TYPE"
 			}
 		]
@@ -233,6 +278,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -243,14 +289,17 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
 				"lang": "Edit.Criteria.Form.Rod",
+				"key": "rod",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -261,13 +310,15 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Location.Location",
+				"key": "__ROOT",
 				"predefined": "__FORM_LOCATION"
 			}
 		]
 	},
 	{
 		"id": "impossible",
-		"description": "Never triggers"
+		"description": "Never triggers",
+		"form": []
 	},
 	{
 		"id": "inventory_changed",
@@ -275,10 +326,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Items",
+				"key": "items",
 				"predefined": "__FORM_ITEMS_LIST"
 			},
 			{
 				"lang": "Edit.Criteria.Slots.Slots",
+				"key": "slots",
 				"predefined": "__FORM_SLOT"
 			}
 		]
@@ -289,6 +342,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Durability.EditDurability",
+				"key": "__ROOT",
 				"predefined": "__FORM_DURABILITY"
 			}
 		]
@@ -299,10 +353,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Location.Location",
+				"key": "location",
 				"predefined": "__FORM_LOCATION"
 			},
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -315,10 +371,12 @@
 				"lang": "Edit.Criteria.Form.UniqueEntityTypes",
 				"element": {
 					"tag": "div",
+					"id": "unique_entity_types",
 					"childs": [
 						{
 							"lang": "Edit.Criteria.Item.Minimum",
 							"tag": "input",
+							"id": "min",
 							"class": "uk-input",
 							"type": "number",
 							"min": "0"
@@ -326,6 +384,7 @@
 						{
 							"lang": "Edit.Criteria.Item.Maximum",
 							"tag": "input",
+							"id": "max",
 							"class": "uk-input",
 							"type": "number",
 							"min": "0"
@@ -335,6 +394,7 @@
 			},
 			{
 				"lang": "Edit.Criteria.Victims.Victims",
+				"key": "victims",
 				"predefined": "__FORM_VICTIMS"
 			}
 		]
@@ -345,16 +405,19 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Distance.Distance",
+				"key": "distance",
 				"predefined": "__FORM_DISTANCE"
 			},
 			{
 				"lang": "Edit.Criteria.Effects.Duration",
 				"element": {
 					"tag": "div",
+					"id": "duration",
 					"childs": [
 						{
 							"lang": "Edit.Criteria.Item.Minimum",
 							"tag": "input",
+							"id": "min",
 							"class": "uk-input",
 							"type": "number",
 							"min": "0"
@@ -362,6 +425,7 @@
 						{
 							"lang": "Edit.Criteria.Item.Maximum",
 							"tag": "input",
+							"id": "max",
 							"class": "uk-input",
 							"type": "number",
 							"min": "0"
@@ -377,10 +441,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Lightning.Lightning",
+				"key": "lightning",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Lightning.Bystander",
+				"key": "bystander",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -391,6 +457,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Location.Location",
+				"key": "__ROOT",
 				"predefined": "__FORM_LOCATION"
 			}
 		]
@@ -401,6 +468,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Distance.Distance",
+				"key": "distance",
 				"predefined": "__FORM_DISTANCE"
 			}
 		]
@@ -411,18 +479,22 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Block",
+				"key": "block",
 				"predefined": "__SEARCH_BLOCKS"
 			},
 			{
 				"lang": "Edit.Criteria.State.State",
+				"key": "state",
 				"predefined": "__FORM_STATE"
 			},
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
 				"lang": "Edit.Criteria.Location.Location",
+				"key": "location",
 				"predefined": "__FORM_LOCATION"
 			}
 		]
@@ -435,6 +507,7 @@
 				"lang": "Edit.Criteria.Form.LootTable",
 				"element": {
 					"tag": "input",
+					"id": "loot_table",
 					"type": "text",
 					"class": "uk-input"
 				}
@@ -447,11 +520,18 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Damage.Damage",
+				"key": "damage",
 				"predefined": "__FORM_DAMAGE"
+			},
+			{
+				"lang": "Edit.Criteria.Player.Player",
+				"key": ["entity", "player"],
+				"predefined": "__FORM_PLAYER"
 			}
 		]
 	},
@@ -461,10 +541,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -475,10 +557,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Form.KillingBlow",
+				"key": "killing_blow",
 				"predefined": "__FORM_TYPE"
 			}
 		]
@@ -491,6 +575,7 @@
 				"lang": "Edit.Criteria.Form.Recipe",
 				"element": {
 					"tag": "input",
+					"id": "recipe",
 					"type": "text",
 					"class": "uk-input"
 				}
@@ -503,6 +588,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -513,6 +599,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Location.Location",
+				"key": "__ROOT",
 				"predefined": "__FORM_LOCATION"
 			}
 		]
@@ -523,6 +610,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Form.Block",
+				"key": "block",
 				"predefined": "__SEARCH_BLOCKS"
 			}
 		]
@@ -530,12 +618,7 @@
 	{
 		"id": "started_riding",
 		"description": "Triggers when the player starts riding a vehicle or an entity starts riding a vehicle currently ridden by the player",
-		"form": [
-			{
-				"lang": "Edit.Criteria.Entity.Entity",
-				"predefined": "__FORM_ENTITIES"
-			}
-		]
+		"form": []
 	},
 	{
 		"id": "summoned_entity",
@@ -543,6 +626,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -553,6 +637,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -565,6 +650,7 @@
 				"lang": "Edit.Criteria.Form.SignalStrength",
 				"element": {
 					"tag": "input",
+					"id": "signal_strength",
 					"type": "number",
 					"class": "uk-input",
 					"min": "0"
@@ -574,12 +660,14 @@
 				"lang": "Edit.Criteria.Form.Projectile",
 				"element": {
 					"tag": "input",
+					"id": "projectile",
 					"type": "text",
 					"class": "uk-input"
 				}
 			},
 			{
 				"lang": "Edit.Criteria.Form.Shooter",
+				"key": "shooter",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -590,10 +678,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Entity.Entity",
+				"key": "entity",
 				"predefined": "__FORM_ENTITIES"
 			},
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -611,10 +701,12 @@
 				"lang": "Edit.Criteria.Distance.Distance",
 				"element": {
 					"tag": "div",
+					"id": "distance",
 					"childs": [
 						{
 							"lang": "Edit.Criteria.Item.Minimum",
 							"tag": "input",
+							"id": "min",
 							"class": "uk-input",
 							"type": "number",
 							"min": "0"
@@ -622,6 +714,7 @@
 						{
 							"lang": "Edit.Criteria.Item.Maximum",
 							"tag": "input",
+							"id": "max",
 							"class": "uk-input",
 							"type": "number",
 							"min": "0"
@@ -637,6 +730,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -647,6 +741,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			}
 		]
@@ -657,10 +752,12 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Item.Item",
+				"key": "item",
 				"predefined": "__FORM_ITEMS"
 			},
 			{
 				"lang": "Edit.Criteria.Form.Villager",
+				"key": "villager",
 				"predefined": "__FORM_ENTITIES"
 			}
 		]
@@ -671,6 +768,7 @@
 		"form": [
 			{
 				"lang": "Edit.Criteria.Location.Location",
+				"key": "__ROOT",
 				"predefined": "__FORM_LOCATION"
 			}
 		]

@@ -19,6 +19,13 @@ declare class MCsearch {
      */
     static blocks(DOM: Element, MinecraftVersion?: string): string;
     /**
+     * Implements a block and item search system via a drop-down menu
+     * @param {Element} DOM The Element object in which the search will be inserted
+     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
+     */
+    static blocksItems(DOM: Element, MinecraftVersion?: string): string;
+    /**
      * Implements a effect search system via a drop-down menu
      * @param {Element} DOM The Element object in which the search will be inserted
      * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
@@ -67,4 +74,16 @@ declare class MCsearch {
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
     static triggers(DOM: Element, MinecraftVersion?: string): string;
+    /**
+     * Get value of search system
+     * @param {Element} DOM Element in which the search system is located
+     * @returns Value of search
+     */
+    static GetValue(DOM: Element): any;
+    /**
+     * Set value of search system
+     * @param {Element} DOM Element in which the search system is located
+     * @param {String} value New value of element
+     */
+    static SetValue(DOM: Element, value: string): void;
 }
