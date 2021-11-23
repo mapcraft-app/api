@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 const { app } = require('electron');
 const fs = require('fs');
 const OS = require('os');
@@ -37,7 +38,7 @@ class MC
 			fs.mkdirSync(UserComponentsLink, { recursive: true, mode: 0o777 });
 			fs.writeFileSync(path.join(UserComponentsLink, 'components.json'), '[]', { encoding: 'utf-8' });
 		}
-		if (!fs.existsSync('config.json'))
+		if (!fs.existsSync(path.join(AppDataPath, 'config.json')))
 			this.ResetConfigFile();
 		this.UpdateAPIVersion();
 	}

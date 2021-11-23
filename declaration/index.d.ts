@@ -12,4 +12,5 @@ import MCtemplate = require("./modules/MCtemplate");
 import MCutilities = require("./modules/MCutilities");
 import MCwindow = require("./modules/MCwindow");
 import MCworkInProgress = require("./modules/MCworkInProgress");
-export { Mapcraft, MCdatabase, MCeditor, MCfs, MCipc, MClink, MClog, MCplugin, MCsearch, MCshell, MCtemplate, MCutilities, MCwindow, MCworkInProgress };
+import LeaderLine = require("./modules/js/leader-line");
+export { Mapcraft, MCdatabase, MCeditor, MCfs, MCipc, MClink, MClog, MCplugin, MCsearch, MCshell, MCtemplate, MCutilities, MCwindow, MCworkInProgress, LeaderLine };
