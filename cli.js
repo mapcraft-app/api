@@ -6,9 +6,9 @@ const crypto = require('crypto');
 const path = require('path');
 const readline = require('readline-sync');
 const models = require('./models');
+const Mapcraft = require('./modules/Mapcraft');
 
-const AppPath = path.join(__dirname, '../../');
-const PluginsPath = path.join(__dirname, '../../', 'plugins');
+const PluginsPath = Mapcraft.GetConfig().Env.PluginsComponents;
 let saveInterval;
 
 class Spinner
@@ -74,7 +74,7 @@ class CLI
 		{
 			const regex = /((?<=(--directory=))|(?<=(--dir=))).*$/gm;
 			if (regex.test(this.Args[1]))
-				outputDir = path.join(AppPath, this.Args[1].match(regex));
+				outputDir = path.join(PluginsPath, this.Args[1].match(regex));
 		}
 		fs.mkdirSync(path.join(outputDir), { recursive: true });
 		this.questions.forEach((question) =>
