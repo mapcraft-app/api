@@ -142,7 +142,7 @@ const TEMPLATE = new MCtemplate(__dirname, PACKAGE.uuid);
 let LANG;
 function UpdateLANG()
 {
-	LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang);
+	LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang, PACKAGE.bin.lang);
 }
 
 class Component

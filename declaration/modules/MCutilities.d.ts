@@ -22,7 +22,7 @@ declare class MCutilities {
      * @param {string} destination path of file destination
      * @param {function} callback callback function with (error)
      */
-    static download(url: string, destination: string, callback: Function): void;
+    static Download(url: string, destination: string, callback: Function): void;
     /**
      * Check if directory is empty
      * @param {string} path path to directory
@@ -32,14 +32,15 @@ declare class MCutilities {
      * Get lang of component
      * @param {string} _dirname __dirname of component
      * @param {string} _langPath MC.GetConfig().Env.Lang
+     * @param {string} _defaultDir default direcoty of lang file
      * @returns {JSON} JSON data of lang file, or undefined if error
      */
-    static GetLang(_dirname: string, _langPath: string): JSON;
+    static GetLang(_dirname: string, _langPath: string, _defaultDir?: string): JSON;
     /**
-     * Retrieved data from package.json
-     * @param {string} _dirname Folder in which you want to search
-     * @returns {JSON} JSON data of package, or undefined if error
-     */
+      * Retrieved data from package.json
+      * @param {string} _dirname Folder in which you want to search
+      * @returns {JSON} JSON data of package, or undefined if error
+      */
     static GetPackage(_dirname: string): JSON;
     /**
      * Retrieved data on game elements

@@ -13,6 +13,6 @@ declare class MCwindow {
      * @param {BrowserWindow} windowInstance BrowserWindow instance
      * @param {Sting} page Path of file loaded in window
      */
-    static OpenWindow(windowInstance: BrowserWindow, page: any): void;
+    static OpenWindow(windowInstance: BrowserWindow, page: Sting): void;
 }
 import { BrowserWindow } from "electron";

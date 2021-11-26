@@ -23,7 +23,7 @@ declare class Template {
      * @param {string} template Name of template file with extension
      * @param {json} args Valid json for replace variable(s)
      */
-    render(DOMelement: any, template: string, args: any): void;
+    render(DOMelement: any, template: string, args: json): void;
     /**
      * Get raw of template HTML
      * @param {string} template Name of template file with extension
@@ -43,19 +43,19 @@ declare class Template {
      * @param {string} HTML HTML raw
      * @param {json} args Valid json for replace variable(s)
      */
-    parseRaw(HTML: string, args: any): string;
+    parseRaw(HTML: string, args: json): string;
     /**
      * Update lang of specific DOMelement
      * @param {DOMelement} DOMelement DOMelement of DOM
      * @param {json} args Valid json for replace variable(s)
      */
-    updateLang(DOMelement: any, args: any): void;
+    updateLang(DOMelement: any, args: json): void;
     /**
      * Correctly clean child of element
      * @param {DOMelement} node DOMelement
      * @param {boolean} RemoveParent If true, function remove node after delete child. false by default
      */
-    cleanNode(node: any, RemoveParent?: boolean): void;
+    cleanNode(node: DOMelement, RemoveParent?: boolean): void;
     /**
      * Clean render
      * @private

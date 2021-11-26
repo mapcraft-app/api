@@ -116,14 +116,15 @@ class MCutilities
 	 * Get lang of component
 	 * @param {string} _dirname __dirname of component
 	 * @param {string} _langPath MC.GetConfig().Env.Lang
+	 * @param {string} _defaultDir default direcoty of lang file
 	 * @returns {JSON} JSON data of lang file, or undefined if error
 	 */
-	static GetLang(_dirname, _langPath)
+	static GetLang(_dirname, _langPath, _defaultDir = 'lang')
 	{
 		let data;
 		try
 		{
-			data = JSON.parse(fs.readFileSync(path.join(_dirname, './lang', `${_langPath}.json`)));
+			data = JSON.parse(fs.readFileSync(path.join(_dirname, `./${_defaultDir}`, `${_langPath}.json`)));
 		}
 		catch (err)
 		{
@@ -133,16 +134,16 @@ class MCutilities
 	}
 
 	/**
-	 * Retrieved data from package.json
-	 * @param {string} _dirname Folder in which you want to search
-	 * @returns {JSON} JSON data of package, or undefined if error
-	 */
+	  * Retrieved data from package.json
+	  * @param {string} _dirname Folder in which you want to search
+	  * @returns {JSON} JSON data of package, or undefined if error
+	  */
 	static GetPackage(_dirname)
 	{
 		let data;
 		try
 		{
-			data = JSON.parse(fs.readFileSync(path.join(_dirname, 'package.json')));
+			data = JSON.parse(fs.readFileSync(path.join(_dirname, 'manifest.json')));
 		}
 		catch (err)
 		{
