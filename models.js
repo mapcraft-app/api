@@ -33,6 +33,7 @@ exports.init = [
 		regex: /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/,
 		warning: 'Must be lowercase and one word, and may contain hyphens and underscores',
 		default: 'new_plugin',
+		type: String,
 	},
 	{
 		input: 'title',
@@ -40,6 +41,7 @@ exports.init = [
 		regex: /^[a-zA-Z0-9-_\s]+$/,
 		warning: 'Must be only letters, numbers, underscore, dashed or space',
 		default: 'New Plugin',
+		type: String,
 	},
 	{
 		input: 'version',
@@ -47,6 +49,7 @@ exports.init = [
 		regex: /^([0-9]\.[0-9]\.[0-9])$/,
 		warning: 'The format is (0-9).(0-9).(0-9)',
 		default: '1.0.0',
+		type: String,
 	},
 	{
 		input: 'author',
@@ -54,6 +57,7 @@ exports.init = [
 		regex: /^.*$/,
 		warning: '',
 		default: 'John Doe',
+		type: String,
 	},
 	{
 		input: 'description',
@@ -61,6 +65,7 @@ exports.init = [
 		regex: /^.*$/,
 		warning: '',
 		default: 'My wonderful plugin',
+		type: String,
 	},
 	{
 		input: 'license',
@@ -68,13 +73,15 @@ exports.init = [
 		regex: /^.*$/,
 		warning: '',
 		default: 'MIT',
+		type: String,
 	},
 	{
 		input: 'component',
 		question: 'What will be the name of the main input file ?',
-		regex: /^[a-zA-Z_]+$/,
-		warning: 'Must be only letters or underscore',
+		regex: /^[a-zA-Z0-9_.]{1,}(\.js)/i,
+		warning: 'Must be only letters, numbers, underscore and dot. Must have as extension .js',
 		default: 'index.js',
+		type: String,
 	},
 	{
 		input: 'lang',
@@ -82,13 +89,15 @@ exports.init = [
 		regex: /^[a-zA-Z_]+$/,
 		warning: 'Must be only letters or underscore',
 		default: 'lang',
+		type: String,
 	},
 	{
 		input: 'isNotification',
 		question: 'Will there be notifications ?',
-		regex: /^yes|no+$/,
-		warning: 'Must be only yes or no',
+		regex: /^true|false+$/,
+		warning: 'Must be only true or false',
 		default: 'false',
+		type: Boolean,
 	},
 ];
 

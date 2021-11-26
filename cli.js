@@ -6,9 +6,26 @@ const crypto = require('crypto');
 const path = require('path');
 const readline = require('readline-sync');
 const models = require('./models');
-const Mapcraft = require('./modules/Mapcraft');
 
-const PluginsPath = Mapcraft.GetConfig().Env.PluginsComponents;
+function GetAppPath()
+{
+	const base = path.dirname(require.main.filename);
+	let appPath = path.join(base, '../../');
+	if (path.basename(appPath) === 'resources')
+		appPath = path.join(appPath, '../');
+	appPath = path.join(appPath, 'plugins');
+	fs.mkdir(appPath, { recursive: true }, (err) =>
+	{
+		if (err)
+		{
+			console.log(`\x1b[31m${err.message}`);
+			process.exit(1);
+		}
+	});
+	return appPath;
+}
+
+const PluginsPath = GetAppPath();
 let saveInterval;
 
 class Spinner
@@ -89,11 +106,9 @@ class CLI
 					break;
 			}
 			if (answer.length === 0)
-				this.ret[question.input] = question.default;
-			else if (question.input === 'isNotification')
-				this.ret[question.input] = 'true';
+				this.ret[question.input] = question.type(question.default);
 			else
-				this.ret[question.input] = answer;
+				this.ret[question.input] = question.type(answer);
 		});
 
 		Spinner.spin('The plugin is being created');

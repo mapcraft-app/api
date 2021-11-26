@@ -13,7 +13,7 @@ class MCutilities
 	 */
 	static CheckIfStringIsLegalCharacter(string)
 	{
-		const Regex = new RegExp('[^-a-z0-9_/.]+', 'gm');
+		const Regex = /[^-a-z0-9_/.]+/gm;
 		if (Regex.test(string))
 			return (false);
 		return (true);
@@ -65,7 +65,7 @@ class MCutilities
 	 * @param {string} destination path of file destination
 	 * @param {function} callback callback function with (error)
 	 */
-	static download(url, destination, callback)
+	static Download(url, destination, callback)
 	{
 		const file = fs.createWriteStream(destination);
 		let httpMethod;
