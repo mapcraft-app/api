@@ -40,9 +40,9 @@ declare class MCplugin {
      */
     Lang(Name: string): JSON;
     /**
-     * Get lang data of default component
-     * @returns {JSON} Lang data
-     */
+      * Get lang data of default component
+      * @returns {JSON} Lang data
+      */
     Default(): JSON;
     /**
      * Get full list of components

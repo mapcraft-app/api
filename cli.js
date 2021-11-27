@@ -120,6 +120,7 @@ class CLI
 		newPackage.description = this.ret.description;
 		newPackage.license = this.ret.license;
 		newPackage.uuid = newUUID;
+		newPackage.icon = 'icon.png';
 		newPackage.bin.component = this.ret.component;
 		newPackage.bin.lang = this.ret.lang;
 		newPackage.bin.isNotification = this.ret.isNotification;
@@ -128,6 +129,7 @@ class CLI
 		newComponent.name = this.ret.name;
 		newComponent.uuid = newUUID;
 		newComponent.component = this.ret.component;
+		newComponent.active = true;
 		newComponent.isNotification = (this.ret.isNotification === 'true');
 		newComponent.lang = this.ret.lang;
 

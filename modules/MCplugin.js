@@ -3,7 +3,7 @@
 **	 "component": string [.js],
 **	 "lang": string,
 **	 "isNotification" : true | false,
-**	 "using": (Optional) true | false
+**	 "active": (Optional) true | false
 ** }
 */
 
@@ -25,7 +25,7 @@ class MCplugin
 		this.plugins = [];
 		for (const i in this.Components)
 			if (this.Components[i].name !== '__DEFAULT'
-			&& (typeof this.Components[i].using === 'undefined' || this.Components[i].using === true))
+			&& (typeof this.Components[i].active === 'undefined' || this.Components[i].active === true))
 			{
 				this.plugins.push({
 					name: this.Components[i].name,
@@ -81,7 +81,10 @@ class MCplugin
 			{
 				try
 				{
-					data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
+					if (fs.existsSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)))
+						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
+					else
+						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, 'en_US.json')));
 				}
 				catch (err)
 				{
@@ -93,9 +96,9 @@ class MCplugin
 	}
 
 	/**
-	 * Get lang data of default component
-	 * @returns {JSON} Lang data
-	 */
+	  * Get lang data of default component
+	  * @returns {JSON} Lang data
+	  */
 	Default()
 	{
 		let data = null;
@@ -104,7 +107,10 @@ class MCplugin
 			{
 				try
 				{
-					data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
+					if (fs.existsSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)))
+						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
+					else
+						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, 'en_US.json')));
 				}
 				catch (err)
 				{
