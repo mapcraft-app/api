@@ -8,13 +8,7 @@ declare class MCplugin {
     Components: any;
     BaseLink: string;
     __default: any;
-    plugins: {
-        name: any;
-        component: any;
-        isNotification: any;
-        lang: string;
-        instance: any;
-    }[];
+    plugins: any;
     /**
      * Get instance of component
      * @param {String} Name Name of component
@@ -26,13 +20,13 @@ declare class MCplugin {
      * @param {String} Name Name of component
      * @returns Full component, or undefined if error
      */
-    Component(Name: string): {
-        name: any;
-        component: any;
-        isNotification: any;
-        lang: string;
-        instance: any;
-    };
+    Component(Name: string): any;
+    /**
+     * Toogle component
+     * @param {String} Name Name of component
+     * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
+     */
+    Toogle(Name: string, forceValue?: boolean): void;
     /**
      * Get lang data of component
      * @param {String} Name Name of component
@@ -48,11 +42,5 @@ declare class MCplugin {
      * Get full list of components
      * @returns List of components
      */
-    ListComponents(): {
-        name: any;
-        component: any;
-        isNotification: any;
-        lang: string;
-        instance: any;
-    }[];
+    ListComponents(): any;
 }

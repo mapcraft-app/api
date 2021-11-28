@@ -2,8 +2,8 @@ export = Template;
 declare class Template {
     /**
      * Folder in which all template files of the module are placed
-     * @param {string} directory Relative link of the file to the module
-     * @param {string} preGenerateID (Optional) Force the use of its own template identifier. Be careful if this function is badly used it can generate many strange problems
+     * @param {String} directory Relative link of the file to the module
+     * @param {String} preGenerateID (Optional) Force the use of its own template identifier. Be careful if this function is badly used it can generate many strange problems
      */
     constructor(directory: string, preGenerateID?: string);
     directory: string;
@@ -19,43 +19,43 @@ declare class Template {
     LOCKLink: string;
     /**
      * Render template in DOMelement
-     * @param {DOMelement} DOMelement DOMelement on which the elements will be added
-     * @param {string} template Name of template file with extension
-     * @param {json} args Valid json for replace variable(s)
+     * @param {Element} DOMelement DOMelement on which the elements will be added
+     * @param {String} template Name of template file with extension
+     * @param {JSON} args Valid json for replace variable(s)
      */
-    render(DOMelement: any, template: string, args: json): void;
+    render(DOMelement: Element, template: string, args: JSON): void;
     /**
      * Get raw of template HTML
-     * @param {string} template Name of template file with extension
+     * @param {String} template Name of template file with extension
      * @returns Blob raw of HTML template
      */
     getRaw(template: string): string;
     /**
      * Render generated elements in raw formats; data must be valid HTML
-     * @param {DOMelement} DOMelement DOMelement on which the elements will be added
-     * @param {string} rawHTML HTML raw
-     * @param {string} template Name of template file with extension
+     * @param {Element} DOMelement DOMelement on which the elements will be added
+     * @param {String} rawHTML HTML raw
+     * @param {String} template Name of template file with extension
      * @param {JSON} args Valid json for replace variable(s)
      */
-    renderRaw(DOMelement: any, rawHTML: string, template: string, args: JSON): void;
+    renderRaw(DOMelement: Element, rawHTML: string, template: string, args: JSON): void;
     /**
      * Parse HTML raw with variable(s)
-     * @param {string} HTML HTML raw
-     * @param {json} args Valid json for replace variable(s)
+     * @param {String} HTML HTML raw
+     * @param {JSON} args Valid json for replace variable(s)
      */
-    parseRaw(HTML: string, args: json): string;
+    parseRaw(HTML: string, args: JSON): string;
     /**
      * Update lang of specific DOMelement
-     * @param {DOMelement} DOMelement DOMelement of DOM
-     * @param {json} args Valid json for replace variable(s)
+     * @param {Element} DOMelement DOMelement of DOM
+     * @param {JSON} args Valid json for replace variable(s)
      */
-    updateLang(DOMelement: any, args: json): void;
+    updateLang(DOMelement: Element, args: JSON): void;
     /**
      * Correctly clean child of element
-     * @param {DOMelement} node DOMelement
-     * @param {boolean} RemoveParent If true, function remove node after delete child. false by default
+     * @param {Element} node DOMelement
+     * @param {Boolean} RemoveParent If true, function remove node after delete child. false by default
      */
-    cleanNode(node: DOMelement, RemoveParent?: boolean): void;
+    cleanNode(node: Element, RemoveParent?: boolean): void;
     /**
      * Clean render
      * @private

@@ -1,5 +1,6 @@
 {
 	"include": ["index.js", "modules/*"],
+	"exclude": ["modules/MCshellModels.js"],
 	"compilerOptions": {
 	  "allowJs": true,
 	  "declaration": true,

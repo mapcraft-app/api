@@ -37,7 +37,7 @@ class MCwindow
 	/**
 	 * Open window with file
 	 * @param {BrowserWindow} windowInstance BrowserWindow instance
-	 * @param {Sting} page Path of file loaded in window
+	 * @param {String} page Path of file loaded in window
 	 */
 	static OpenWindow(windowInstance, page)
 	{

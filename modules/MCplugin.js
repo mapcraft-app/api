@@ -22,24 +22,37 @@ class MCplugin
 		this.Components = JSON.parse(fs.readFileSync(MC.GetConfig().Env.Components, 'utf-8'));
 		this.BaseLink = path.join(directory, 'src/dist/template/Main');
 		this.__default = null;
-		this.plugins = [];
-		for (const i in this.Components)
-			if (this.Components[i].name !== '__DEFAULT'
-			&& (typeof this.Components[i].active === 'undefined' || this.Components[i].active === true))
-			{
-				this.plugins.push({
-					name: this.Components[i].name,
-					component: this.Components[i].component,
-					isNotification: this.Components[i].isNotification,
-					lang: path.join(this.BaseLink, this.Components[i].lang),
-					instance: require(path.join(directory, 'src/dist', `template/Main/${this.Components[i].component}`)) // eslint-disable-line
-				});
-			}
-			else if (this.Components[i].name === '__DEFAULT')
-			{
-				localStorage.setItem('Mapcraft_Plugin', this.Components[i].component);
-				this.__default = this.Components[i].component;
-			}
+		if (!global.MCpluginSave)
+		{
+			global.MCpluginSave = {
+				default: String,
+				array: [],
+			};
+			for (const i in this.Components)
+				if (this.Components[i].name !== '__DEFAULT'
+				&& (typeof this.Components[i].active === 'undefined' || this.Components[i].active === true))
+				{
+					global.MCpluginSave.array.push({
+						name: this.Components[i].name,
+						component: this.Components[i].component,
+						active: (this.Components[i].active) ? this.Components[i].active : true,
+						isNotification: this.Components[i].isNotification,
+						lang: path.join(this.BaseLink, this.Components[i].lang),
+						instancePath: path.join(directory, 'src/dist', `template/Main/${this.Components[i].component}`),
+						instance: Function,
+					});
+				}
+				else if (this.Components[i].name === '__DEFAULT')
+				{
+					localStorage.setItem('Mapcraft_Plugin', this.Components[i].component);
+					global.MCpluginSave.default = this.Components[i].component;
+				}
+			for (const i in global.MCpluginSave.array)
+				if (Object.prototype.hasOwnProperty.call(global.MCpluginSave.array, i))
+					global.MCpluginSave.array[i].instance = require(global.MCpluginSave.array[i].instancePath); // eslint-disable-line
+		}
+		this.plugins = global.MCpluginSave.array;
+		this.__default = global.MCpluginSave.default;
 	}
 
 	/**
@@ -66,6 +79,25 @@ class MCplugin
 			if (this.plugins[i].name === Name)
 				return (this.plugins[i]);
 		return (undefined);
+	}
+
+	/**
+	 * Toogle component
+	 * @param {String} Name Name of component
+	 * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
+	 */
+	Toogle(Name, forceValue = undefined)
+	{
+		for (const i in global.MCpluginSave.array)
+			if (global.MCpluginSave.array[i].name === Name)
+			{
+				if (forceValue === undefined)
+					global.MCpluginSave.array[i].active = !(global.MCpluginSave.array[i].active);
+				else
+					global.MCpluginSave.array[i].active = Boolean(forceValue);
+				this.plugins = global.MCpluginSave.array;
+				break;
+			}
 	}
 
 	/**

@@ -61,9 +61,9 @@ class MCutilities
 
 	/**
 	 * Download file from web, accept http and https url
-	 * @param {string} url url of download file
-	 * @param {string} destination path of file destination
-	 * @param {function} callback callback function with (error)
+	 * @param {String} url url of download file
+	 * @param {String} destination path of file destination
+	 * @param {Function} callback callback function with (error)
 	 */
 	static Download(url, destination, callback)
 	{
@@ -105,7 +105,7 @@ class MCutilities
 
 	/**
 	 * Check if directory is empty
-	 * @param {string} path path to directory
+	 * @param {String} path path to directory
 	 */
 	static IsEmptyDir(_path)
 	{
@@ -114,9 +114,9 @@ class MCutilities
 
 	/**
 	 * Get lang of component
-	 * @param {string} _dirname __dirname of component
-	 * @param {string} _langPath MC.GetConfig().Env.Lang
-	 * @param {string} _defaultDir default direcoty of lang file
+	 * @param {String} _dirname __dirname of component
+	 * @param {String} _langPath MC.GetConfig().Env.Lang
+	 * @param {String} _defaultDir default direcoty of lang file
 	 * @returns {JSON} JSON data of lang file, or undefined if error
 	 */
 	static GetLang(_dirname, _langPath, _defaultDir = 'lang')
@@ -135,7 +135,7 @@ class MCutilities
 
 	/**
 	  * Retrieved data from manifest.json
-	  * @param {string} _dirname Folder in which you want to search
+	  * @param {String} _dirname Folder in which you want to search
 	  * @returns {JSON} JSON data of package, or undefined if error
 	  */
 	static GetManifest(_dirname)
@@ -172,9 +172,9 @@ class MCutilities
 
 	/**
 	 * Print alert in HTMLelement
-	 * @param {string} type Type of error (`primary`, `success`, `warning`, `danger`)
+	 * @param {String} type Type of error (`primary`, `success`, `warning`, `danger`)
 	 * @param {Element} DOMelement Element in which alert will be displayed
-	 * @param {string} str Error message
+	 * @param {String} str Error message
 	 */
 	static CreateAlert(type, DOMelement, str)
 	{
