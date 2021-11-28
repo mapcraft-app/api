@@ -134,11 +134,11 @@ class MCutilities
 	}
 
 	/**
-	  * Retrieved data from package.json
+	  * Retrieved data from manifest.json
 	  * @param {string} _dirname Folder in which you want to search
 	  * @returns {JSON} JSON data of package, or undefined if error
 	  */
-	static GetPackage(_dirname)
+	static GetManifest(_dirname)
 	{
 		let data;
 		try

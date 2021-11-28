@@ -1,107 +1,71 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable curly */
+
+const fs = require('fs');
+const path = require('path');
+const builtin = require('./MCshellModels');
+
 const COMMAND = '/mapcraft';
 const LENGTH = COMMAND.length;
 
 class MCshell
 {
+	constructor()
+	{
+		this.commands = [];
+		const names = Object.keys(builtin);
+		names.forEach((name) => this.commands.push(builtin[name]));
+	}
+
+	/**
+	 * Set new  created by user
+	 * @param {Array} json Array contains json elements
+	 */
+	add(json)
+	{
+		if (Array.isArray(json))
+		{
+			json.forEach((object) =>
+			{
+				const _path = path.join(object.directory, 'shell.js');
+				if (fs.existsSync(_path))
+				{
+					const addons = require(_path);
+					const names = Object.keys(addons);
+					names.forEach((name) => this.commands.push(addons[name]));
+				}
+			});
+		}
+		else
+		{
+			console.error('MCshell/setAddonsComponents', 'argument is not a array');
+		}
+	}
+
 	/**
 	 * Parse a line and return data if the program exists
 	 * @param {String} line Line to be parsed
 	 * @returns {JSON} Preformed data, or null if error
 	 */
-	static parse(line)
+	parse(line)
 	{
 		let ret = null;
 		const check = line.indexOf(COMMAND);
 		if (check !== -1)
 		{
 			const args = line.substring(check + LENGTH).trim().split(' ');
-			switch (args[0])
+			for (const command of this.commands)
 			{
-				case 'trigger':
-					ret = this._trigger(args);
+				if (command.name === args[0])
+				{
+					ret = command.function(args);
 					break;
-				case 'cutscene':
-					ret = this._cutscene(args);
-					break;
-				case 'option':
-					ret = this._option(args);
-					break;
-				default:
-					break;
+				}
 			}
 		}
 		return (ret);
 	}
-
-	/**
-	 * Trigger built-in
-	 * @private
-	 */
-	static _trigger(args)
-	{
-		return ({
-			Command: args[0],
-			Player: args[1],
-			Coordinates: {
-				P1: [args[2], args[3], args[4]],
-				P2: [args[5], args[6], args[7]],
-			},
-		});
-	}
-
-	/**
-	 * Cutscene built-in
-	 * @private
-	 */
-	static _cutscene(args)
-	{
-		const stof = (str) => parseFloat(parseFloat(str.slice(0, -1)).toFixed(1));
-
-		switch (args[2])
-		{
-			case 'create':
-				return ({
-					Command: args[0],
-					Player: args[1],
-					Type: args[2],
-				});
-			case 'add-point':
-				parseFloat(args[3].slice(0, -1));
-				return ({
-					NoNotification: true,
-					Command: args[0],
-					Player: args[1],
-					Type: args[2],
-					Coordinates: {
-						Point: [stof(args[3]), stof(args[4]), stof(args[5])],
-						Rotation: [stof(args[6]), stof(args[7])],
-					},
-				});
-			case 'delete-point':
-				return ({
-					NoNotification: true,
-					Command: args[0],
-					Player: args[1],
-					Type: args[2],
-					Coordinates: { Point: [stof(args[3]), stof(args[4]), stof(args[5])] },
-				});
-			default:
-				return ({ Command: undefined });
-		}
-	}
-
-	/**
-	 * Option built-in
-	 * @private
-	 */
-	static _option(args)
-	{
-		return ({
-			Command: args[0],
-			Player: args[1],
-			Option: args[2],
-		});
-	}
 }
 
-module.exports = MCshell;
+module.exports = new MCshell();

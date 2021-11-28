@@ -37,11 +37,11 @@ declare class MCutilities {
      */
     static GetLang(_dirname: string, _langPath: string, _defaultDir?: string): JSON;
     /**
-      * Retrieved data from package.json
+      * Retrieved data from manifest.json
       * @param {string} _dirname Folder in which you want to search
       * @returns {JSON} JSON data of package, or undefined if error
       */
-    static GetPackage(_dirname: string): JSON;
+    static GetManifest(_dirname: string): JSON;
     /**
      * Retrieved data on game elements
      * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `structures`, `tags`, `triggers`)

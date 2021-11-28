@@ -49,23 +49,6 @@ class MCfs
 				}
 				LineNumber++;
 			});
-			/* for (const i of arr)
-			{
-				if (i.match(regex))
-				{
-					if (NewLine)
-						arr.splice(LineNumber, 1, NewLine);
-					else
-						arr.splice(LineNumber, 1);
-					fs.writeFile(File, arr.join('\n'), (errWrite) =>
-					{
-						if (errWrite)
-							throw new Error(errWrite);
-					});
-					return;
-				}
-				LineNumber++;
-			}*/
 			if (AddIfNotExit)
 				MCfs.AddLine(File, `${NewLine}\n`);
 		});

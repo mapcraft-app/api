@@ -113,6 +113,7 @@ exports.package = {
 	icon: String,
 	bin: {
 		component: String,
+		command: String,
 		lang: String,
 		isNotification: String,
 	},
@@ -132,20 +133,21 @@ exports.mainjs = (pluginName) =>
 {
 	const data = `/**
 * @file A plugin contains three variables and a class, which are imperative :
-* @constant LANG ....... contains all data corresponding to the language chosen by the user, or 'en_US.json' by default, in JSON format. When loading the plugin, it is important to call the @function UpdateLANG() to take into account if the user has changed the language of the software.
-* @constant PACKAGE .... contains all the data present in the 'package.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
+* @constant MANIFEST ... Contains all the data present in the 'manifest.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
 * @constant TEMPLATE ... Represents the class allowing you to display or delete things on the user interface.
+* @constant LANG ....... Contains all data corresponding to the language chosen by the user, or 'en_US.json' by default, in JSON format. When loading the plugin, it is important to call the @function UpdateLANG() to take into account if the user has changed the language of the software.
 * @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the 'main()' function, which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
+* @classdesc Shell ..... Asynchronous function, detects if a user in the game executes a command related to your plugin.
 */
-const { Mapcraft, MCutilities, MCtemplate } = require('mapcraft-api');
+const { Mapcraft, MCipc, MCtemplate, MCutilities } = require('mapcraft-api');
 
-const PACKAGE = MCutilities.GetPackage(__dirname);
-const TEMPLATE = new MCtemplate(__dirname, PACKAGE.uuid);
+const MANIFEST = MCutilities.GetPackage(__dirname);
+const TEMPLATE = new MCtemplate(__dirname, MANIFEST.uuid);
 let LANG;
-function UpdateLANG()
+const UpdateLANG = () =>
 {
-	LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang, PACKAGE.bin.lang);
-}
+	LANG = MCutilities.GetLang(__dirname, Mapcraft.GetConfig().Env.Lang, MANIFEST.bin.lang);
+};
 
 class Component
 {
@@ -156,10 +158,37 @@ class Component
 	}
 }
 
+//Shell
+MCipc.receive('Shell:execute-command', (command) =>
+{
+	if (command.Command !== (MANIFEST.bin.command) ? MANIFEST.bin.command : MANIFEST.name)
+		return;
+	console.log(MANIFEST.name, command);
+});
+
 module.exports = Component;
 `;
 	return (data);
 };
+
+// eslint-disable-next-line operator-linebreak
+exports.mainshell =
+`const component = require('./manifest.json');
+
+exports.command = {
+	name: (component.bin.command) ? component.bin.command : component.name,
+	function: (args) =>
+	{
+		const num = Number(42);
+		return ({
+			Command: args[0],
+			Player: args[1],
+			Number: num,
+			UUID: component.uuid,
+		});
+	},
+};
+`;
 
 // eslint-disable-next-line operator-linebreak
 exports.maintp =

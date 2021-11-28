@@ -122,6 +122,7 @@ class CLI
 		newPackage.uuid = newUUID;
 		newPackage.icon = 'icon.png';
 		newPackage.bin.component = this.ret.component;
+		newPackage.bin.command = this.ret.name;
 		newPackage.bin.lang = this.ret.lang;
 		newPackage.bin.isNotification = this.ret.isNotification;
 
@@ -161,6 +162,7 @@ class CLI
 					fs.mkdirSync(path.join(newPluginPath, this.ret.lang), { recursive: false });
 					fs.writeFileSync(path.join(newPluginPath, this.ret.component), models.mainjs(this.ret.name), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					fs.writeFileSync(path.join(newPluginPath, `${this.ret.name}.tp`), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, 'shell.js'), models.mainshell, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					fs.writeFileSync(path.join(newPluginPath, 'manifest.json'), JSON.stringify(newPackage, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					const newJsonLang = models.lang;
 					newJsonLang.Title = this.ret.title;
@@ -172,7 +174,7 @@ class CLI
 				}
 				catch (errBase)
 				{
-					console.error(errBase);
+					console.error(errBase.message);
 				}
 				console.log('🚀 The plugin is ready !');
 				process.exit(0);
