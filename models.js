@@ -141,7 +141,7 @@ exports.mainjs = (pluginName) =>
 */
 const { Mapcraft, MCipc, MCtemplate, MCutilities } = require('mapcraft-api');
 
-const MANIFEST = MCutilities.GetPackage(__dirname);
+const MANIFEST = MCutilities.GetManifest(__dirname);
 const TEMPLATE = new MCtemplate(__dirname, MANIFEST.uuid);
 let LANG;
 const UpdateLANG = () =>
