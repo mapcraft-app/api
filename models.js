@@ -159,11 +159,12 @@ class Component
 }
 
 //Shell
+const COMMAND = (MANIFEST.bin.command) ? MANIFEST.bin.command : MANIFEST.name;
 MCipc.receive('Shell:execute-command', (command) =>
 {
-	if (command.Command !== (MANIFEST.bin.command) ? MANIFEST.bin.command : MANIFEST.name)
+	if (command.Command !== COMMAND)
 		return;
-	console.log(MANIFEST.name, command);
+	MCutilities.CreateAlert('success', document.getElementById('custom-alert'), \`Receive command \${JSON.stringify(command)}\`);
 });
 
 module.exports = Component;
@@ -194,7 +195,8 @@ exports.command = {
 exports.maintp =
 `[HTML]
 <div class="uk-container uk-margin-top">
-	<h2 class="custom-class">{CustomVar}</h2>	
+	<div id="custom-alert"></div>
+	<h2 class="custom-class">{CustomVar}</h2>
 </div>
 [/HTML]
 
