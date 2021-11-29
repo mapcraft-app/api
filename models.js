@@ -94,7 +94,7 @@ exports.init = [
 	{
 		input: 'isNotification',
 		question: 'Will there be notifications ?',
-		regex: /^true|false+$/,
+		regex: /^true|false$/,
 		warning: 'Must be only true or false',
 		default: 'false',
 		type: Boolean,
@@ -115,7 +115,6 @@ exports.package = {
 		component: String,
 		command: String,
 		lang: String,
-		isNotification: String,
 	},
 };
 

@@ -86,6 +86,12 @@ class CLI
 	init()
 	{
 		const newUUID = crypto.randomUUID();
+		const returnBool = (value) =>
+		{
+			if (value === 'true' || value === true)
+				return Boolean(true);
+			return Boolean(false);
+		};
 		let outputDir = PluginsPath;
 		if (this.Args[1])
 		{
@@ -106,9 +112,15 @@ class CLI
 					break;
 			}
 			if (answer.length === 0)
-				this.ret[question.input] = question.type(question.default);
-			else
-				this.ret[question.input] = question.type(answer);
+				if (question.type === Boolean)
+					this.ret[question.input] = returnBool(question.default);
+				else
+					this.ret[question.input] = question.type(question.default);
+			else if (answer.length > 0)
+				if (question.type === Boolean)
+					this.ret[question.input] = returnBool(answer);
+				else
+					this.ret[question.input] = question.type(answer);
 		});
 
 		Spinner.spin('The plugin is being created');
@@ -124,14 +136,13 @@ class CLI
 		newPackage.bin.component = this.ret.component;
 		newPackage.bin.command = this.ret.name;
 		newPackage.bin.lang = this.ret.lang;
-		newPackage.bin.isNotification = this.ret.isNotification;
 
 		const newComponent = models.component;
 		newComponent.name = this.ret.name;
 		newComponent.uuid = newUUID;
 		newComponent.component = this.ret.component;
 		newComponent.active = true;
-		newComponent.isNotification = (this.ret.isNotification === 'true');
+		newComponent.isNotification = this.ret.isNotification;
 		newComponent.lang = this.ret.lang;
 
 		fs.readFile(path.join(PluginsPath, 'components.json'), { encoding: 'utf-8', flag: 'r' }, (err, data) =>
