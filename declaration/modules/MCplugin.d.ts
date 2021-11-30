@@ -9,6 +9,7 @@ declare class MCplugin {
     BaseLink: string;
     __default: any;
     plugins: any;
+    builtins: any;
     /**
      * Get instance of component
      * @param {String} Name Name of component
@@ -21,6 +22,12 @@ declare class MCplugin {
      * @returns Full component, or undefined if error
      */
     Component(Name: string): any;
+    /**
+     * Check if component is active
+     * @param {String} Name
+     * @returns true/false if active/desactive; or undefined if not exist
+     */
+    Active(Name: string): any;
     /**
      * Toogle component
      * @param {String} Name Name of component

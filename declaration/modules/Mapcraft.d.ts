@@ -2,10 +2,6 @@ declare const _exports: MC;
 export = _exports;
 declare class MC {
     /**
-     * Update 'APIVersion' key with last API version
-     */
-    UpdateAPIVersion(): void;
-    /**
      * Reset config.json file with default values
      */
     ResetConfigFile(): void;
@@ -17,8 +13,9 @@ declare class MC {
      * @param {String} lang Lang of application, default 'default_lang' key of manifest
      * @param {String} resourcepack Name of resource pack, default 'Mapcraft-resource'
      * @param {String} datapack Name of data pack, default 'Mapcraft-data'
+     * @param {String} apiVersion Version of API
      */
-    UpdateConfig(temp: string, data: string, save: string, lang?: string, resourcepack?: string, datapack?: string): void;
+    UpdateConfig(temp: string, data: string, save: string, lang?: string, resourcepack?: string, datapack?: string, apiVersion?: string): void;
     /**
      * Set selected minecraft version by user
      * @param {String} version Selected version

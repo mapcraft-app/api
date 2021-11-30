@@ -19,24 +19,44 @@ class MCplugin
 	 */
 	constructor(directory = path.join(__dirname, '../../../'))
 	{
+		
 		this.Components = JSON.parse(fs.readFileSync(MC.GetConfig().Env.Components, 'utf-8'));
+		this.ActiveComponent
 		this.BaseLink = path.join(directory, 'src/dist/template/Main');
 		this.__default = null;
 		if (!global.MCpluginSave)
 		{
+			let isNewBuiltin = false;
 			global.MCpluginSave = {
 				default: String,
 				array: [],
+				active: JSON.parse(fs.readFileSync(MC.GetConfig().Env.ActiveComponents, { encoding: 'utf-8', flag: 'r' })),
+			};
+			const addBuiltin = (json) =>
+			{
+				for (const i in global.MCpluginSave.active)
+					if (global.MCpluginSave.active[i].name === json.name)
+						return;
+				global.MCpluginSave.active.push(json);
+				isNewBuiltin = true;
 			};
 			for (const i in this.Components)
+			{
+				if (this.Components[i].name !== '__DEFAULT')
+				{
+					addBuiltin({
+						name: this.Components[i].name,
+						active: this.Components[i].active,
+					});
+				}
 				if (this.Components[i].name !== '__DEFAULT'
 				&& (typeof this.Components[i].active === 'undefined' || this.Components[i].active === true))
 				{
 					global.MCpluginSave.array.push({
 						name: this.Components[i].name,
 						component: this.Components[i].component,
-						active: (this.Components[i].active) ? this.Components[i].active : true,
 						isNotification: this.Components[i].isNotification,
+						active: this.Components[i].active,
 						lang: path.join(this.BaseLink, this.Components[i].lang),
 						instancePath: path.join(directory, 'src/dist', `template/Main/${this.Components[i].component}`),
 						instance: Function,
@@ -47,11 +67,21 @@ class MCplugin
 					localStorage.setItem('Mapcraft_Plugin', this.Components[i].component);
 					global.MCpluginSave.default = this.Components[i].component;
 				}
+			}
 			for (const i in global.MCpluginSave.array)
 				if (Object.prototype.hasOwnProperty.call(global.MCpluginSave.array, i))
 					global.MCpluginSave.array[i].instance = require(global.MCpluginSave.array[i].instancePath); // eslint-disable-line
+			if (isNewBuiltin)
+			{
+				fs.writeFile(MC.GetConfig().Env.ActiveComponents, JSON.stringify(global.MCpluginSave.active, null, 4), { encoding: 'utf-8', flag: 'w' }, (err) =>
+				{
+					if (err)
+						console.error(err);
+				});
+			}
 		}
 		this.plugins = global.MCpluginSave.array;
+		this.builtins = global.MCpluginSave.active;
 		this.__default = global.MCpluginSave.default;
 	}
 
@@ -82,20 +112,33 @@ class MCplugin
 	}
 
 	/**
+	 * Check if component is active
+	 * @param {String} Name 
+	 * @returns true/false if active/desactive; or undefined if not exist
+	 */
+	Active(Name)
+	{
+		for (const i in this.builtins)
+			if (this.builtins[i].name === Name)
+				return (this.builtins[i].active);
+		return (undefined);
+	}
+
+	/**
 	 * Toogle component
 	 * @param {String} Name Name of component
 	 * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
 	 */
 	Toogle(Name, forceValue = undefined)
 	{
-		for (const i in global.MCpluginSave.array)
-			if (global.MCpluginSave.array[i].name === Name)
+		for (const i in global.MCpluginSave.active)
+			if (global.MCpluginSave.active[i].name === Name)
 			{
 				if (forceValue === undefined)
-					global.MCpluginSave.array[i].active = !(global.MCpluginSave.array[i].active);
+					global.MCpluginSave.active[i].active = !(global.MCpluginSave.active[i].active);
 				else
-					global.MCpluginSave.array[i].active = Boolean(forceValue);
-				this.plugins = global.MCpluginSave.array;
+					global.MCpluginSave.active[i].active = Boolean(forceValue);
+				this.builtins = global.MCpluginSave.active;
 				break;
 			}
 	}

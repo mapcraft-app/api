@@ -14,6 +14,9 @@ const MinecraftVersion = {
 MCutilities.GetAppDataPath();
 if (!process.env.AppPath)
 	process.env.AppPath = app.getAppPath();
+if (path.win32.basename(process.env.AppPath) === 'app.asar')
+	process.env.AppPath = path.join(process.env.AppPath, '../'); // ressources dir for build version
+
 
 // API const
 const { AppDataPath, AppPath } = process.env;
@@ -22,7 +25,9 @@ const pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', 'src/m
 const _APIVersion = pack.version;
 const DefaultLang = pack.default_lang;
 const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
+const ActiveComponents = path.join(AppDataPath, 'builtin.json');
 const UserComponentsLink = path.join(AppPath, 'plugins');
+
 
 class MC
 {
@@ -33,6 +38,8 @@ class MC
 	 */
 	constructor()
 	{
+		if (!fs.existsSync(ActiveComponents))
+			fs.writeFileSync(path.join(ActiveComponents), '[]', { encoding: 'utf-8' });
 		if (!fs.existsSync(UserComponentsLink))
 		{
 			fs.mkdirSync(UserComponentsLink, { recursive: true, mode: 0o777 });
@@ -40,17 +47,8 @@ class MC
 		}
 		if (!fs.existsSync(path.join(AppDataPath, 'config.json')))
 			this.ResetConfigFile();
-		this.UpdateAPIVersion();
-	}
-
-	/**
-	 * Update 'APIVersion' key with last API version
-	 */
-	UpdateAPIVersion()
-	{
 		const data = JSON.parse(fs.readFileSync(path.join(AppDataPath, 'config.json'), { encoding: 'utf-8', flag: 'r' }));
-		data.Env.APIVersion = _APIVersion;
-		fs.writeFileSync(path.join(AppDataPath, 'config.json'), JSON.stringify(data, null, 4), { encoding: 'utf-8', flag: 'w' });
+		this.UpdateConfig(data.Env.TempPath, data.Env.GamePath, data.Env.SavePath, data.Env.Lang, data.Data.ResourcePack, data.Data.DataPack, data.Env.APIVersion);
 	}
 
 	/**
@@ -75,6 +73,7 @@ class MC
 				SavePath: path.join(linkToGame, 'saves'),
 				Lang: DefaultLang,
 				Components: ComponentsLink,
+				ActiveComponents: ActiveComponents,
 				PluginsComponents: UserComponentsLink,
 				APIVersion: _APIVersion,
 			},
@@ -94,8 +93,9 @@ class MC
 	 * @param {String} lang Lang of application, default 'default_lang' key of manifest
 	 * @param {String} resourcepack Name of resource pack, default 'Mapcraft-resource'
 	 * @param {String} datapack Name of data pack, default 'Mapcraft-data'
+	 * @param {String} apiVersion Version of API
 	 */
-	UpdateConfig(temp = OS.tmpdir(), data, save, lang = DefaultLang, resourcepack = 'Mapcraft-resource', datapack = 'Mapcraft-data')
+	UpdateConfig(temp = OS.tmpdir(), data, save, lang = DefaultLang, resourcepack = 'Mapcraft-resource', datapack = 'Mapcraft-data', apiVersion = _APIVersion)
 	{
 		const config = {
 			Minecraft: MinecraftVersion,
@@ -107,8 +107,9 @@ class MC
 				SavePath: save,
 				Lang: lang,
 				Components: ComponentsLink,
+				ActiveComponents: ActiveComponents,
 				PluginsComponents: UserComponentsLink,
-				APIVersion: _APIVersion,
+				APIVersion: apiVersion,
 			},
 			Data: {
 				ResourcePack: resourcepack,
