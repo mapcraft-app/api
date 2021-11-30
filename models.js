@@ -138,7 +138,7 @@ exports.mainjs = (pluginName) =>
 * @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the 'main()' function, which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
 * @classdesc Shell ..... Asynchronous function, detects if a user in the game executes a command related to your plugin.
 */
-const { Mapcraft, MCipc, MCtemplate, MCutilities } = require('mapcraft-api');
+const { Mapcraft, MCipc, MCtemplate, MCutilities } = requireModule('mapcraft-api');
 
 const MANIFEST = MCutilities.GetManifest(__dirname);
 const TEMPLATE = new MCtemplate(__dirname, MANIFEST.uuid);
