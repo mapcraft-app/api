@@ -125,7 +125,7 @@ class MC
 		const config = this.GetConfig();
 		config.Minecraft.SelectedVersion = version;
 		fs.writeFileSync(path.join(AppDataPath, 'config.json'), JSON.stringify(config, null, 4), { encoding: 'utf-8', flag: 'w' });
-		global.Mapcraft.SelectedVersion = version;
+		global.MinecraftSelectedVersion = version;
 	}
 
 	/**
