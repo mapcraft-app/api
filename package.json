@@ -1,6 +1,6 @@
 {
   "name": "mapcraft-api",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "Official API for developping your own plugin for Mapcraft ecosystem",
   "main": "index.js",
   "bin": {
@@ -23,7 +23,10 @@
     "type": "git",
     "url": "https://gitlab.com/cbertran/mapcraft-api.git"
   },
-  "keywords": [],
+  "keywords": [
+    "mapcraft",
+    "minecraft"
+  ],
   "author": "Clément Bertrand (https://gitlab.com/cbertran/mapcraft-api)",
   "license": "GPL-3.0",
   "homepage": "https://mapcraft.app",

@@ -3,6 +3,7 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const process = require('process');
+const version = require('./json/version.json');
 
 class MCutilities
 {
@@ -158,7 +159,7 @@ class MCutilities
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns {JSON} JSON data, or undefined if error
 	 */
-	static GetDataGameElement(type, minecraftVersion = '1.17')
+	static GetDataGameElement(type, minecraftVersion = version.LastestVersion)
 	{
 		try
 		{

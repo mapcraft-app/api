@@ -48,7 +48,7 @@ declare class MCutilities {
      * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns {JSON} JSON data, or undefined if error
      */
-    static GetDataGameElement(type: string, minecraftVersion?: string): JSON;
+    static GetDataGameElement(type: string, minecraftVersion?: any): JSON;
     /**
      * Print alert in HTMLelement
      * @param {String} type Type of error (`primary`, `success`, `warning`, `danger`)

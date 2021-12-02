@@ -6,17 +6,13 @@ const path = require('path');
 const process = require('process');
 const MCutilities = require('./MCutilities');
 
-const MinecraftVersion = {
-	Versions: ['1.17'],
-	LastestVersion: '1.17',
-	SelectedVersion: '1.17',
-};
+const MinecraftVersion = require('./json/version.json');
+
 MCutilities.GetAppDataPath();
 if (!process.env.AppPath)
 	process.env.AppPath = app.getAppPath();
 if (path.win32.basename(process.env.AppPath) === 'app.asar')
 	process.env.AppPath = path.join(process.env.AppPath, '../'); // ressources dir for build version
-
 
 // API const
 const { AppDataPath, AppPath } = process.env;
@@ -27,7 +23,6 @@ const DefaultLang = pack.default_lang;
 const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
 const ActiveComponents = path.join(AppDataPath, 'builtin.json');
 const UserComponentsLink = path.join(AppPath, 'plugins');
-
 
 class MC
 {
@@ -48,7 +43,9 @@ class MC
 		if (!fs.existsSync(path.join(AppDataPath, 'config.json')))
 			this.ResetConfigFile();
 		const data = JSON.parse(fs.readFileSync(path.join(AppDataPath, 'config.json'), { encoding: 'utf-8', flag: 'r' }));
+		const MinecraftSelectedVersion = data.Minecraft.SelectedVersion;
 		this.UpdateConfig(data.Env.TempPath, data.Env.GamePath, data.Env.SavePath, data.Env.Lang, data.Data.ResourcePack, data.Data.DataPack, data.Env.APIVersion);
+		this.SetSelectedVersion(MinecraftSelectedVersion);
 	}
 
 	/**
@@ -73,7 +70,7 @@ class MC
 				SavePath: path.join(linkToGame, 'saves'),
 				Lang: DefaultLang,
 				Components: ComponentsLink,
-				ActiveComponents: ActiveComponents,
+				ActiveComponents: ActiveComponents, // eslint-disable-line object-shorthand
 				PluginsComponents: UserComponentsLink,
 				APIVersion: _APIVersion,
 			},
@@ -107,7 +104,7 @@ class MC
 				SavePath: save,
 				Lang: lang,
 				Components: ComponentsLink,
-				ActiveComponents: ActiveComponents,
+				ActiveComponents: ActiveComponents, // eslint-disable-line object-shorthand
 				PluginsComponents: UserComponentsLink,
 				APIVersion: apiVersion,
 			},
@@ -128,6 +125,7 @@ class MC
 		const config = this.GetConfig();
 		config.Minecraft.SelectedVersion = version;
 		fs.writeFileSync(path.join(AppDataPath, 'config.json'), JSON.stringify(config, null, 4), { encoding: 'utf-8', flag: 'w' });
+		global.Mapcraft.SelectedVersion = version;
 	}
 
 	/**

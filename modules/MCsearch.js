@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const version = require('./json/version.json');
 
-const DefaultMinecraftVersion = '1.17';
+const DefaultMinecraftVersion = version.LastestVersion;
 const hexaID = () => crypto.randomBytes(Math.ceil(24 / 2)).toString('hex').slice(0, 24);
 const InputSearch = (target, LIST) =>
 {

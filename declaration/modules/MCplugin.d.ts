@@ -24,7 +24,7 @@ declare class MCplugin {
     Component(Name: string): any;
     /**
      * Check if component is active
-     * @param {String} Name
+     * @param {String} Name Name of component
      * @returns true/false if active/desactive; or undefined if not exist
      */
     Active(Name: string): any;
