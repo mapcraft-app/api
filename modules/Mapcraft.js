@@ -43,7 +43,11 @@ class MC
 		if (!fs.existsSync(path.join(AppDataPath, 'config.json')))
 			this.ResetConfigFile();
 		const data = JSON.parse(fs.readFileSync(path.join(AppDataPath, 'config.json'), { encoding: 'utf-8', flag: 'r' }));
-		const MinecraftSelectedVersion = data.Minecraft.SelectedVersion;
+		let MinecraftSelectedVersion;
+		if (Object.prototype.hasOwnProperty.call(data, 'Minecraft') && Object.prototype.hasOwnProperty.call(data.Minecraft, 'SelectedVersion'))
+			MinecraftSelectedVersion = data.Minecraft.SelectedVersion;
+		else
+			MinecraftSelectedVersion = MinecraftVersion.LastestVersion;
 		this.UpdateConfig(data.Env.TempPath, data.Env.GamePath, data.Env.SavePath, data.Env.Lang, data.Data.ResourcePack, data.Data.DataPack, data.Env.APIVersion);
 		this.SetSelectedVersion(MinecraftSelectedVersion);
 	}
