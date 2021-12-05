@@ -3,6 +3,7 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const process = require('process');
+const { app } = require('electron');
 const version = require('./json/version.json');
 
 class MCutilities
@@ -35,29 +36,18 @@ class MCutilities
 	 */
 	static GetAppDataPath()
 	{
-		const __MAPCRAFT = 'mapcraft';
-		process.env.AppDataPath = String;
-		switch (process.platform)
+		if (global.AppDataPath)
 		{
-			case 'darwin': {
-				process.env.AppDataPath = path.join(process.env.HOME, 'Library', 'Application Support', __MAPCRAFT);
-				break;
-			}
-			case 'win32': {
-				process.env.AppDataPath = path.join(process.env.APPDATA, __MAPCRAFT);
-				break;
-			}
-			case 'linux': {
-				process.env.AppDataPath = path.join(process.env.HOME, __MAPCRAFT);
-				break;
-			}
-			default: {
-				console.log('Unsupported platform!');
-				process.exit(1);
-			}
+			process.env.AppDataPath = global.AppDataPath;
 		}
-		if (!fs.existsSync(process.env.AppDataPath))
-			fs.mkdirSync(process.env.AppDataPath);
+		else
+		{
+			if (!process.env.AppDataPath)
+				process.env.AppDataPath = app.getPath('userData');
+			if (!fs.existsSync(process.env.AppDataPath))
+				fs.mkdirSync(process.env.AppDataPath);
+			global.AppDataPath = process.env.AppDataPath;
+		}
 	}
 
 	/**
