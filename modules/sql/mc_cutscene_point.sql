@@ -1,4 +1,4 @@
-CREATE TABLE "CutscenePoint" (
+CREATE TABLE IF NOT EXISTS "CutscenePoint" (
 	"CutsceneID"	INTEGER,
 	"Point"			INTEGER,
 	"X"				INTEGER,

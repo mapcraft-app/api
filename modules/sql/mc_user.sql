@@ -1,4 +1,4 @@
-CREATE TABLE "User" (
+CREATE TABLE IF NOT EXISTS "User" (
 	"ID"			INTEGER,
 	"Username"		TEXT,
 	"UUID"			TEXT,

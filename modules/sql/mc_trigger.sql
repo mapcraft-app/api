@@ -1,4 +1,4 @@
-CREATE TABLE "Trigger" (
+CREATE TABLE IF NOT EXISTS "Trigger" (
 	"ID"	INTEGER,
 	"Name"	TEXT,
 	"X1"	INTEGER,

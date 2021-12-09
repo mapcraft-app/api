@@ -1,4 +1,4 @@
-CREATE TABLE "Cutscene" (
+CREATE TABLE IF NOT EXISTS "Cutscene" (
 	"ID"		INTEGER,
 	"Name"		TEXT,
 	"Tag"		TEXT,
