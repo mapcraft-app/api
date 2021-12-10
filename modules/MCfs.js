@@ -25,6 +25,7 @@ class MCfs
 	 */
 	static async ModifyLine(File, Occurence, NewLine = undefined, AddIfNotExit = false)
 	{
+		let isFound = false;
 		let LineNumber = 0;
 		const regex = new RegExp(`(${Occurence})\\b`, 's');
 		fs.readFile(File, (err, data) =>
@@ -36,6 +37,7 @@ class MCfs
 			{
 				if (element.match(regex))
 				{
+					isFound = true;
 					if (NewLine)
 						arr.splice(LineNumber, 1, NewLine);
 					else
@@ -49,7 +51,7 @@ class MCfs
 				}
 				LineNumber++;
 			});
-			if (AddIfNotExit)
+			if (AddIfNotExit && !isFound)
 				MCfs.AddLine(File, `${NewLine}\n`);
 		});
 	}
