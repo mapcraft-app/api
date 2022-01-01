@@ -9,7 +9,7 @@ exports.help = {
 
 	init: `
 	\x1b[36mmapcraft-api\x1b[0m \x1b[32minit\x1b[0m \x1b[34m<options>\x1b[0m
-	\x1b[34m--directory\x1b[0m, \x1b[34m--dir\x1b[0m ..... Output folder, default to \x1b[32m'applicationFolder/out'\x1b[0m
+	\x1b[34m--directory\x1b[0m, \x1b[34m--dir\x1b[0m ..... Output folder, default to \x1b[32m'appData/plugins'\x1b[0m
 
 	Initiate the creation of a new plugin
 	`,
@@ -116,6 +116,9 @@ exports.package = {
 		command: String,
 		lang: String,
 	},
+	dependencies: {
+		'mapcraft-api': '^1.6.7',
+	},
 };
 
 exports.component = {
@@ -132,15 +135,15 @@ exports.mainjs = (pluginName) =>
 {
 	const data = `/**
 * @file A plugin contains three variables and a class, which are imperative :
-* @constant MANIFEST ... Contains all the data present in the 'manifest.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
+* @constant MANIFEST ... Contains all the data present in the 'package.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
 * @constant TEMPLATE ... Represents the class allowing you to display or delete things on the user interface.
 * @constant LANG ....... Contains all data corresponding to the language chosen by the user, or 'en_US.json' by default, in JSON format. When loading the plugin, it is important to call the @function UpdateLANG() to take into account if the user has changed the language of the software.
 * @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the 'main()' function, which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
 * @classdesc Shell ..... Asynchronous function, detects if a user in the game executes a command related to your plugin.
 */
-const { Mapcraft, MCipc, MCtemplate, MCutilities } = requireModule('mapcraft-api');
+const { Mapcraft, MCipc, MCtemplate, MCutilities } = require('mapcraft-api');
 
-const MANIFEST = MCutilities.GetManifest(__dirname);
+const MANIFEST = MCutilities.GetPackage(__dirname);
 const TEMPLATE = new MCtemplate(__dirname, MANIFEST.uuid);
 let LANG;
 const UpdateLANG = () =>
@@ -173,7 +176,7 @@ module.exports = Component;
 
 // eslint-disable-next-line operator-linebreak
 exports.mainshell =
-`const component = require('./manifest.json');
+`const component = require('./package.json');
 
 exports.command = {
 	name: (component.bin.command) ? component.bin.command : component.name,

@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 const OS = require('os');
-// const admZip = require('adm-zip');
 const fs = require('fs');
 const crypto = require('crypto');
+const child = require('child_process');
 const path = require('path');
 const readline = require('readline-sync');
+// const admZip = require('adm-zip');
 const models = require('./models');
+
+const AppName = 'Mapcraft';
+
+// eslint-disable-next-line
+process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share")
 
 function GetAppPath()
 {
-	const base = path.dirname(require.main.filename);
-	let appPath = path.join(base, '../../');
-	if (path.basename(appPath) === 'resources')
-		appPath = path.join(appPath, '../');
-	appPath = path.join(appPath, 'plugins');
+	const appPath = path.join(process.env.APPDATA, AppName, 'plugins');
 	fs.mkdir(appPath, { recursive: true }, (err) =>
 	{
 		if (err)
@@ -24,10 +26,9 @@ function GetAppPath()
 	});
 	return appPath;
 }
-
 const PluginsPath = GetAppPath();
-let saveInterval;
 
+let saveInterval;
 class Spinner
 {
 	static spin(string)
@@ -174,7 +175,7 @@ class CLI
 					fs.writeFileSync(path.join(newPluginPath, this.ret.component), models.mainjs(this.ret.name), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					fs.writeFileSync(path.join(newPluginPath, `${this.ret.name}.tp`), models.maintp, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					fs.writeFileSync(path.join(newPluginPath, 'shell.js'), models.mainshell, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
-					fs.writeFileSync(path.join(newPluginPath, 'manifest.json'), JSON.stringify(newPackage, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
+					fs.writeFileSync(path.join(newPluginPath, 'package.json'), JSON.stringify(newPackage, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 					const newJsonLang = models.lang;
 					newJsonLang.Title = this.ret.title;
 					newJsonLang.Icon = 'code';
@@ -187,8 +188,27 @@ class CLI
 				{
 					console.error(errBase.message);
 				}
-				console.log('🚀 The plugin is ready !');
-				process.exit(0);
+				Spinner.spin('Installation of the required packages');
+
+				child.exec('yarn', { cwd: newPluginPath, shell: true }, (errChild) =>
+				{
+					if (errChild)
+					{
+						process.stdout.clearLine();
+						process.stdout.cursorTo(0);
+						console.log(`❌ Child failed (error ${err.code}) > ${err.message}`);
+					}
+				}).on('close', (code) =>
+				{
+					clearInterval(saveInterval);
+					process.stdout.clearLine();
+					process.stdout.cursorTo(0);
+					if (code !== 0)
+						console.log(`❌ ${err.message}`);
+					else
+						console.log('🚀 The plugin is ready !');
+					process.exit(0);
+				});
 			});
 		});
 	}
