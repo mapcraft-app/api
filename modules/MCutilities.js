@@ -31,10 +31,9 @@ class MCutilities
 	}
 
 	/**
-	 * Generate path of AppData directory of system
-	 * @return process.env.AppDataPath
+	 * Generate ENV of system for application
 	 */
-	static GetAppDataPath()
+	static GenerateENV()
 	{
 		if (global.AppDataPath)
 		{
@@ -48,6 +47,13 @@ class MCutilities
 				fs.mkdirSync(process.env.AppDataPath);
 			global.AppDataPath = process.env.AppDataPath;
 		}
+		if (!process.env.AppPath)
+			process.env.AppPath = app.getAppPath();
+		if (path.basename(process.env.AppPath) === 'app.asar')
+			process.env.PRODUCTION = 'true';
+			// process.env.AppPath = path.join(process.env.AppPath, '../'); // ressources dir for build version
+		else
+			process.env.PRODUCTION = 'false';
 	}
 
 	/**
@@ -107,7 +113,7 @@ class MCutilities
 	 * Get lang of component
 	 * @param {String} _dirname __dirname of component
 	 * @param {String} _langPath MC.GetConfig().Env.Lang
-	 * @param {String} _defaultDir default direcoty of lang file
+	 * @param {String} _defaultDir default directory of lang file
 	 * @returns {JSON} JSON data of lang file, or undefined if error
 	 */
 	static GetLang(_dirname, _langPath, _defaultDir = 'lang')
@@ -125,16 +131,16 @@ class MCutilities
 	}
 
 	/**
-	  * Retrieved data from manifest.json
+	  * Retrieved data from package.json
 	  * @param {String} _dirname Folder in which you want to search
 	  * @returns {JSON} JSON data of package, or undefined if error
 	  */
-	static GetManifest(_dirname)
+	static GetPackage(_dirname)
 	{
 		let data;
 		try
 		{
-			data = JSON.parse(fs.readFileSync(path.join(_dirname, 'manifest.json')));
+			data = JSON.parse(fs.readFileSync(path.join(_dirname, 'package.json')));
 		}
 		catch (err)
 		{

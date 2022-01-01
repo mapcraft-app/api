@@ -17,7 +17,7 @@ class MCplugin
 	 * Preload plugins
 	 * @param {String} directory Folder where the plugins are located, @default path_to_builtin_plugins
 	 */
-	constructor(directory = path.join(__dirname, '../../../'))
+	constructor(directory = process.env.AppPath/* directory = path.join(__dirname, '../../../') */)
 	{
 		this.Components = JSON.parse(fs.readFileSync(MC.GetConfig().Env.Components, 'utf-8'));
 		this.ActiveComponent; // eslint-disable-line no-unused-expressions

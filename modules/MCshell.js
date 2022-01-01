@@ -19,8 +19,8 @@ class MCshell
 	}
 
 	/**
-	 * Set new  created by user
-	 * @param {Array} json Array contains json elements
+	 * Add new command to shell
+	 * @param {any} json Array contains json elements
 	 */
 	add(json)
 	{
@@ -37,9 +37,13 @@ class MCshell
 				}
 			});
 		}
+		else if (json.constructor === ({}).constructor)
+		{
+			this.commands.push(json);
+		}
 		else
 		{
-			console.error('MCshell/setAddonsComponents', 'argument is not a array');
+			console.error('MCshell/setAddonsComponents', 'argument is not corrected formated');
 		}
 	}
 

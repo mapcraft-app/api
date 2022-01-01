@@ -12,10 +12,9 @@ declare class MCutilities {
      */
     static GetNextCharacterInAlphabet(char: string): string;
     /**
-     * Generate path of AppData directory of system
-     * @return process.env.AppDataPath
+     * Generate ENV of system for application
      */
-    static GetAppDataPath(): void;
+    static GenerateENV(): void;
     /**
      * Download file from web, accept http and https url
      * @param {String} url url of download file
@@ -32,16 +31,16 @@ declare class MCutilities {
      * Get lang of component
      * @param {String} _dirname __dirname of component
      * @param {String} _langPath MC.GetConfig().Env.Lang
-     * @param {String} _defaultDir default direcoty of lang file
+     * @param {String} _defaultDir default directory of lang file
      * @returns {JSON} JSON data of lang file, or undefined if error
      */
     static GetLang(_dirname: string, _langPath: string, _defaultDir?: string): JSON;
     /**
-      * Retrieved data from manifest.json
+      * Retrieved data from package.json
       * @param {String} _dirname Folder in which you want to search
       * @returns {JSON} JSON data of package, or undefined if error
       */
-    static GetManifest(_dirname: string): JSON;
+    static GetPackage(_dirname: string): JSON;
     /**
      * Retrieved data on game elements
      * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `structures`, `tags`, `triggers`)

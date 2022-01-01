@@ -1,5 +1,5 @@
 /* eslint-disable default-param-last */
-const { app } = require('electron');
+// const { app } = require('electron');
 const fs = require('fs');
 const OS = require('os');
 const path = require('path');
@@ -8,19 +8,27 @@ const MCutilities = require('./MCutilities');
 
 const MinecraftVersion = require('./json/version.json');
 
-MCutilities.GetAppDataPath();
+MCutilities.GenerateENV();
+/*
 if (!process.env.AppPath)
 	process.env.AppPath = app.getAppPath();
 if (path.win32.basename(process.env.AppPath) === 'app.asar')
 	process.env.AppPath = path.join(process.env.AppPath, '../'); // ressources dir for build version
+*/
 
 // API const
 const { AppDataPath, AppPath } = process.env;
 const OSType = OS.platform();
-const pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', 'src/manifest'), { encoding: 'utf-8', flag: 'r' }));
+
+// const pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', 'src/manifest'), { encoding: 'utf-8', flag: 'r' }));
+const pack = JSON.parse(fs.readFileSync(path.join(AppPath, 'src', 'manifest'), { encoding: 'utf-8', flag: 'r' }));
+
 const _APIVersion = pack.version;
 const DefaultLang = pack.default_lang;
-const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
+
+// const ComponentsLink = path.join(__dirname, '../../../', 'src/dist/template/Main/components.json');
+const ComponentsLink = path.join(AppPath, 'src', 'dist', 'template', 'Main', 'components.json');
+
 const ActiveComponents = path.join(AppDataPath, 'builtin.json');
 const UserComponentsLink = path.join(AppPath, 'plugins');
 

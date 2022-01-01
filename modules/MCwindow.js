@@ -1,5 +1,8 @@
 const { BrowserWindow } = require('electron');
 const path = require('path');
+const MCutilities = require('./MCutilities');
+
+MCutilities.GenerateENV();
 
 class MCwindow
 {
@@ -20,7 +23,8 @@ class MCwindow
 			center: true,
 			show: false,
 			frame: true,
-			icon: path.join(__dirname, '../../../', 'src/dist/img/icon/icon.ico'),
+			icon: path.join(process.env.AppPath, 'src', 'dist', 'img', 'icon', 'icon.ico'),
+			// icon: path.join(__dirname, '../../../', 'src/dist/img/icon/icon.ico'),
 			webPreferences: {
 				defaultEncoding: 'utf-8',
 				enableWebSQL: false,
