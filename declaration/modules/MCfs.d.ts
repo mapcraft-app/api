@@ -2,22 +2,22 @@ export = MCfs;
 declare class MCfs {
     /**
      * Add a line at the end of the file
-     * @param {String} File File path
-     * @param {String} Line Line appended to file
+     * @param {String} file File path
+     * @param {String} line Line appended to file
      */
-    static AddLine(File: string, Line: string): void;
+    static addLine(file: string, line: string): void;
     /**
      * Modify the line at the first occurrence find, add new line at the end of file if not exist if `AddIsNotExit` set to true
-     * @param {String} File File path
-     * @param {String} Occurence Search string
-     * @param {String} NewLine Line to record
-     * @param {Boolean} AddIfNotExit Set to true if the line must be added at the end of the file if it does not exist
+     * @param {String} file File path
+     * @param {String} occurence Search string
+     * @param {String} newLine Line to record
+     * @param {Boolean} addIfNotExit Set to true if the line must be added at the end of the file if it does not exist
      */
-    static ModifyLine(File: string, Occurence: string, NewLine?: string, AddIfNotExit?: boolean): Promise<void>;
+    static modifyLine(file: string, occurence: string, newLine?: string, addIfNotExit?: boolean): Promise<void>;
     /**
      * Delete the line on which the first occurrence is found
-     * @param {String} File File path
-     * @param {String} Occurence Search string
+     * @param {String} file File path
+     * @param {String} occurence Search string
      */
-    static DeleteLine(File: string, Occurence: string): void;
+    static deleteLine(file: string, occurence: string): void;
 }

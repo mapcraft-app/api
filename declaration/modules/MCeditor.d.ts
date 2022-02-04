@@ -12,14 +12,14 @@ declare class MCeditor {
      * @param {String} link Path of file
      * @returns {JSON} Return `fileName`, `extension` and `data` in JSON format
      */
-    OpenFile(link: string): JSON;
+    openFile(link: string): JSON;
     /**
      * Overwrite the previously opened file and save the file with new data
      * @param {String} data Data to be saved on the file
      */
-    SaveFile(data: string): void;
+    saveFile(data: string): void;
     /**
      * Close file from edition
      */
-    CloseFile(): void;
+    closeFile(): void;
 }

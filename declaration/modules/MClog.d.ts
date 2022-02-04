@@ -4,14 +4,14 @@ declare class MClog {
     logLink: string;
     oldData: string;
     /**
-     * Force print log in text area, prefer @function `PrintToTextArea()`
+     * Force print log in text area, prefer @function `printToTextArea()`
      */
     forcePrintToTextArea(): void;
     /**
      * Print lastest log in text area
-     * @param {String} oldData
+     * @param {string} data latest data on string format
      */
-    PrintToTextArea(data: any): void;
+    printToTextArea(data: string): void;
     /**
      * Watch change in log file
      */

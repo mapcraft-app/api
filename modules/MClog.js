@@ -11,7 +11,7 @@ class MClog
 	 */
 	constructor()
 	{
-		this.logLink = path.join(MC.GetConfig().Env.GamePath, 'logs/latest.log');
+		this.logLink = path.join(MC.config.Env.GamePath, 'logs/latest.log');
 		this.oldData = '';
 		readLastLines.read(this.logLink, 100).then((lines) =>
 		{
@@ -21,7 +21,7 @@ class MClog
 	}
 
 	/**
-	 * Force print log in text area, prefer @function `PrintToTextArea()`
+	 * Force print log in text area, prefer @function `printToTextArea()`
 	 */
 	forcePrintToTextArea()
 	{
@@ -30,9 +30,9 @@ class MClog
 
 	/**
 	 * Print lastest log in text area
-	 * @param {String} oldData
+	 * @param {string} data latest data on string format
 	 */
-	PrintToTextArea(data)
+	printToTextArea(data)
 	{
 		document.getElementById('log-textarea').innerHTML = data;
 		document.getElementById('log-textarea').scrollTop = document.getElementById('log-textarea').scrollHeight;
@@ -43,7 +43,7 @@ class MClog
 	 */
 	watchLog()
 	{
-		fs.watchFile(this.logLink, { persistent: true, interval: 100 }, (cur, prev) => // eslint-disable-line
+		fs.watchFile(this.logLink, { persistent: true, interval: 100 }, (curr, prev) => // eslint-disable-line
 		{
 			fs.readFile(this.logLink, 'utf-8', (error, data) =>
 			{

@@ -1,58 +1,63 @@
 export = MCutilities;
 declare class MCutilities {
     /**
-     * Returns a Boolean value that indicates whether or not a pattern exists in a searched string.
+     * Returns a Boolean value that indicates if string is valid in Minecraft format
      * @param {String} string String to check
      * @returns {Boolean} False if the string contains an unauthorized character
      */
-    static CheckIfStringIsLegalCharacter(string: string): boolean;
+    static checkIsLegalString(string: string): boolean;
     /**
      * Get next character in alphabet
      * @param {String} char
+     * @returns {String} next character
+     * @example <caption>print alphabet in order</caption>
+     * for (let char = 'a'; char != 'z'; char = MCutilities.nextLetter(char))
+     * console.log(char);
      */
-    static GetNextCharacterInAlphabet(char: string): string;
+    static nextLetter(char: string): string;
     /**
      * Generate ENV of system for application
      */
-    static GenerateENV(): void;
+    static generateENV(): void;
     /**
      * Download file from web, accept http and https url
      * @param {String} url url of download file
      * @param {String} destination path of file destination
      * @param {Function} callback callback function with (error)
      */
-    static Download(url: string, destination: string, callback: Function): void;
+    static download(url: string, destination: string, callback: Function): void;
     /**
      * Check if directory is empty
-     * @param {String} path path to directory
+     * @param {String} dirname path to directory
+     * @returns {Boolean} True if is empty
      */
-    static IsEmptyDir(_path: any): boolean;
+    static isEmptyDir(dirname: string): boolean;
     /**
      * Get lang of component
-     * @param {String} _dirname __dirname of component
-     * @param {String} _langPath MC.GetConfig().Env.Lang
-     * @param {String} _defaultDir default directory of lang file
+     * @param {String} dirname __dirname of component
+     * @param {String} langPath MC.GetConfig().Env.Lang
+     * @param {String} defaultDir default directory of lang file
      * @returns {JSON} JSON data of lang file, or undefined if error
      */
-    static GetLang(_dirname: string, _langPath: string, _defaultDir?: string): JSON;
+    static getLang(dirname: string, langPath: string, defaultDir?: string): JSON;
     /**
       * Retrieved data from package.json
-      * @param {String} _dirname Folder in which you want to search
+      * @param {String} dirname Folder in which you want to search
       * @returns {JSON} JSON data of package, or undefined if error
       */
-    static GetPackage(_dirname: string): JSON;
+    static getPackage(dirname: string): JSON;
     /**
      * Retrieved data on game elements
      * @param {String} type Type of data to be retrieved (`biomes`, `blocks`, `effects`, `enchantements`, `entities`, `items`, `potions`, `structures`, `tags`, `triggers`)
      * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns {JSON} JSON data, or undefined if error
      */
-    static GetDataGameElement(type: string, minecraftVersion?: any): JSON;
+    static getDataGameElement(type: string, minecraftVersion?: any): JSON;
     /**
      * Print alert in HTMLelement
      * @param {String} type Type of error (`primary`, `success`, `warning`, `danger`)
      * @param {Element} DOMelement Element in which alert will be displayed
      * @param {String} str Error message
      */
-    static CreateAlert(type: string, DOMelement: Element, str: string): void;
+    static createAlert(type: string, DOMelement: Element, str: string): void;
 }

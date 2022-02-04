@@ -4,12 +4,12 @@ class MCfs
 {
 	/**
 	 * Add a line at the end of the file
-	 * @param {String} File File path
-	 * @param {String} Line Line appended to file
+	 * @param {String} file File path
+	 * @param {String} line Line appended to file
 	 */
-	static AddLine(File, Line)
+	static addLine(file, line)
 	{
-		fs.appendFile(File, Line, (err) =>
+		fs.appendFile(file, line, (err) =>
 		{
 			if (err)
 				throw new Error(err);
@@ -18,17 +18,17 @@ class MCfs
 
 	/**
 	 * Modify the line at the first occurrence find, add new line at the end of file if not exist if `AddIsNotExit` set to true
-	 * @param {String} File File path
-	 * @param {String} Occurence Search string
-	 * @param {String} NewLine Line to record
-	 * @param {Boolean} AddIfNotExit Set to true if the line must be added at the end of the file if it does not exist
+	 * @param {String} file File path
+	 * @param {String} occurence Search string
+	 * @param {String} newLine Line to record
+	 * @param {Boolean} addIfNotExit Set to true if the line must be added at the end of the file if it does not exist
 	 */
-	static async ModifyLine(File, Occurence, NewLine = undefined, AddIfNotExit = false)
+	static async modifyLine(file, occurence, newLine = undefined, addIfNotExit = false)
 	{
 		let isFound = false;
 		let LineNumber = 0;
-		const regex = new RegExp(`(${Occurence})\\b`, 's');
-		fs.readFile(File, (err, data) =>
+		const regex = new RegExp(`(${occurence})\\b`, 's');
+		fs.readFile(file, (err, data) =>
 		{
 			if (err)
 				throw new Error(err);
@@ -38,11 +38,11 @@ class MCfs
 				if (element.match(regex))
 				{
 					isFound = true;
-					if (NewLine)
-						arr.splice(LineNumber, 1, NewLine);
+					if (newLine)
+						arr.splice(LineNumber, 1, newLine);
 					else
 						arr.splice(LineNumber, 1);
-					fs.writeFile(File, arr.join('\n'), (errWrite) =>
+					fs.writeFile(file, arr.join('\n'), (errWrite) =>
 					{
 						if (errWrite)
 							throw new Error(errWrite);
@@ -51,19 +51,19 @@ class MCfs
 				}
 				LineNumber++;
 			});
-			if (AddIfNotExit && !isFound)
-				MCfs.AddLine(File, `${NewLine}\n`);
+			if (addIfNotExit && !isFound)
+				MCfs.addLine(file, `${newLine}\n`);
 		});
 	}
 
 	/**
 	 * Delete the line on which the first occurrence is found
-	 * @param {String} File File path
-	 * @param {String} Occurence Search string
+	 * @param {String} file File path
+	 * @param {String} occurence Search string
 	 */
-	static DeleteLine(File, Occurence)
+	static deleteLine(file, occurence)
 	{
-		this.ModifyLine(File, Occurence, '');
+		this.modifyLine(file, occurence, '');
 	}
 }
 

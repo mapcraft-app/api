@@ -1,4 +1,5 @@
-/* {
+/*
+**	{
 **	 "name": string,
 **	 "component": string [.js],
 **	 "lang": string,
@@ -17,9 +18,9 @@ class MCplugin
 	 * Preload plugins
 	 * @param {String} directory Folder where the plugins are located, @default path_to_builtin_plugins
 	 */
-	constructor(directory = process.env.AppPath/* directory = path.join(__dirname, '../../../') */)
+	constructor(directory = process.env.AppPath)
 	{
-		this.Components = JSON.parse(fs.readFileSync(MC.GetConfig().Env.Components, 'utf-8'));
+		this.Components = JSON.parse(fs.readFileSync(MC.config.Env.Components, 'utf-8'));
 		this.ActiveComponent; // eslint-disable-line no-unused-expressions
 		this.BaseLink = path.join(directory, 'src/dist/template/Main');
 		this.__default = null;
@@ -28,7 +29,7 @@ class MCplugin
 			global.MCpluginSave = {
 				default: String,
 				array: [],
-				active: JSON.parse(fs.readFileSync(MC.GetConfig().Env.ActiveComponents, { encoding: 'utf-8', flag: 'r' })),
+				active: JSON.parse(fs.readFileSync(MC.config.Env.ActiveComponents, { encoding: 'utf-8', flag: 'r' })),
 			};
 			const addBuiltin = (json) =>
 			{
@@ -67,7 +68,7 @@ class MCplugin
 			for (const i in global.MCpluginSave.array)
 				if (Object.prototype.hasOwnProperty.call(global.MCpluginSave.array, i))
 					global.MCpluginSave.array[i].instance = require(global.MCpluginSave.array[i].instancePath); // eslint-disable-line
-			fs.writeFileSync(MC.GetConfig().Env.ActiveComponents, JSON.stringify(global.MCpluginSave.active, null, 4), { encoding: 'utf-8', flag: 'w' });
+			fs.writeFileSync(MC.config.Env.ActiveComponents, JSON.stringify(global.MCpluginSave.active, null, 4), { encoding: 'utf-8', flag: 'w' });
 		}
 		this.plugins = global.MCpluginSave.array;
 		this.builtins = global.MCpluginSave.active;
@@ -76,52 +77,52 @@ class MCplugin
 
 	/**
 	 * Get instance of component
-	 * @param {String} Name Name of component
+	 * @param {String} name Name of component
 	 * @returns Instance function of component, or undefined if error
 	 */
-	Instance(Name)
+	instance(name)
 	{
 		for (const i in this.plugins)
-			if (this.plugins[i].name === Name)
+			if (this.plugins[i].name === name)
 				return (this.plugins[i].instance);
 		return (undefined);
 	}
 
 	/**
 	 * Get component
-	 * @param {String} Name Name of component
+	 * @param {String} name Name of component
 	 * @returns Full component, or undefined if error
 	 */
-	Component(Name)
+	component(name)
 	{
 		for (const i in this.plugins)
-			if (this.plugins[i].name === Name)
+			if (this.plugins[i].name === name)
 				return (this.plugins[i]);
 		return (undefined);
 	}
 
 	/**
 	 * Check if component is active
-	 * @param {String} Name Name of component
+	 * @param {String} name Name of component
 	 * @returns true/false if active/desactive; or undefined if not exist
 	 */
-	Active(Name)
+	active(name)
 	{
 		for (const i in this.builtins)
-			if (this.builtins[i].name === Name)
+			if (this.builtins[i].name === name)
 				return (this.builtins[i].active);
 		return (undefined);
 	}
 
 	/**
 	 * Toogle component
-	 * @param {String} Name Name of component
+	 * @param {String} name Name of component
 	 * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
 	 */
-	Toogle(Name, forceValue = undefined)
+	toogle(name, forceValue = undefined)
 	{
 		for (const i in global.MCpluginSave.active)
-			if (global.MCpluginSave.active[i].name === Name)
+			if (global.MCpluginSave.active[i].name === name)
 			{
 				if (forceValue === undefined)
 					global.MCpluginSave.active[i].active = !(global.MCpluginSave.active[i].active);
@@ -134,19 +135,19 @@ class MCplugin
 
 	/**
 	 * Get lang data of component
-	 * @param {String} Name Name of component
+	 * @param {String} name Name of component
 	 * @returns {JSON} Lang data
 	 */
-	Lang(Name)
+	lang(name)
 	{
 		let data = null;
 		for (const i in this.plugins)
-			if (this.plugins[i].name === Name)
+			if (this.plugins[i].name === name)
 			{
 				try
 				{
-					if (fs.existsSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)))
-						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
+					if (fs.existsSync(path.join(this.plugins[i].lang, `${MC.config.Env.Lang}.json`)))
+						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.config.Env.Lang}.json`)));
 					else
 						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, 'en_US.json')));
 				}
@@ -163,7 +164,7 @@ class MCplugin
 	  * Get lang data of default component
 	  * @returns {JSON} Lang data
 	  */
-	Default()
+	default()
 	{
 		let data = null;
 		for (const i in this.plugins)
@@ -171,8 +172,8 @@ class MCplugin
 			{
 				try
 				{
-					if (fs.existsSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)))
-						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.GetConfig().Env.Lang}.json`)));
+					if (fs.existsSync(path.join(this.plugins[i].lang, `${MC.config.Env.Lang}.json`)))
+						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, `${MC.config.Env.Lang}.json`)));
 					else
 						data = JSON.parse(fs.readFileSync(path.join(this.plugins[i].lang, 'en_US.json')));
 				}
@@ -189,7 +190,7 @@ class MCplugin
 	 * Get full list of components
 	 * @returns List of components
 	 */
-	ListComponents()
+	listComponents()
 	{
 		return (this.plugins);
 	}

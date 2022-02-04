@@ -34,7 +34,7 @@ class MCsearch
 	/**
 	 * @private
 	 */
-	static BaseImplementation(DOM, type, key, MinecraftVersion = DefaultMinecraftVersion)
+	static BaseImplementation(dom, type, key, minecraftVersion = DefaultMinecraftVersion)
 	{
 		const idOfSearch = hexaID();
 		const DOMelementBase = BaseNode(idOfSearch);
@@ -44,12 +44,12 @@ class MCsearch
 		{
 			if (type === 'blocksItems')
 			{
-				ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/blocks.json`), { encoding: 'utf-8', flag: 'r' }));
-				ListOfElements.concat(JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/items.json`), { encoding: 'utf-8', flag: 'r' })));
+				ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${minecraftVersion}/blocks.json`), { encoding: 'utf-8', flag: 'r' }));
+				ListOfElements.concat(JSON.parse(fs.readFileSync(path.join(__dirname, `json/${minecraftVersion}/items.json`), { encoding: 'utf-8', flag: 'r' })));
 			}
 			else
 			{
-				ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${MinecraftVersion}/${type}.json`), { encoding: 'utf-8', flag: 'r' }));
+				ListOfElements = JSON.parse(fs.readFileSync(path.join(__dirname, `json/${minecraftVersion}/${type}.json`), { encoding: 'utf-8', flag: 'r' }));
 			}
 		}
 		catch (err)
@@ -170,143 +170,143 @@ class MCsearch
 				++it;
 			}
 		});
-		DOM.appendChild(DOMelementBase.Base);
+		dom.appendChild(DOMelementBase.Base);
 		return (idOfSearch);
 	}
 
 	/**
 	 * Implements a biome search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static biomes(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static biomes(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'biomes', 'id', MinecraftVersion);
+		return this.BaseImplementation(dom, 'biomes', 'id', minecraftVersion);
 	}
 
 	/**
 	 * Implements a block search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static blocks(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static blocks(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'blocks', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'blocks', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a block and item search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static blocksItems(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static blocksItems(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'blocksItems', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'blocksItems', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a effect search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static effects(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static effects(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'effects', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'effects', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a enchantement search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static enchantements(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static enchantements(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'enchantements', 'id', MinecraftVersion);
+		return this.BaseImplementation(dom, 'enchantements', 'id', minecraftVersion);
 	}
 
 	/**
 	 * Implements a entitie search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static entities(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static entities(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'entities', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'entities', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a item search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static items(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static items(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'items', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'items', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a potion search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static potions(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static potions(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'potions', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'potions', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a structure search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static structures(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static structures(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'structures', 'name', MinecraftVersion);
+		return this.BaseImplementation(dom, 'structures', 'name', minecraftVersion);
 	}
 
 	/**
 	 * Implements a trigger search system via a drop-down menu
-	 * @param {Element} DOM The Element object in which the search will be inserted
-	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+	 * @param {Element} dom The Element object in which the search will be inserted
+	 * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
 	 */
-	static triggers(DOM, MinecraftVersion = DefaultMinecraftVersion)
+	static triggers(dom, minecraftVersion = DefaultMinecraftVersion)
 	{
-		return this.BaseImplementation(DOM, 'triggers', 'id', MinecraftVersion);
+		return this.BaseImplementation(dom, 'triggers', 'id', minecraftVersion);
 	}
 
 	/**
 	 * Get value of search system
-	 * @param {Element} DOM Element in which the search system is located
+	 * @param {Element} dom Element in which the search system is located
 	 * @returns Value of search
 	 */
-	static GetValue(DOM)
+	static GetValue(dom)
 	{
-		if (DOM.nodeName === 'INPUT')
-			return DOM.value;
-		return DOM.querySelector('input.search-dropdown-input').value;
+		if (dom.nodeName === 'INPUT')
+			return dom.value;
+		return dom.querySelector('input.search-dropdown-input').value;
 	}
 
 	/**
 	 * Set value of search system
-	 * @param {Element} DOM Element in which the search system is located
+	 * @param {Element} dom Element in which the search system is located
 	 * @param {String} value New value of element
 	 */
-	static SetValue(DOM, value)
+	static SetValue(dom, value)
 	{
-		if (DOM.nodeName === 'INPUT')
-			DOM.value = value; // eslint-disable-line no-param-reassign
+		if (dom.nodeName === 'INPUT')
+			dom.value = value; // eslint-disable-line no-param-reassign
 		else
-			DOM.querySelector('input.search-dropdown-input').value = value; // eslint-disable-line no-param-reassign
+			dom.querySelector('input.search-dropdown-input').value = value; // eslint-disable-line no-param-reassign
 	}
 }
 

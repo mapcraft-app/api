@@ -1,6 +1,6 @@
 {
   "name": "mapcraft-api",
-  "version": "1.6.9",
+  "version": "1.7.0",
   "description": "Official API for developping your own plugin for Mapcraft ecosystem",
   "main": "index.js",
   "bin": {
@@ -14,6 +14,7 @@
   "files": [
     "declaration/*",
     "modules/**/*",
+    "cli/**/*",
     "index.d.ts",
     "index.js",
     "models.js",
@@ -38,17 +39,16 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.9",
-    "better-sqlite3": "^7.4.6",
-    "read-last-lines": "^1.8.0",
-    "readline-sync": "^1.4.10"
+    "better-sqlite3": "^7.5.0"
   },
   "devDependencies": {
-    "electron": "^16.0.2",
-    "electron-rebuild": "^3.2.5",
-    "eslint": "^8.4.1",
+    "electron": "^16.0.8",
+    "electron-rebuild": "^3.2.7",
+    "eslint": "^8.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.25.4",
     "node-gyp": "^8.4.1",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.5",
+    "inquirer": "^8.2.0"
   }
 }

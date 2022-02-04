@@ -3,7 +3,6 @@ const MCdatabase = require('./modules/MCdatabase');
 const MCeditor = require('./modules/MCeditor');
 const MCfs = require('./modules/MCfs');
 const MCipc = require('./modules/MCipc');
-const MClink = require('./modules/MClink');
 const MClog = require('./modules/MClog');
 const MCplugin = require('./modules/MCplugin');
 const MCsearch = require('./modules/MCsearch');
@@ -19,7 +18,6 @@ module.exports = {
 	MCeditor,
 	MCfs,
 	MCipc,
-	MClink,
 	MClog,
 	MCplugin,
 	MCsearch,

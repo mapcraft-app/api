@@ -6,84 +6,84 @@ declare class MCsearch {
     private static BaseImplementation;
     /**
      * Implements a biome search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static biomes(DOM: Element, MinecraftVersion?: string): string;
+    static biomes(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a block search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static blocks(DOM: Element, MinecraftVersion?: string): string;
+    static blocks(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a block and item search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static blocksItems(DOM: Element, MinecraftVersion?: string): string;
+    static blocksItems(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a effect search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static effects(DOM: Element, MinecraftVersion?: string): string;
+    static effects(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a enchantement search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static enchantements(DOM: Element, MinecraftVersion?: string): string;
+    static enchantements(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a entitie search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static entities(DOM: Element, MinecraftVersion?: string): string;
+    static entities(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a item search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static items(DOM: Element, MinecraftVersion?: string): string;
+    static items(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a potion search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static potions(DOM: Element, MinecraftVersion?: string): string;
+    static potions(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a structure search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static structures(DOM: Element, MinecraftVersion?: string): string;
+    static structures(dom: Element, minecraftVersion?: string): string;
     /**
      * Implements a trigger search system via a drop-down menu
-     * @param {Element} DOM The Element object in which the search will be inserted
-     * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
+     * @param {Element} dom The Element object in which the search will be inserted
+     * @param {String} minecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
      * @returns Identifier of the inserted element. Be careful, this identifier cannot be retrieved later
      */
-    static triggers(DOM: Element, MinecraftVersion?: string): string;
+    static triggers(dom: Element, minecraftVersion?: string): string;
     /**
      * Get value of search system
-     * @param {Element} DOM Element in which the search system is located
+     * @param {Element} dom Element in which the search system is located
      * @returns Value of search
      */
-    static GetValue(DOM: Element): any;
+    static GetValue(dom: Element): any;
     /**
      * Set value of search system
-     * @param {Element} DOM Element in which the search system is located
+     * @param {Element} dom Element in which the search system is located
      * @param {String} value New value of element
      */
-    static SetValue(DOM: Element, value: string): void;
+    static SetValue(dom: Element, value: string): void;
 }

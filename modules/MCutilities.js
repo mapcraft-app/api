@@ -9,11 +9,11 @@ const version = require('./json/version.json');
 class MCutilities
 {
 	/**
-	 * Returns a Boolean value that indicates whether or not a pattern exists in a searched string.
+	 * Returns a Boolean value that indicates if string is valid in Minecraft format
 	 * @param {String} string String to check
 	 * @returns {Boolean} False if the string contains an unauthorized character
 	 */
-	static CheckIfStringIsLegalCharacter(string)
+	static checkIsLegalString(string)
 	{
 		const Regex = /[^-a-z0-9_/.]+/gm;
 		if (Regex.test(string))
@@ -24,8 +24,12 @@ class MCutilities
 	/**
 	 * Get next character in alphabet
 	 * @param {String} char
+	 * @returns {String} next character
+	 * @example <caption>print alphabet in order</caption>
+	 * for (let char = 'a'; char != 'z'; char = MCutilities.nextLetter(char))
+	 * console.log(char);
 	 */
-	static GetNextCharacterInAlphabet(char)
+	static nextLetter(char)
 	{
 		return String.fromCharCode(char.charCodeAt(0) + 1);
 	}
@@ -33,7 +37,7 @@ class MCutilities
 	/**
 	 * Generate ENV of system for application
 	 */
-	static GenerateENV()
+	static generateENV()
 	{
 		if (global.AppDataPath)
 		{
@@ -51,7 +55,6 @@ class MCutilities
 			process.env.AppPath = app.getAppPath();
 		if (path.basename(process.env.AppPath) === 'app.asar')
 			process.env.PRODUCTION = 'true';
-			// process.env.AppPath = path.join(process.env.AppPath, '../'); // ressources dir for build version
 		else
 			process.env.PRODUCTION = 'false';
 	}
@@ -62,7 +65,7 @@ class MCutilities
 	 * @param {String} destination path of file destination
 	 * @param {Function} callback callback function with (error)
 	 */
-	static Download(url, destination, callback)
+	static download(url, destination, callback)
 	{
 		const file = fs.createWriteStream(destination);
 		let httpMethod;
@@ -102,26 +105,27 @@ class MCutilities
 
 	/**
 	 * Check if directory is empty
-	 * @param {String} path path to directory
+	 * @param {String} dirname path to directory
+	 * @returns {Boolean} True if is empty
 	 */
-	static IsEmptyDir(_path)
+	static isEmptyDir(dirname)
 	{
-		return fs.readdirSync(_path).length === 0;
+		return fs.readdirSync(dirname).length === 0;
 	}
 
 	/**
 	 * Get lang of component
-	 * @param {String} _dirname __dirname of component
-	 * @param {String} _langPath MC.GetConfig().Env.Lang
-	 * @param {String} _defaultDir default directory of lang file
+	 * @param {String} dirname __dirname of component
+	 * @param {String} langPath MC.GetConfig().Env.Lang
+	 * @param {String} defaultDir default directory of lang file
 	 * @returns {JSON} JSON data of lang file, or undefined if error
 	 */
-	static GetLang(_dirname, _langPath, _defaultDir = 'lang')
+	static getLang(dirname, langPath, defaultDir = 'lang')
 	{
 		let data;
 		try
 		{
-			data = JSON.parse(fs.readFileSync(path.join(_dirname, `./${_defaultDir}`, `${_langPath}.json`)));
+			data = JSON.parse(fs.readFileSync(path.join(dirname, `./${langPath}`, `${defaultDir}.json`)));
 		}
 		catch (err)
 		{
@@ -132,15 +136,15 @@ class MCutilities
 
 	/**
 	  * Retrieved data from package.json
-	  * @param {String} _dirname Folder in which you want to search
+	  * @param {String} dirname Folder in which you want to search
 	  * @returns {JSON} JSON data of package, or undefined if error
 	  */
-	static GetPackage(_dirname)
+	static getPackage(dirname)
 	{
 		let data;
 		try
 		{
-			data = JSON.parse(fs.readFileSync(path.join(_dirname, 'package.json')));
+			data = JSON.parse(fs.readFileSync(path.join(dirname, 'package.json')));
 		}
 		catch (err)
 		{
@@ -155,7 +159,7 @@ class MCutilities
 	 * @param {String} MinecraftVersion The version of minecraft desired, by default at the highest version supported by Mapcraft
 	 * @returns {JSON} JSON data, or undefined if error
 	 */
-	static GetDataGameElement(type, minecraftVersion = version.LastestVersion)
+	static getDataGameElement(type, minecraftVersion = version.LastestVersion)
 	{
 		try
 		{
@@ -173,7 +177,7 @@ class MCutilities
 	 * @param {Element} DOMelement Element in which alert will be displayed
 	 * @param {String} str Error message
 	 */
-	static CreateAlert(type, DOMelement, str)
+	static createAlert(type, DOMelement, str)
 	{
 		const alert = document.createElement('div');
 		alert.classList.add(`uk-alert-${type}`);

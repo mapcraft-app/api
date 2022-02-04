@@ -117,7 +117,7 @@ exports.package = {
 		lang: String,
 	},
 	dependencies: {
-		'mapcraft-api': '^1.6.7',
+		'mapcraft-api': '^1.7.0',
 	},
 };
 

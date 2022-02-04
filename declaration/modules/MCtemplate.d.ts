@@ -53,9 +53,9 @@ declare class Template {
     /**
      * Correctly clean child of element
      * @param {Element} node DOMelement
-     * @param {Boolean} RemoveParent If true, function remove node after delete child. false by default
+     * @param {Boolean} removeParent If true, function remove node after delete child. false by default
      */
-    cleanNode(node: Element, RemoveParent?: boolean): void;
+    cleanNode(node: Element, removeParent?: boolean): void;
     /**
      * Clean render
      * @private

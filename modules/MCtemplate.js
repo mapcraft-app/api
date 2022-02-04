@@ -1,13 +1,42 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const path = require('path');
-const MClink = require('./MClink');
 
 const AutoClean = true;
 const checksum = (data, algorithm, encoding) => crypto
 	.createHash(algorithm || 'sha1')
 	.update(data, 'utf8')
 	.digest(encoding || 'hex');
+
+class MClink
+{
+	constructor()
+	{
+		this._components = [];
+	}
+
+	addComponent(component)
+	{
+		if (component && this._components.indexOf(component) === -1)
+			this._components.push(component);
+	}
+
+	removeComponent(component)
+	{
+		this._components.splice(this._components.indexOf(component), 1);
+	}
+
+	getComponents()
+	{
+		return (this._components);
+	}
+
+	cleanComponents()
+	{
+		delete this._components;
+	}
+}
+const LinkComponent = new MClink();
 
 class Template
 {
@@ -232,14 +261,14 @@ class Template
 	/**
 	 * Correctly clean child of element
 	 * @param {Element} node DOMelement
-	 * @param {Boolean} RemoveParent If true, function remove node after delete child. false by default
+	 * @param {Boolean} removeParent If true, function remove node after delete child. false by default
 	 */
-	cleanNode(node, RemoveParent = false)
+	cleanNode(node, removeParent = false)
 	{
 		if (node && node.hasChildNodes())
 			while (node.firstChild)
 				node.removeChild(node.firstChild);
-		if (RemoveParent)
+		if (removeParent)
 			node.remove();
 	}
 	// #endregion
@@ -261,20 +290,20 @@ class Template
 	 * Clean includes
 	 * @private
 	 */
-	_cleanIncludes(OldDOMelement)
+	_cleanIncludes(oldDOMelement)
 	{
 		let attr = null;
-		MClink.addComponent(this.directory.split('\\').pop());
-		if (OldDOMelement.hasAttribute('tp'))
-			attr = path.parse(OldDOMelement.getAttribute('tp')).name;
+		LinkComponent.addComponent(this.directory.split('\\').pop());
+		if (oldDOMelement.hasAttribute('tp'))
+			attr = path.parse(oldDOMelement.getAttribute('tp')).name;
 		if (attr)
-			MClink.removeComponent(attr);
+			LinkComponent.removeComponent(attr);
 		const DOMelement = document.head.querySelectorAll('[directory]');
 		if (DOMelement.length > 0)
 			for (const link of DOMelement)
 			{
 				const _attr = link.getAttribute('directory');
-				if (MClink.getComponents().indexOf(_attr) < 0)
+				if (LinkComponent.getComponents().indexOf(_attr) < 0)
 					link.remove();
 			}
 	}

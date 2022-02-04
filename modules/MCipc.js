@@ -11,7 +11,7 @@ const Channel = {
 	Update: ['open-window', 'create-modal', 'close-modal', 'make-update'],
 	User: ['close-window', 'change-username', 'remove-blur'],
 	WorkProgress: ['signal-open-modal', 'open-modal', 'signal-close-modal', 'close-modal'],
-
+	/* === Plugins === */
 	Cutscene: ['signal-create-cutscene', 'create-cutscene'],
 	Trigger: ['signal-open-modal', 'open-modal'],
 	Recipes: ['signal-is-exist', 'is-exist', 'signal-open-switcher', 'open-switcher'],

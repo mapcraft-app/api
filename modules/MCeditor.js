@@ -21,7 +21,7 @@ class MCeditor
 	 * @param {String} link Path of file
 	 * @returns {JSON} Return `fileName`, `extension` and `data` in JSON format
 	 */
-	OpenFile(link)
+	openFile(link)
 	{
 		this.state.isEdit = true;
 		this.state.link = link;
@@ -43,21 +43,21 @@ class MCeditor
 	 * Overwrite the previously opened file and save the file with new data
 	 * @param {String} data Data to be saved on the file
 	 */
-	SaveFile(data)
+	saveFile(data)
 	{
 		if (this.state.isEdit)
 			fs.writeFile(this.state.link, data, (err) =>
 			{
 				if (err)
 					throw new Error('Editor:', err);
-				this.CloseFile();
+				this.closeFile();
 			});
 	}
 
 	/**
 	 * Close file from edition
 	 */
-	CloseFile()
+	closeFile()
 	{
 		this.state.isEdit = false;
 	}

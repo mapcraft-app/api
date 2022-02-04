@@ -10,20 +10,20 @@ declare class CreateDB {
      * Add every tables
      * @private
      */
-    private _AddTable;
+    private _addTable;
     /**
      * Add specific user table
      * @private
      */
-    private _AddTableUser;
+    private _addTableUser;
     /**
      * Add specific trigger table
      * @private
      */
-    private _AddTableTrigger;
+    private _addTableTrigger;
     /**
      * Add specific cutscene table
      * @private
      */
-    private _AddTableCutscene;
+    private _addTableCutscene;
 }

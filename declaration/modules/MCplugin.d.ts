@@ -12,42 +12,42 @@ declare class MCplugin {
     builtins: any;
     /**
      * Get instance of component
-     * @param {String} Name Name of component
+     * @param {String} name Name of component
      * @returns Instance function of component, or undefined if error
      */
-    Instance(Name: string): any;
+    instance(name: string): any;
     /**
      * Get component
-     * @param {String} Name Name of component
+     * @param {String} name Name of component
      * @returns Full component, or undefined if error
      */
-    Component(Name: string): any;
+    component(name: string): any;
     /**
      * Check if component is active
-     * @param {String} Name Name of component
+     * @param {String} name Name of component
      * @returns true/false if active/desactive; or undefined if not exist
      */
-    Active(Name: string): any;
+    active(name: string): any;
     /**
      * Toogle component
-     * @param {String} Name Name of component
+     * @param {String} name Name of component
      * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
      */
-    Toogle(Name: string, forceValue?: boolean): void;
+    toogle(name: string, forceValue?: boolean): void;
     /**
      * Get lang data of component
-     * @param {String} Name Name of component
+     * @param {String} name Name of component
      * @returns {JSON} Lang data
      */
-    Lang(Name: string): JSON;
+    lang(name: string): JSON;
     /**
       * Get lang data of default component
       * @returns {JSON} Lang data
       */
-    Default(): JSON;
+    default(): JSON;
     /**
      * Get full list of components
      * @returns List of components
      */
-    ListComponents(): any;
+    listComponents(): any;
 }

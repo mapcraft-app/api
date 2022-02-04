@@ -11,26 +11,25 @@ class CreateDB
 	constructor(link)
 	{
 		this.db = new Database(link, { verbose: console.log });
-		console.log(__dirname);
-		this._AddTable();
+		this._addTable();
 	}
 
 	/**
 	 * Add every tables
 	 * @private
 	 */
-	_AddTable()
+	_addTable()
 	{
-		this._AddTableUser();
-		this._AddTableTrigger();
-		this._AddTableCutscene();
+		this._addTableUser();
+		this._addTableTrigger();
+		this._addTableCutscene();
 	}
 
 	/**
 	 * Add specific user table
 	 * @private
 	 */
-	_AddTableUser()
+	_addTableUser()
 	{
 		this.db.exec(fs.readFileSync(path.join(__dirname, 'sql/mc_user.sql'), 'utf8'));
 	}
@@ -39,7 +38,7 @@ class CreateDB
 	 * Add specific trigger table
 	 * @private
 	 */
-	_AddTableTrigger()
+	_addTableTrigger()
 	{
 		this.db.exec(fs.readFileSync(path.join(__dirname, 'sql/mc_trigger.sql'), 'utf8'));
 	}
@@ -48,7 +47,7 @@ class CreateDB
 	 * Add specific cutscene table
 	 * @private
 	 */
-	_AddTableCutscene()
+	_addTableCutscene()
 	{
 		this.db.exec(fs.readFileSync(path.join(__dirname, 'sql/mc_cutscene.sql'), 'utf8'));
 		this.db.exec(fs.readFileSync(path.join(__dirname, 'sql/mc_cutscene_point.sql'), 'utf8'));
