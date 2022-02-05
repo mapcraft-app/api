@@ -6,6 +6,7 @@ const prompts = require('prompts');
 const path = require('path');
 const appPath = require('../js/appPath');
 const spinner = require('../js/spinner');
+const formats = require('../js/format');
 const models = require('../models');
 const { questions } = require('../questions');
 
@@ -22,6 +23,8 @@ class create
 			component: models.component,
 		};
 
+		console.log(`💠 ${formats.format.underline}${formats.foreground.light.green}Plugin creator${formats.format.reset} 💠`);
+		console.log(`${formats.foreground.light.cyan}Welcome to the plugin creator. Simply answer the questions asked to create a solid base, and start developing without wasting time${formats.format.reset}\n`);
 		prompts(questions).then((data) =>
 		{
 			this.newPluginPath = path.join(appPath(), data.name);
@@ -146,6 +149,7 @@ class create
 				process.exit(code);
 			}
 			console.log('🚀 The plugin is ready !');
+			console.log(`📁 You can find it at ${formats.format.underline}${this.newPluginPath}${formats.format.reset}`);
 			process.exit(0);
 		});
 	}

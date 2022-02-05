@@ -66,7 +66,7 @@ const questions = [
 		name: 'license',
 		message: 'What license will your plugin be under',
 		choices: licenses,
-		initial: 1,
+		initial: 0,
 		format(val)
 		{
 			const name = {
