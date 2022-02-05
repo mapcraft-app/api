@@ -4,54 +4,6 @@ const fs = require('fs');
 const crypto = require('crypto');
 const child = require('child_process');
 const path = require('path');
-const readline = require('readline-sync');
-// const admZip = require('adm-zip');
-const models = require('./models');
-
-const AppName = 'Mapcraft';
-
-// eslint-disable-next-line
-process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share")
-
-function GetAppPath()
-{
-	const appPath = path.join(process.env.APPDATA, AppName, 'plugins');
-	fs.mkdir(appPath, { recursive: true }, (err) =>
-	{
-		if (err)
-		{
-			console.log(`\x1b[31m${err.message}`);
-			process.exit(1);
-		}
-	});
-	return appPath;
-}
-const PluginsPath = GetAppPath();
-
-let saveInterval;
-class Spinner
-{
-	static spin(string)
-	{
-		process.stdout.write('\x1B[?25l');
-		const spinners = ['⣷', '⣯', '⣟', '⡿', '⢿', '⣻', '⣽', '⣾'];
-		let index = 0;
-		saveInterval = setInterval(() =>
-		{
-			let line = spinners[index];
-			if (line === undefined)
-			{
-				index = 0;
-				line = spinners[index];
-			}
-			if (OS.platform === 'win32')
-				process.stdout.write(`${line} ${string}\x1b[0G`);
-			else
-				process.stdout.write(`${line} ${string}\r`);
-			index = index >= spinners.length ? 0 : ++index;
-		}, 80);
-	}
-}
 
 class CLI
 {

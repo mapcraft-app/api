@@ -1,5 +1,6 @@
 const process = require('process');
-const OS = require('os');
+const os = require('os');
+const formats = require('./format');
 
 let saveInterval;
 class Spinner
@@ -18,10 +19,10 @@ class Spinner
 				index = 0;
 				line = spinners[index];
 			}
-			if (OS.platform === 'win32')
-				process.stdout.write(`${line} ${string}\x1b[0G`);
+			if (os.platform === 'win32')
+				process.stdout.write(`${formats.foreground.light.blue}${line} ${formats.format.reset}${string}\x1b[0G`);
 			else
-				process.stdout.write(`${line} ${string}\r`);
+				process.stdout.write(`${formats.foreground.light.blue}${line} ${formats.format.reset}${string}\r`);
 			index = index >= spinners.length ? 0 : ++index;
 		}, 80);
 	}
