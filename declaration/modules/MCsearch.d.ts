@@ -79,11 +79,11 @@ declare class MCsearch {
      * @param {Element} dom Element in which the search system is located
      * @returns Value of search
      */
-    static GetValue(dom: Element): any;
+    static getValue(dom: Element): any;
     /**
      * Set value of search system
      * @param {Element} dom Element in which the search system is located
      * @param {String} value New value of element
      */
-    static SetValue(dom: Element, value: string): void;
+    static setValue(dom: Element, value: string): void;
 }

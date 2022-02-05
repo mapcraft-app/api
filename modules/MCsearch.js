@@ -289,7 +289,7 @@ class MCsearch
 	 * @param {Element} dom Element in which the search system is located
 	 * @returns Value of search
 	 */
-	static GetValue(dom)
+	static getValue(dom)
 	{
 		if (dom.nodeName === 'INPUT')
 			return dom.value;
@@ -301,7 +301,7 @@ class MCsearch
 	 * @param {Element} dom Element in which the search system is located
 	 * @param {String} value New value of element
 	 */
-	static SetValue(dom, value)
+	static setValue(dom, value)
 	{
 		if (dom.nodeName === 'INPUT')
 			dom.value = value; // eslint-disable-line no-param-reassign
