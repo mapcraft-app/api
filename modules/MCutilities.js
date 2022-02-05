@@ -125,7 +125,7 @@ class MCutilities
 		let data;
 		try
 		{
-			data = JSON.parse(fs.readFileSync(path.join(dirname, `./${langPath}`, `${defaultDir}.json`)));
+			data = JSON.parse(fs.readFileSync(path.join(dirname, `./${defaultDir}`, `${langPath}.json`)));
 		}
 		catch (err)
 		{

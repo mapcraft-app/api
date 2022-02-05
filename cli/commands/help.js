@@ -6,20 +6,22 @@ const help = {
 	main: `${formats.foreground.normal.cyan}${name} \
 ${formats.foreground.normal.green}[command] \
 ${formats.foreground.light.blue}<options>\n\n\
-${formats.foreground.normal.green}create${formats.format.reset} ................ Create a new plugin\n\
-${formats.foreground.normal.green}version${formats.format.reset} ............... Show package version\n\
-${formats.foreground.normal.green}help${formats.format.reset} .................. Show help menu for a command\n`,
+${formats.foreground.normal.green}create${formats.format.reset}  .............. Create new plugin\n\
+${formats.foreground.normal.green}package${formats.format.reset} .............. Convert your plugin into Mapcraft plugin format\n\
+${formats.foreground.normal.green}version${formats.format.reset} .............. Show package version\n\
+${formats.foreground.normal.green}help${formats.format.reset}    .............. Show help menu for a command\n`,
 
 	create: `${formats.foreground.normal.cyan}${name} \
-${formats.foreground.normal.green}create \
-${formats.foreground.light.blue}<options>\n\n\
-${formats.foreground.light.blue}--directory, --dir\
-${formats.format.reset} ..... Output folder, default to ${formats.foreground.normal.green}'appData/plugins'${formats.format.reset}\n\
-Create a new plugin\n`,
+${formats.foreground.normal.green}create\n\
+${formats.format.reset}Create and initialize the blueprint of your new plugin in a very simple way\n`,
+
+	package: `${formats.foreground.normal.cyan}${name} \
+${formats.foreground.normal.green}package\n\
+${formats.format.reset}Convert your plugin into a format that can be easily installed by Mapcraft\n`,
 
 	version: `${formats.foreground.normal.cyan}${name} \
-${formats.foreground.normal.green}version${formats.format.reset}\n\
-Show current version of api\n`,
+${formats.foreground.normal.green}version\n\
+${formats.format.reset}Show current version of api\n`,
 
 	help: `${formats.foreground.normal.cyan}${name} \
 ${formats.foreground.normal.green}help \

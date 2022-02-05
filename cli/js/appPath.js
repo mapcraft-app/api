@@ -9,6 +9,7 @@ if (!process.env.APPDATA)
 module.exports = () =>
 {
 	const appPath = path.join(process.env.APPDATA, AppName, 'plugins');
+	const componentPath = path.join(appPath, 'components.json');
 	fs.mkdir(appPath, { recursive: true }, (err) =>
 	{
 		if (err)
@@ -16,6 +17,15 @@ module.exports = () =>
 			console.log(`\x1b[31m${err.message}`);
 			process.exit(1);
 		}
+	});
+	fs.access(componentPath, (err) =>
+	{
+		if (err)
+			fs.writeFile(componentPath, '[]', { encoding: 'utf-8' }, (err2) =>
+			{
+				if (err2)
+					throw new Error(err2);
+			});
 	});
 	return appPath;
 };

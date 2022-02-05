@@ -2,7 +2,7 @@ const { BrowserWindow } = require('electron');
 const path = require('path');
 const MCutilities = require('./MCutilities');
 
-MCutilities.GenerateENV();
+MCutilities.generateENV();
 
 class MCwindow
 {
