@@ -44,6 +44,8 @@ const IPC = {
 	 */
 	send: (channel, ...args) =>
 	{
+		if (!ipcRenderer)
+			return;
 		(async () =>
 		{
 			try
@@ -66,6 +68,8 @@ const IPC = {
 	 */
 	receive: (channel, func) =>
 	{
+		if (!ipcRenderer)
+			return;
 		(async () =>
 		{
 			try

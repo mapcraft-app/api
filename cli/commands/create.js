@@ -42,7 +42,7 @@ class create
 
 	#main(data)
 	{
-		spinner.start('The plugin is being created');
+		spinner.start('The plugin is being created', 'bar');
 		if (data.license.link !== undefined)
 			this.#getLicense(data.license);
 		else
@@ -130,7 +130,7 @@ class create
 		fs.writeFileSync(path.join(this.newPluginPath, data.lang, 'en_US.json'), JSON.stringify(newJsonLang, null, 4), { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 
 		spinner.stop();
-		spinner.start('Installation of the required packages');
+		spinner.start('Installation of the required packages', 'bar');
 		child.exec(
 			'yarn install --production=true',
 			{
