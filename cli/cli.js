@@ -54,3 +54,12 @@ class cli
 }
 
 new cli(); // eslint-disable-line
+
+process.on('uncaughtException', (err) =>
+{
+	console.error(`An error at ${(new Date()).toUTCString()} has occurred.\nDon't hesitate to open an issue on GitHub (https://gitlab.com/cbertran/mapcraft-api/-/issues) with the error code below :`);
+	console.error(`${formats.foreground.normal.red}═══════════════ ${formats.foreground.normal.yellow}⚠${formats.format.reset}  Error ${formats.foreground.normal.yellow}⚠${formats.format.reset}  ${formats.foreground.normal.red}══════════════${formats.format.reset}`);
+	console.error(err);
+	console.error(`${formats.foreground.normal.red}══════════════════════════════════════════${formats.format.reset}`);
+	process.exit(127);
+});

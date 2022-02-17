@@ -10,6 +10,7 @@ exports.package = {
 	license: String,
 	uuid: String,
 	icon: String,
+	isNotification: Boolean,
 	bin: {
 		component: String,
 		command: String,

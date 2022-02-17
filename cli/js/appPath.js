@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 const path = require('path');
 const process = require('process');
 
@@ -9,23 +9,18 @@ if (!process.env.APPDATA)
 module.exports = () =>
 {
 	const appPath = path.join(process.env.APPDATA, AppName, 'plugins');
-	const componentPath = path.join(appPath, 'components.json');
-	fs.mkdir(appPath, { recursive: true }, (err) =>
+	const init = async (componentPath) =>
 	{
-		if (err)
+		await fs.mkdir(appPath, { recursive: true });
+		try
 		{
-			console.log(`\x1b[31m${err.message}`);
-			process.exit(1);
+			await fs.writeFile(componentPath, '[]', { encoding: 'utf-8', flag: 'wx' });
 		}
-	});
-	fs.access(componentPath, (err) =>
-	{
-		if (err)
-			fs.writeFile(componentPath, '[]', { encoding: 'utf-8' }, (err2) =>
-			{
-				if (err2)
-					throw new Error(err2);
-			});
-	});
+		catch (err)
+		{
+			// make nothing if file exist
+		}
+	};
+	init(path.join(appPath, 'components.json'));
 	return appPath;
 };
