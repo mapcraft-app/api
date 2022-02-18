@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron');
 
 const Channel = {
-	Dialog: ['open-file', 'open-directory', 'selected-file', 'selected-directory', 'question', 'error'],
+	Dialog: ['open-global', 'open-file', 'open-directory', 'selected-global', 'selected-file', 'selected-directory', 'question', 'error'],
 	Editor: ['open', 'open-modal', 'close', 'close-modal', 'save-file'],
 	Log: ['is-change', 'send-change'],
 	Notification: ['click-notification'],
