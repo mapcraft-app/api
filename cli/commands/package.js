@@ -3,6 +3,7 @@ const sevenZip = require('7zip-min');
 const child = require('child_process');
 const crypto = require('crypto');
 const fs = require('fs');
+const fsPromise = require('fs/promises');
 const os = require('os');
 const path = require('path');
 const prompts = require('prompts');
@@ -73,10 +74,13 @@ class mapcraftPackage
 		this.#main();
 	}
 
+	// eslint-disable-next-line consistent-return
 	#main()
 	{
 		console.log(`📦 ${formats.format.underline}${formats.foreground.light.green}Package${formats.format.reset} 📦`);
 		console.log(`${formats.foreground.light.cyan}Convert your plugin into a format that can be easily installed by Mapcraft users${formats.format.reset}\n`);
+		if (!this.list.length)
+			return console.log(`❌ ${formats.foreground.light.magenta}No plugin is present${formats.format.reset}`);
 		prompts({
 			type: 'select',
 			name: 'plugin',
@@ -96,28 +100,28 @@ class mapcraftPackage
 			{
 				dirPath = path.join(this.pluginsPath, selectedPlugin.title);
 			}
-			fs.rm(path.join(this.pluginsPath, dirPath, 'node_modules'), { recursive: true, force: true }, (err) =>
-			{
-				if (err)
-					throw new Error(err.message);
-				spinner.update('Installation of dependencies');
-				child.exec(
-					'yarn install --production=true',
-					{
-						cwd: dirPath,
-						shell: true,
-						windowsHide: true,
-					},
-				).on('exit', (code) =>
+			fsPromise.rm(path.join(this.pluginsPath, dirPath, 'node_modules'), { recursive: true, force: true })
+				.then(() =>
 				{
-					if (code !== 0)
+					spinner.update('Installation of dependencies');
+					child.exec(
+						'yarn install --production=true',
+						{
+							cwd: dirPath,
+							shell: true,
+							windowsHide: true,
+						},
+					).on('exit', (code) =>
 					{
-						console.error(`❌ Child command 'yarn' failed with ${code} error code`);
-						process.exit(code);
-					}
-					this.#package(dirPath, selectedPlugin);
-				});
-			});
+						if (code !== 0)
+						{
+							console.error(`❌ Child command 'yarn' failed with ${code} error code`);
+							process.exit(code);
+						}
+						this.#package(dirPath, selectedPlugin);
+					});
+				})
+				.catch((err) => new Error(err.message));
 		});
 	}
 

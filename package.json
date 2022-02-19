@@ -1,6 +1,6 @@
 {
   "name": "mapcraft-api",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "description": "Official API for developping your own plugin for Mapcraft ecosystem",
   "main": "index.js",
   "bin": {
