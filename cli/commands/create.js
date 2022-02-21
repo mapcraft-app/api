@@ -62,15 +62,26 @@ class create
 
 		for (const el in data)
 			if (Object.prototype.hasOwnProperty.call(data, el))
-				if (el === 'license')
-					this.models.package[el] = data[el].name;
-				else
-					this.models.package[el] = data[el];
+				switch (el)
+				{
+					case 'license':
+						this.models.package[el] = data[el].name;
+						break;
+					case 'name':
+						this.models.package[el] = data[el];
+						this.models.package.bin.command = data[el];
+						break;
+					case 'component':
+						this.models.package.bin.component = data[el];
+						break;
+					case 'lang':
+						this.models.package.bin.lang = data[el];
+						break;
+					default:
+						this.models.package[el] = data[el];
+				}
 		this.models.package.uuid = this.newUUID;
 		this.models.package.icon = 'icon.png';
-		this.models.package.bin.command = data.name;
-		this.models.package.bin.component = data.component;
-		this.models.package.bin.lang = data.lang;
 
 		this.models.component.name = data.name;
 		this.models.component.uuid = this.newUUID;

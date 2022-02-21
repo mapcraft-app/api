@@ -38,7 +38,7 @@ exports.mainjs = (pluginName) =>
 * @constant MANIFEST ... Contains all the data present in the 'package.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
 * @constant TEMPLATE ... Represents the class allowing you to display or delete things on the user interface.
 * @constant LANG ....... Contains all data corresponding to the language chosen by the user, or 'en_US.json' by default, in JSON format. When loading the plugin, it is important to call the @function updateLANG() to take into account if the user has changed the language of the software.
-* @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the 'main()' function, which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
+* @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the @function main(), which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
 * @classdesc Shell ..... Asynchronous function, detects if a user in the game executes a command related to your plugin.
 */
 const { Mapcraft, MCipc, MCtemplate, MCutilities } = require('mapcraft-api');
