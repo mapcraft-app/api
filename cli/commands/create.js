@@ -25,7 +25,12 @@ class create
 
 		console.log(`💠 ${formats.format.underline}${formats.foreground.light.green}Plugin creator${formats.format.reset} 💠`);
 		console.log(`${formats.foreground.light.cyan}Welcome to the plugin creator. Simply answer the questions asked to create a solid base, and start developing without wasting time${formats.format.reset}\n`);
-		prompts(questions).then((data) =>
+		prompts(questions, {
+			onCancel: () =>
+			{
+				throw new Error('User stop prompts');
+			},
+		}).then((data) =>
 		{
 			this.newPluginPath = path.join(appPath(), data.name);
 			try
@@ -142,8 +147,9 @@ class create
 
 		spinner.stop();
 		spinner.start('Installation of the required packages', 'bar');
+
 		child.exec(
-			'yarn install --production=true',
+			'npm install --production=true',
 			{
 				cwd: this.newPluginPath,
 				shell: true,
@@ -156,7 +162,7 @@ class create
 			process.stdout.cursorTo(0);
 			if (code !== 0)
 			{
-				console.error(`❌ Child command 'yarn' failed with ${code} error code`);
+				console.error(`❌ Child command 'npm' failed with ${code} error code`);
 				process.exit(code);
 			}
 			console.log('🚀 The plugin is ready !');

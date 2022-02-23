@@ -105,7 +105,7 @@ class mapcraftPackage
 				{
 					spinner.update('Installation of dependencies');
 					child.exec(
-						'yarn install --production=true',
+						'npm install --production=true',
 						{
 							cwd: dirPath,
 							shell: true,
@@ -115,7 +115,7 @@ class mapcraftPackage
 					{
 						if (code !== 0)
 						{
-							console.error(`❌ Child command 'yarn' failed with ${code} error code`);
+							console.error(`❌ Child command 'npm' failed with ${code} error code`);
 							process.exit(code);
 						}
 						this.#package(dirPath, selectedPlugin);

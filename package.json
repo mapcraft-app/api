@@ -1,6 +1,6 @@
 {
   "name": "mapcraft-api",
-  "version": "1.7.8",
+  "version": "1.8.0",
   "description": "Official API for developping your own plugin for Mapcraft ecosystem",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "out": "out",
   "engines": {
-    "node": ">= 14.0"
+    "node": ">= 16.0"
   },
   "types": "declaration/index.d.ts",
   "files": [
@@ -16,7 +16,7 @@
     "modules/**/*",
     "cli/**/*",
     "index.js",
-    "yarn.lock"
+    "package-lock.json"
   ],
   "repository": {
     "type": "git",

@@ -25,6 +25,14 @@ yarn add mapcraft-api
 ```js
 const { Mapcraft, MCdatabase, MCeditor, MCfs, MCipc, MClink, MClog, MCplugin, MCshell, MCtemplate, MCutilities, MCwindow, MCworkInProgress } = require('mapcraft-api');
 ```
+
+# CLI
+
+Mapcraft has a cli that allows you to simplify the creation and packaging of your plugin
+```sh
+	npm run mapcraft [create|package|version|help]
+```
+
 # Documentation
 
 - [API documentation](https://documentation.mapcraft.app)
