@@ -61,6 +61,7 @@ class MCutilities
 
 	/**
 	 * Download file from web, accept http and https url
+	 * This function does not check the content of the downloaded file, it is up to you to perform the necessary checks so as not to compromise the user's security
 	 * @param {String} url url of download file
 	 * @param {String} destination path of file destination
 	 * @param {Function} callback callback function with (error)
@@ -116,7 +117,7 @@ class MCutilities
 	/**
 	 * Get lang of component
 	 * @param {String} dirname __dirname of component
-	 * @param {String} langPath MC.GetConfig().Env.Lang
+	 * @param {String} langPath MC.config.Env.Lang
 	 * @param {String} defaultDir default directory of lang file
 	 * @returns {JSON} JSON data of lang file, or undefined if error
 	 */

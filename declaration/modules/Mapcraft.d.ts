@@ -7,9 +7,9 @@ declare class MC {
     resetConfigFile(): void;
     /**
      * Update config.json file with new values
-     * @param {String} data Game path (required)
-     * @param {String} save Save path (required)
-     * @param {String} temp Tempory directory path, default to OS.tempdir();
+     * @param {String} data Path to the game folder (required)
+     * @param {String} save Path to the game saves folder (required)
+     * @param {String} temp Path to the temporary folder, default to OS.tempdir();
      * @param {String} lang Lang of application, default 'default_lang' key of manifest
      * @param {String} resourcepack Name of resource pack, default 'Mapcraft-resource'
      * @param {String} datapack Name of data pack, default 'Mapcraft-data'

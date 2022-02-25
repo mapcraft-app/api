@@ -115,11 +115,11 @@ class MCplugin
 	}
 
 	/**
-	 * Toogle component
+	 * Activate / Deactivate component
 	 * @param {String} name Name of component
 	 * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
 	 */
-	toogle(name, forceValue = undefined)
+	toggle(name, forceValue = undefined)
 	{
 		for (const i in global.MCpluginSave.active)
 			if (global.MCpluginSave.active[i].name === name)

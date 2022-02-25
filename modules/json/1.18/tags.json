@@ -5,7 +5,7 @@
 		"stripped_acacia_log",
 		"stripped_acacia_wood"
 	],
-	"animals_spawnable_on‌": [
+	"animals_spawnable_on": [
 		"grass_block"
 	],
 	"anvil": [
@@ -44,7 +44,7 @@
 		"snow_block",
 		"powder_snow"
 	],
-	"azalea_root_replaceable‌": [
+	"azalea_root_replaceable": [
 		"#lush_ground_replaceable",
 		"#terracotta",
 		"red_sand" 
@@ -132,7 +132,7 @@
 		"cave_vines",
 		"cave_vines_plant"
 	],
-	"big_dripleaf_placeable‌": [
+	"big_dripleaf_placeable": [
 		"#dirt",
 		"#small_dripleaf_placeable",
 		"farmland"
@@ -457,7 +457,7 @@
 		"flowering_azalea",
 		"flowering_azalea_leaves"
 	],
-	"foxes_spawnable_on‌": [
+	"foxes_spawnable_on": [
 		"grass_block",
 		"snow",
 		"snow_block",
@@ -494,7 +494,7 @@
 		"packed_ice",
 		"blue_ice"
 	],
-	"goats_spawnable_on‌": [
+	"goats_spawnable_on": [
 		"stone",
 		"snow",
 		"powder_snow",
@@ -602,7 +602,7 @@
 		"lava",
 		"flowing_lava"
 	],
-	"lava_pool_cannot_replace‌": [
+	"lava_pool_cannot_replace": [
 		"#features_cannot_replace",
 		"#leaves"
 	],
@@ -639,7 +639,7 @@
 		"gravel",
 		"sand"
 	],
-	"mooshrooms_spawnable_on‌": [
+	"mooshrooms_spawnable_on": [
 		"mycelium"
 	],
 	"moss_replaceable": [
@@ -766,7 +766,7 @@
 	"occludes_vibration_signals": [
 		"#wool"
 	],
-	"parrots_spawnable_on‌": [
+	"parrots_spawnable_on": [
 		"#leaves",
 		"#logs",
 		"air",
@@ -816,7 +816,7 @@
 		"spruce_planks",
 		"warped_planks"
 	],
-	"polar_bears_spawnable_on_in_frozen_ocean‌": [
+	"polar_bears_spawnable_on_in_frozen_ocean": [
 		"ice"
 	],
 	"portals": [
@@ -839,7 +839,7 @@
 	"prevent_mob_spawning_inside": [
 		"#rails"
 	],
-	"rabbits_spawnable_on‌": [
+	"rabbits_spawnable_on": [
 		"grass_block",
 		"snow",
 		"snow_block",
@@ -863,7 +863,7 @@
 		"deepslate_redstone_ore",
 		"redstone_ore"
 	],
-	"replaceable_plants‌": [
+	"replaceable_plants": [
 		"grass",
 		"fern",
 		"dead_bush",
@@ -1098,7 +1098,7 @@
 		"rose_bush",
 		"sunflower"
 	],
-	"terracotta‌": [
+	"terracotta": [
 		"black_terracotta",
 		"blue_terracotta",
 		"brown_terracotta",
@@ -1260,7 +1260,7 @@
 		"soul_sand",
 		"soul_soil"
 	],
-	"wolves_spawnable_on‌": [
+	"wolves_spawnable_on": [
 		"grass_block",
 		"snow",
 		"snow_block"

@@ -35,7 +35,7 @@ exports.mainjs = (pluginName) =>
 {
 	const data = `/**
 * @file A plugin contains three variables and a class, which are imperative :
-* @constant MANIFEST ... Contains all the data present in the 'package.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
+* @constant PACKAGE ... Contains all the data present in the 'package.json' file of your plugin, and is notably used to correctly define your plugin for the template system.
 * @constant TEMPLATE ... Represents the class allowing you to display or delete things on the user interface.
 * @constant LANG ....... Contains all data corresponding to the language chosen by the user, or 'en_US.json' by default, in JSON format. When loading the plugin, it is important to call the @function updateLANG() to take into account if the user has changed the language of the software.
 * @classdesc Component . Represents the interface between your plugin and Mapcraft. Your interface must contain the @function main(), which represents the entry point of your plugin (if this one is deleted your plugin will not work). All other functions or classes will remain internal to your plugin.
@@ -43,12 +43,12 @@ exports.mainjs = (pluginName) =>
 */
 const { Mapcraft, MCipc, MCtemplate, MCutilities } = require('mapcraft-api');
 
-const MANIFEST = MCutilities.getPackage(__dirname);
-const TEMPLATE = new MCtemplate(__dirname, MANIFEST.uuid);
+const PACKAGE = MCutilities.getPackage(__dirname);
+const TEMPLATE = new MCtemplate(__dirname, PACKAGE.uuid);
 let LANG;
 const updateLANG = () =>
 {
-	LANG = MCutilities.getLang(__dirname, Mapcraft.config.Env.Lang, MANIFEST.bin.lang);
+	LANG = MCutilities.getLang(__dirname, Mapcraft.config.Env.Lang, PACKAGE.bin.lang);
 };
 
 class Component
@@ -61,7 +61,7 @@ class Component
 }
 
 //Shell
-const COMMAND = (MANIFEST.bin.command) ? MANIFEST.bin.command : MANIFEST.name;
+const COMMAND = (PACKAGE.bin.command) ? PACKAGE.bin.command : PACKAGE.name;
 MCipc.receive('Shell:execute-command', (command) =>
 {
 	if (command.Command !== COMMAND)

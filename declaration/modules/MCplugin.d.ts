@@ -29,11 +29,11 @@ declare class MCplugin {
      */
     active(name: string): any;
     /**
-     * Toogle component
+     * Activate / Deactivate component
      * @param {String} name Name of component
      * @param {Boolean} forceValue Set to true/false if you want to force activate/desactivate plugin
      */
-    toogle(name: string, forceValue?: boolean): void;
+    toggle(name: string, forceValue?: boolean): void;
     /**
      * Get lang data of component
      * @param {String} name Name of component

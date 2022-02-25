@@ -133,8 +133,8 @@ class Template
 
 	// #region Public
 	/**
-	 * Render template in DOMelement
-	 * @param {Element} DOMelement DOMelement on which the elements will be added
+	 * Render template in Element
+	 * @param {Element} DOMelement Element on which the elements will be added
 	 * @param {String} template Name of template file with extension
 	 * @param {JSON} args Valid json for replace variable(s)
 	 */
@@ -160,7 +160,7 @@ class Template
 	/**
 	 * Get raw of template HTML
 	 * @param {String} template Name of template file with extension
-	 * @returns Blob raw of HTML template
+	 * @returns Raw of HTML template
 	 */
 	getRaw(template)
 	{
@@ -174,7 +174,7 @@ class Template
 
 	/**
 	 * Render generated elements in raw formats; data must be valid HTML
-	 * @param {Element} DOMelement DOMelement on which the elements will be added
+	 * @param {Element} DOMelement Element on which the elements will be added
 	 * @param {String} rawHTML HTML raw
 	 * @param {String} template Name of template file with extension
 	 * @param {JSON} args Valid json for replace variable(s)
@@ -213,8 +213,8 @@ class Template
 	}
 
 	/**
-	 * Update lang of specific DOMelement
-	 * @param {Element} DOMelement DOMelement of DOM
+	 * Update lang of specific Element
+	 * @param {Element} DOMelement Element of DOM
 	 * @param {JSON} args Valid json for replace variable(s)
 	 */
 	updateLang(DOMelement, args)
@@ -259,8 +259,8 @@ class Template
 	}
 
 	/**
-	 * Correctly clean child of element
-	 * @param {Element} node DOMelement
+	 * Correctly clean Node (https://developer.mozilla.org/en-US/docs/Web/API/Node)
+	 * @param {Element} node Node to be removed
 	 * @param {Boolean} removeParent If true, function remove node after delete child. false by default
 	 */
 	cleanNode(node, removeParent = false)
