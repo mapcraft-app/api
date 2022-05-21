@@ -107,7 +107,7 @@ const questions = [
 	{
 		type: 'text',
 		name: 'lang',
-		message: 'In which folder will the language files be placed ?',
+		message: 'In which folder will the language files be placed',
 		initial: 'lang',
 		validate(val)
 		{

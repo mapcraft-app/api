@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+
 const packageJson = require('../package.json');
 
 exports.package = {
@@ -30,7 +32,6 @@ exports.component = {
 	lang: String,
 };
 
-// eslint-disable-next-line operator-linebreak
 exports.mainjs = (pluginName) =>
 {
 	const data = `/**
@@ -74,7 +75,6 @@ module.exports = Component;
 	return (data);
 };
 
-// eslint-disable-next-line operator-linebreak
 exports.mainshell =
 `const component = require('./package.json');
 
@@ -93,24 +93,25 @@ exports.command = {
 };
 `;
 
-// eslint-disable-next-line operator-linebreak
 exports.maintp =
-`[HTML]
+`<html>
 <div class="uk-container uk-margin-top">
 	<div id="custom-alert"></div>
 	<h2 class="custom-class">{CustomVar}</h2>
+	<h3 id="custom-js"></h3>
 </div>
-[/HTML]
+</html>
 
-[CSS]
+<style>
 .custom-class {
     color: rgb(211, 207, 201);
 }
-[/CSS]
+</style>
 
-[JS]
+<script>
+document.getElementById('custom-js').innerText = 'Hello from template javascript !'; 
 console.log('Hello from the plugin !');
-[/JS]
+</script>
 `;
 
 exports.lang = {

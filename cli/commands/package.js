@@ -150,9 +150,9 @@ class mapcraftPackage
 		const tempPath = path.join(os.tmpdir(), `${crypto.randomUUID()}`);
 		fs.cp(dirPath, tempPath, { force: true, recursive: true }, (err) =>
 		{
-			const CompressPath = path.join(dirPath, `${selectedPlugin.title}.mapcraft`);
 			if (err)
 				throw new Error(err);
+			const CompressPath = path.join(dirPath, `${selectedPlugin.title}.mapcraft`);
 			this.#tree_files(tempPath, true);
 			this.size.before = Number(this.size.before / 1048576).toFixed(2);
 			spinner.update(`Plugin conversion - Convert the plugin into ${formats.format.bold}.mapcraft${formats.format.reset} format`);

@@ -73,10 +73,10 @@ class Template
 				if (path.extname(file) === '.tp')
 				{
 					const data = fs.readFileSync(path.join(directory, file), 'utf8');
-					TempCSS = data.match(/(?<=\[CSS\]\s*).*?(?=\s*\[\/CSS\])/gs);
+					TempCSS = data.match(/(?<=<style>\s*).*?(?=\s*<\/style>)/gs);
 					if (TempCSS)
 						CSS += TempCSS;
-					TempJS = data.match(/(?<=\[JS\]\s*).*?(?=\s*\[\/JS\])/gs);
+					TempJS = data.match(/(?<=<script>\s*).*?(?=\s*<\/script>)/gs);
 					if (TempJS)
 						JS += TempJS;
 				}
@@ -144,7 +144,7 @@ class Template
 		const data = fs.readFileSync(path.join(this.directory, template), 'utf8');
 		if (!data)
 			throw data;
-		HTML = data.match(/(?<=\[HTML\]\s*).*?(?=\s*\[\/HTML\])/gs);
+		HTML = data.match(/(?<=<html>\s*).*?(?=\s*<\/html>)/gs);
 		if (HTML)
 		{
 			HTML = HTML.toString().trim();
@@ -168,7 +168,7 @@ class Template
 		const data = fs.readFileSync(path.join(this.directory, template), 'utf8');
 		if (!data)
 			throw data;
-		HTML = data.match(/(?<=\[HTML\]\s*).*?(?=\s*\[\/HTML\])/gs);
+		HTML = data.match(/(?<=<html>\s*).*?(?=\s*<\/html>)/gs);
 		return (HTML.toString().trim());
 	}
 

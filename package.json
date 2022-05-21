@@ -20,13 +20,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/cbertran/mapcraft-api.git"
+    "url": "https://github.com/mapcraft-app/api"
   },
   "keywords": [
     "mapcraft",
     "minecraft"
   ],
-  "author": "Clément Bertrand (https://gitlab.com/cbertran/mapcraft-api)",
+  "author": "Clément Bertrand (https://github.com/c-bertran)",
   "license": "GPL-3.0",
   "homepage": "https://mapcraft.app",
   "scripts": {
