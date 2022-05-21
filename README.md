@@ -8,7 +8,7 @@ Develop your own plugin for Mapcraft with all the necessary tools.
 ## Installation
 1. Get the latest version of Mapcraft
 ```bash
-git clone https://gitlab.com/cbertran/mapcraft.git
+git clone https://github.com/mapcraft-app/api.git
 ```
 
 2. Install latest version of api
@@ -30,7 +30,7 @@ const { Mapcraft, MCdatabase, MCeditor, MCfs, MCipc, MClink, MClog, MCplugin, MC
 
 Mapcraft has a cli that allows you to simplify the creation and packaging of your plugin
 ```sh
-	npm run mapcraft [create|package|version|help]
+npm run mapcraft [create|package|version|help]
 ```
 
 # Documentation
