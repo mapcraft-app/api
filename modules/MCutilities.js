@@ -77,7 +77,11 @@ class MCutilities
 		const request = httpMethod.get(url, (response) => // eslint-disable-line
 		{
 			if (response.statusCode !== 200)
-				return callback(`${response.statusCode} error to ${url}`);
+				if (response.statusCode === 301 || response.statusCode === 302)
+					this.download(response.headers.location, destination, callback);
+				else
+					return callback(`${response.statusCode} error to ${url}`);
+
 			response.pipe(file);
 			file.on('finish', () =>
 			{
