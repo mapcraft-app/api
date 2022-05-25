@@ -148,10 +148,15 @@ class Template
 		if (HTML)
 		{
 			HTML = HTML.toString().trim();
-			if (typeof args === 'object')
-				for (const arg in args)
-					if (Object.prototype.hasOwnProperty.call(args, arg))
-						HTML = HTML.replace(RegExp(`{${arg}}`, 'g'), args[arg]);
+			if (args && typeof args === 'object')
+			{
+				const vars = Array.from(HTML.matchAll(/{([^{}]+)}/gi), (el) => el[1]);
+				for (const _var of vars)
+					HTML = HTML.replace(
+						RegExp(`{${_var}}`, 'g'),
+						_var.split('.').reduce((_args, _i) => _args[_i], args),
+					);
+			}
 			HTML = HTML.replace(/{\w+}/g, '');
 		}
 		this._insertTemplate(DOMelement, template, HTML);
@@ -186,11 +191,14 @@ class Template
 			throw new Error(`HTML is ${newRawHTML}`);
 		if (args && typeof args === 'object')
 		{
-			for (const arg in args)
-				if (Object.prototype.hasOwnProperty.call(args, arg))
-					newRawHTML = newRawHTML.replace(RegExp(`{${arg}}`, 'g'), args[arg]);
-			newRawHTML = newRawHTML.replace(/{\w+}/g, '');
+			const vars = Array.from(newRawHTML.matchAll(/{([^{}]+)}/gi), (el) => el[1]);
+			for (const _var of vars)
+				newRawHTML = newRawHTML.replace(
+					RegExp(`{${_var}}`, 'g'),
+					_var.split('.').reduce((_args, _i) => _args[_i], args),
+				);
 		}
+		newRawHTML = newRawHTML.replace(/{\w+}/g, '');
 		this._insertTemplate(DOMelement, template, newRawHTML);
 	}
 
@@ -204,10 +212,15 @@ class Template
 		let newHTML = HTML;
 		if (!newHTML)
 			throw new Error('HTML raw is not defined');
-		if (typeof args === 'object')
-			for (const arg in args)
-				if (Object.prototype.hasOwnProperty.call(args, arg))
-					newHTML = newHTML.replace(RegExp(`{${arg}}`, 'g'), args[arg]);
+		if (args && typeof args === 'object')
+		{
+			const vars = Array.from(newHTML.matchAll(/{([^{}]+)}/gi), (el) => el[1]);
+			for (const _var of vars)
+				newHTML = newHTML.replace(
+					RegExp(`{${_var}}`, 'g'),
+					_var.split('.').reduce((_args, _i) => _args[_i], args),
+				);
+		}
 		newHTML = newHTML.replace(/{\w+}/g, '');
 		return (newHTML);
 	}
