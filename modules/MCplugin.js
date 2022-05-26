@@ -31,6 +31,16 @@ class MCplugin
 				array: [],
 				active: JSON.parse(fs.readFileSync(MC.config.Env.ActiveComponents, { encoding: 'utf-8', flag: 'r' })),
 			};
+			// Force rewrite if option change manually
+			for (const el of this.Components)
+				if (el.desactivable === false)
+					for (const data of global.MCpluginSave.active)
+						if (data.name === el.name)
+						{
+							data.active = el.active;
+							break;
+						}
+
 			const addBuiltin = (json) =>
 			{
 				for (const i in global.MCpluginSave.active)
