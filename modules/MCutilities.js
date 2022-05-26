@@ -69,42 +69,52 @@ class MCutilities
 	static download(url, destination, callback)
 	{
 		const file = fs.createWriteStream(destination);
-		let httpMethod;
-		if (url.indexOf(('https://')) !== -1)
-			httpMethod = https;
-		else
-			httpMethod = http;
-		const request = httpMethod.get(url, (response) => // eslint-disable-line
-		{
-			if (response.statusCode !== 200)
-				if (response.statusCode === 301 || response.statusCode === 302)
-					this.download(response.headers.location, destination, callback);
-				else
-					return callback(`${response.statusCode} error to ${url}`);
+		let httpMethod = (url.indexOf(('https://')) !== -1) ? https : http;
 
-			response.pipe(file);
-			file.on('finish', () =>
-			{
-				file.close(callback);
-			});
-		});
-		request.on('error', (err) =>
+		const navigateThrowLocation = async (_url, _callback) =>
 		{
-			fs.unlink(destination, (errFs) =>
+			httpMethod.get(_url, async (res) =>
 			{
-				if (errFs)
-					console.error('download request error:', errFs);
+				if (res.headers.location)
+				{
+					httpMethod = (_url.indexOf(('https://')) !== -1) ? https : http;
+					// eslint-disable-next-line no-return-await
+					return await navigateThrowLocation(res.headers.location, _callback);
+				}
+				return _callback(_url);
 			});
-			callback(err.message);
-		});
-		file.on('error', (err) =>
+		};
+
+		navigateThrowLocation(url, (__url) =>
 		{
-			fs.unlink(destination, (errFs) =>
+			const request = httpMethod.get(__url, (response) => // eslint-disable-line
 			{
-				if (errFs)
-					console.error('download request error:', errFs);
+				if (response.statusCode !== 200)
+					if (response.statusCode === 301 || response.statusCode === 302)
+						return this.download(response.headers.location, destination, callback);
+					else
+						return callback(`${response.statusCode} error to ${__url}`);
+				response.pipe(file);
+				file.on('finish', () => file.close(callback));
 			});
-			callback(err.message);
+			request.on('error', (err) =>
+			{
+				fs.unlink(destination, (errFs) =>
+				{
+					if (errFs)
+						console.error('download request error:', errFs);
+				});
+				callback(err.message);
+			});
+			file.on('error', (err) =>
+			{
+				fs.unlink(destination, (errFs) =>
+				{
+					if (errFs)
+						console.error('download request error:', errFs);
+				});
+				callback(err.message);
+			});
 		});
 	}
 
