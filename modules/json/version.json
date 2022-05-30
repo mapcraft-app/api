@@ -1,5 +1,16 @@
 {
-	"Versions": ["1.17", "1.18"],
+	"Versions": [
+		{
+			"Edition": "1.17",
+			"Datapack": 7,
+			"ResourcePack": 7
+		},
+		{
+			"Edition": "1.18",
+			"Datapack": 8,
+			"ResourcePack": 8
+		}
+	],
 	"LastestVersion": "1.18",
 	"SelectedVersion": "1.18"
 }
