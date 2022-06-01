@@ -10,7 +10,6 @@ declare class Template {
     preGenerateID: string;
     DIRMAIN: string;
     DIRFile: string;
-    DIRLink: string;
     CSSFile: string;
     CSSLink: string;
     JSFile: string;
@@ -56,6 +55,10 @@ declare class Template {
      * @param {Boolean} removeParent If true, function remove node after delete child. false by default
      */
     cleanNode(node: Element, removeParent?: boolean): void;
+    /**
+     * Prune every generate template files and directory
+     */
+    prune(): void;
     /**
      * Clean render
      * @private

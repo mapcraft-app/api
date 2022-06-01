@@ -52,8 +52,7 @@ class Template
 		this.DIRMAIN = path.join(process.env.AppDataPath, 'template');
 		if (!fs.existsSync(this.DIRMAIN))
 			fs.mkdirSync(this.DIRMAIN, '0777', true);
-		this.DIRFile = path.join(process.env.AppDataPath, 'template', path.basename(directory));
-		this.DIRLink = path.join(this.DIRFile);
+		this.DIRFile = path.join(process.env.AppDataPath, 'template', `${path.basename(directory)}_${checksum(directory)}`);
 		this.CSSFile = 'style.css';
 		this.CSSLink = path.join(this.DIRFile, this.CSSFile);
 		this.JSFile = 'data.js';
@@ -101,9 +100,9 @@ class Template
 				generateJS();
 			};
 
-			if (!fs.existsSync(this.DIRLink))
+			if (!fs.existsSync(this.DIRFile))
 			{
-				fs.mkdirSync(this.DIRLink, '0777', true);
+				fs.mkdirSync(this.DIRFile, '0777', true);
 				generateEverything();
 			}
 			else if (!fs.existsSync(this.LOCKLink) || !fs.readFileSync(this.LOCKLink, 'utf8'))
@@ -284,6 +283,19 @@ class Template
 		if (removeParent)
 			node.remove();
 	}
+
+	/**
+	 * Prune every generate template files and directory
+	 */
+	prune()
+	{
+		fs.rm(this.DIRMAIN, { force: true, recursive: true }, (err) =>
+		{
+			if (err)
+				throw new Error(err);
+		});
+	}
+
 	// #endregion
 
 	// #region Private
