@@ -114,3 +114,7 @@ dist
 ### Node Patch ###
 # Serverless Webpack directories
 .webpack/
+
+# Dist
+dist
+.rollup.cache
