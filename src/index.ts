@@ -49,10 +49,10 @@ tutu.instanceDownload.default.on('data', (d) => {
 });*/
 
 (async() => {
-	const __datapack = new datapack(envTest, 'NewMapcraft', '1.19');
-	const __resourcepack = new resourcepack(envTest, 'NewMapcraft', '1.19');
+	const __datapack = new datapack(envTest, 'mapcraft_vue', '1.19');
+	const __resourcepack = new resourcepack(envTest, 'mapcraft_vue', '1.19');
 
-	__datapack.instanceDownload?.on('data', (d) => {
+	/*__datapack.instanceDownload?.on('data', (d) => {
 		console.log('datapack', d);
 	});
 	__resourcepack.instanceDownload.default.on('data', (d) => {
@@ -60,11 +60,11 @@ tutu.instanceDownload.default.on('data', (d) => {
 	});
 	__resourcepack.instanceDownload.base?.on('data', (d) => {
 		console.log('resource base', d);
-	});
+	});*/
 
-	await __datapack.update();
-	// await __resourcepack.update();
-	console.log(await __datapack.build());
+	await __datapack.update().finally(() => console.log('datapack updated'));
+	await __resourcepack.update().finally(() => console.log('resource updated'));
+	// console.log('hello world');
 	// await build(__datapack, __resourcepack);
 	// console.log(await __datapack.build());
 	// console.log(await __resourcepack.build());

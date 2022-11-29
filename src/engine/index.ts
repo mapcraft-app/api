@@ -43,10 +43,10 @@ export async function build(datapack: datapack, resource: resourcepack): Promise
 		}
 	);
 
+	const pathToMapcraftDatapack = await datapack.build();
 	const pathToResourceBuild = await resource.build();
 	await createResourceZip(pathToResourceBuild);
-
-	console.log(pathToResourceBuild);
+	console.log(pathToMapcraftDatapack, pathToResourceBuild);
 }
 
 export default {

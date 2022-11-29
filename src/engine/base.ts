@@ -1,3 +1,4 @@
+import { unpack } from '7zip-min';
 import { createHash, randomBytes } from 'crypto';
 import { accessSync } from 'fs';
 import { copyFile, cp, mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
@@ -18,6 +19,16 @@ export default class {
 			datapack: resolve(this.env.save, this.name),
 			resourcepack: resolve(this.env.resource, this.name)
 		};
+	}
+
+	protected unpackData(src: string, dest: string): Promise<void> {
+		return new Promise((res, rej) => {
+			unpack(src, dest, (err) => {
+				if (err)
+					rej(err);
+				res();
+			});
+		});
 	}
 
 	protected compareHash(original: Record<string, any>, modified: Record<string, any>): Record<string, any> {

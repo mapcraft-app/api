@@ -1,14 +1,14 @@
+import { randomBytes } from 'crypto';
 import { accessSync } from 'fs';
-import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'fs/promises';
+import { access, cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'fs/promises';
+import { tmpdir } from 'os';
 import { resolve } from 'path';
-import { unpack } from '7zip-min';
 import download from 'misc/download';
 import fetch from 'misc/fetch';
 
 import { envInterface } from './interface';
 import engine from './base';
 import versions from 'src/minecraft/version';
-import { tmpdir } from 'os';
 
 export default class extends engine {
 	private _path: { archive: string, custom: string, pack: string, temp: string };
@@ -26,11 +26,12 @@ export default class extends engine {
 		this.baseUrl = (process.env.DEV)
 			? 'http://localhost:3000'
 			: 'https://api.mapcraft.app';
+		const randomId = randomBytes(16).toString('hex').slice(0, 16);
 		this._path = {
-			archive: resolve(this.env.temp, `mapcraft_${version}_dtp`, 'datapack.zip'),
+			archive: resolve(this.env.temp, `mapcraft_${randomId}`, 'datapack.zip'),
 			custom: resolve(this.path.datapack, 'datapacks', 'mapcraft-data'),
 			pack: resolve(this.path.datapack, 'datapacks', 'mapcraft'),
-			temp: resolve(this.env.temp, `mapcraft_${version}_dtp`)
+			temp: resolve(this.env.temp, `mapcraft_${randomId}`)
 		};
 	}
 
@@ -70,19 +71,11 @@ export default class extends engine {
 		await rm(this._path.archive, { recursive: true, force: true });
 		await rm(this._path.pack, { recursive: true, force: true });
 		await mkdir(this._path.pack, { recursive: true });
-		await fetch(`${this.baseUrl}/software/datapack/${this.version}`)
-			.then((d) => d.json())
-			.then((d) => {
-				this.release = d.releases[0] as { description: string, url: string, version: string };
-				this.instanceDownload = new download(this.release.url, this._path.archive);
-			});
-		return this.instanceDownload?.get()
-			.then(() => {
-				unpack(this._path.archive, this._path.pack, (err) => {
-					if (err)
-						throw new Error(err.message);
-				});
-			});
+		const data = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json();
+		this.release = data.releases[0] as { description: string, url: string, version: string };
+		this.instanceDownload = new download(this.release.url, this._path.archive);
+		await this.instanceDownload?.get();
+		return this.unpackData(this._path.archive, this._path.pack);
 	}
 
 	async install(): Promise<[void, void]> {
@@ -98,23 +91,20 @@ export default class extends engine {
 	}
 
 	async update(): Promise<void> {
-		// custom datapack
-		try {
-			accessSync(this._path.custom);
-		} catch (___) {
-			await this.installGeneratedDatapack();
-		}
-
-		// default datapack
-		try {
-			accessSync(this._path.pack);
-			const localVersion = JSON.parse(await readFile(resolve(this._path.pack, 'pack.mcmeta'), { encoding: 'utf-8' })).mapcraft.version as string;
-			const remoteVersion = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json().releases[0].version as string;
-			if (localVersion !== remoteVersion)
-				throw new Error('update default mapcraft data pack');
-		} catch (___) {
-			await this.installDefaultPack();
-		}
+		await access(this._path.custom) // custom datapack
+			.catch(async () => {
+				await this.installGeneratedDatapack();
+			});
+		await access(this._path.pack) // default datapack
+			.then(async () => {
+				const localVersion = JSON.parse(await readFile(resolve(this._path.pack, 'pack.mcmeta'), { encoding: 'utf-8' })).mapcraft.version as string;
+				const remoteVersion = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json().releases[0].version as string;
+				if (localVersion !== remoteVersion)
+					await this.installDefaultPack();
+			})
+			.catch(async () => {
+				await this.installDefaultPack();
+			});
 	}
 
 	async build(): Promise<string> {
@@ -122,6 +112,7 @@ export default class extends engine {
 		const builtInDir = resolve(tempDir, 'data', 'mapcraft', 'functions', 'built_in');
 
 		await cp(this._path.pack, tempDir, { dereference: true, recursive: true });
+		await rm(resolve(tempDir, 'data', 'temp_slot'), { recursive: true, force: true });
 		await rm(resolve(tempDir, 'data', 'mapcraft', 'structures'), { recursive: true, force: true });
 		await rm(resolve(tempDir, 'data', 'mapcraft', 'functions', 'tools'), { recursive: true, force: true });
 		// built-in
@@ -133,8 +124,6 @@ export default class extends engine {
 		await rm(resolve(builtInDir, 'selection'), { recursive: true, force: true });
 
 		return tempDir;
-		// return this._path.pack;
-		// return this._build(this.path.datapack);
 	}
 
 	check(): boolean {

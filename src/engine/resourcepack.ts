@@ -1,7 +1,7 @@
+import { randomBytes } from 'crypto';
 import { accessSync } from 'fs';
 import { mkdir, readFile, rm } from 'fs/promises';
 import { resolve } from 'path';
-import { unpack } from '7zip-min';
 import download from 'misc/download';
 import fetch from 'misc/fetch';
 
@@ -25,17 +25,15 @@ export default class extends engine {
 		version: '1.17' | '1.18' | '1.19' = '1.19'
 	) {
 		super(env, version, name);
-
 		this.baseUrl = (process.env.DEV)
 			? 'http://localhost:3000'
 			: 'https://api.mapcraft.app';
-
+		const randomId = randomBytes(16).toString('hex').slice(0, 16);
 		this._path = {
-			archive: resolve(this.env.temp, `mapcraft_${version}_rsp`, 'pack.7z'),
-			base: resolve(this.env.temp, `mapcraft_${version}_rsp`, 'base.zip'),
-			temp: resolve(this.env.temp, `mapcraft_${version}_rsp`)
+			archive: resolve(this.env.temp, `mapcraft_${randomId}`, 'pack.7z'),
+			base: resolve(this.env.temp, `mapcraft_${randomId}`, 'base.zip'),
+			temp: resolve(this.env.temp, `mapcraft_${randomId}`)
 		};
-
 		this.instanceDownload = {
 			base: undefined,
 			default: new download(`${this.baseUrl}/files/minecraft/${this.version}/resourcepack/pack.7z`, this._path.archive)
@@ -50,13 +48,8 @@ export default class extends engine {
 		}
 		await rm(this._path.archive, { recursive: true, force: true });
 		await rm(this.path.resourcepack, { recursive: true, force: true });
-		this.instanceDownload.default.get()
-			.then(() => {
-				unpack(this._path.archive, this.path.resourcepack, (err) => {
-					if (err)
-						throw new Error(err.message);
-				});
-			});
+		await this.instanceDownload.default.get();
+		return this.unpackData(this._path.archive, this.path.resourcepack);
 	}
 
 	private async installDefaultResource(__path: string): Promise<void> {
@@ -67,19 +60,11 @@ export default class extends engine {
 		}
 		await rm(this._path.base, { recursive: true, force: true });
 		await rm(__path, { recursive: true, force: true });
-		await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)
-			.then((d) => d.json())
-			.then((d) => {
-				this.release = d.releases[0] as { description: string, url: string, version: string };
-				this.instanceDownload.base = new download(this.release.url, this._path.base);
-				this.instanceDownload.base.get()
-					.then(() => {
-						unpack(this._path.base, __path, (err) => {
-							if (err)
-								throw new Error(err.message);
-						});
-					});
-			});
+		const data = (await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)).json();
+		this.release = data.releases[0] as { description: string, url: string, version: string };
+		this.instanceDownload.base = new download(this.release.url, this._path.base);
+		await this.instanceDownload.base.get();
+		return this.unpackData(this._path.base, __path);
 	}
 
 	async install(): Promise<[void, void]> {
@@ -95,30 +80,25 @@ export default class extends engine {
 	}
 
 	async update(): Promise<void> {
-		// default mapcraft resource pack
 		const __path_default = resolve(this.env.resource, 'mapcraft');
+		
+		try {
+			accessSync(this.path.resourcepack);
+			const remoteHash = (await fetch(`${this.baseUrl}/files/minecraft/${this.version}/resourcepack/hash.json`)).json();
+			const currentHash = JSON.parse(await readFile(resolve(this.path.resourcepack, 'hash.json'), { encoding: 'utf-8' })) as Record<any, any>;
+			if (Object.keys(this.compareHash(remoteHash, currentHash)).length)
+				throw new Error();
+		} catch (___) {
+			await this.installBaseResource();
+		}
 		try {
 			accessSync(__path_default);
 			const localVersion = JSON.parse(await readFile(resolve(__path_default, 'pack.mcmeta'), { encoding: 'utf-8' })).mapcraft.version as string;
 			const remoteVersion = (await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)).json().releases[0].version as string;
 			if (localVersion !== remoteVersion)
-				throw new Error('update default mapcraft resource pack');
+				throw new Error();
 		} catch (___) {
 			await this.installDefaultResource(__path_default);
-		}
-
-		// base resource pack
-		try {
-			accessSync(this.path.resourcepack);
-			await fetch(`${this.baseUrl}/files/minecraft/${this.version}/resourcepack/hash.json`)
-				.then((d) => d.json())
-				.then(async (newHash) => {
-					const currentHash = JSON.parse(await readFile(resolve(this.path.resourcepack, 'hash.json'), { encoding: 'utf-8' }));
-					if (Object.keys(this.compareHash(newHash, currentHash)).length)
-						throw new Error('hash is change');
-				});
-		} catch (___) {
-			await this.installBaseResource();
 		}
 	}
 
