@@ -81,6 +81,7 @@ export default class extends EventEmitter {
 					res.pipe(file);
 					file.on('finish', () => {
 						res.off('data', chunkListener);
+						res.unpipe(file);
 						file.close((err) => {
 							if (err)
 								reject(err);

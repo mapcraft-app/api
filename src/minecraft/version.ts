@@ -16,6 +16,8 @@ export enum dataType {
 	trigger
 }
 
+export const minecraft = ['1.17', '1.18', '1.19'];
+
 export default [
 	{
 		version: '1.17',

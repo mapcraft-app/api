@@ -47,7 +47,8 @@
   "scripts": {
     "mapcraft": "node ./dist/cli.js",
     "build": "rollup --bundleConfigAsCjs --config rollup.config.js",
-    "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js"
+    "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js ",
+		"dev": "SET DEV=true&& node .\\dist\\module.cjs.js"
   },
   "dependencies": {
     "7zip-min": "^1.4.3",

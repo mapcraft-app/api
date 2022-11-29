@@ -9,7 +9,7 @@ export enum biomeType {
 	snowy = 'snowy',
 	temperate = 'temperate',
 	warm = 'warm'
-};
+}
 
 export default [
 	{

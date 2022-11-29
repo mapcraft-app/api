@@ -2,96 +2,96 @@ import { effect } from 'minecraft/interface';
 
 export default [
 	{
-		name: "absorption"
+		name: 'absorption'
 	},
 	{
-		name: "unluck"
+		name: 'unluck'
 	},
 	{
-		name: "bad_omen"
+		name: 'bad_omen'
 	},
 	{
-		name: "blindness"
+		name: 'blindness'
 	},
 	{
-		name: "conduit_power"
+		name: 'conduit_power'
 	},
 	{
-		name: "dolphins_grace"
+		name: 'dolphins_grace'
 	},
 	{
-		name: "fire_resistance"
+		name: 'fire_resistance'
 	},
 	{
-		name: "glowing"
+		name: 'glowing'
 	},
 	{
-		name: "haste"
+		name: 'haste'
 	},
 	{
-		name: "health_boost"
+		name: 'health_boost'
 	},
 	{
-		name: "hero_of_the_village"
+		name: 'hero_of_the_village'
 	},
 	{
-		name: "hunger"
+		name: 'hunger'
 	},
 	{
-		name: "instant_damage"
+		name: 'instant_damage'
 	},
 	{
-		name: "instant_health"
+		name: 'instant_health'
 	},
 	{
-		name: "invisibility"
+		name: 'invisibility'
 	},
 	{
-		name: "jump_boost"
+		name: 'jump_boost'
 	},
 	{
-		name: "levitation"
+		name: 'levitation'
 	},
 	{
-		name: "luck"
+		name: 'luck'
 	},
 	{
-		name: "mining_fatigue"
+		name: 'mining_fatigue'
 	},
 	{
-		name: "nausea"
+		name: 'nausea'
 	},
 	{
-		name: "night_vision"
+		name: 'night_vision'
 	},
 	{
-		name: "poison"
+		name: 'poison'
 	},
 	{
-		name: "regeneration"
+		name: 'regeneration'
 	},
 	{
-		name: "saturation"
+		name: 'saturation'
 	},
 	{
-		name: "slow_falling"
+		name: 'slow_falling'
 	},
 	{
-		name: "slowness"
+		name: 'slowness'
 	},
 	{
-		name: "speed"
+		name: 'speed'
 	},
 	{
-		name: "strength"
+		name: 'strength'
 	},
 	{
-		name: "water_breathing"
+		name: 'water_breathing'
 	},
 	{
-		name: "weakness"
+		name: 'weakness'
 	},
 	{
-		name: "wither"
+		name: 'wither'
 	}
 ] as effect[];
