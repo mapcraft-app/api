@@ -20,7 +20,7 @@ declare module '7zip-min' {
 	 * @param {string} pathToDest - path to archive you want to create.
 	 * @param {function} cb - callback function. Will be called once pack is done. If no errors, first parameter will contain `null`.
 	*/
-	function pack(pathToSrc: string, pathToDest: string, cb: (err?: Error) => VoidFunction);
+	function pack(pathToSrc: string, pathToDest: string, cb: (err?: Error) => void);
 
 	/**
 	 * Get an array with compressed file contents.

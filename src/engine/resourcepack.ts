@@ -1,5 +1,5 @@
 import { accessSync } from 'fs';
-import { mkdir, rm } from 'fs/promises';
+import { mkdir, readFile, rm } from 'fs/promises';
 import { resolve } from 'path';
 import { unpack } from '7zip-min';
 import download from 'misc/download';
@@ -42,44 +42,84 @@ export default class extends engine {
 		};
 	}
 
-	private async fetchRelease(): Promise<void> {
-		const __path = resolve(this.env.resource, 'mapcraft');
-		try {
-			accessSync(__path);
-		} catch (___) {
-			await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)
-				.then((d) => d.json())
-				.then((d) => {
-					this.release = d.releases[0] as { description: string, url: string, version: string };
-					this.instanceDownload.base = new download(this.release.url, this._path.base);
-					this.instanceDownload.base.get()
-						.then(() => {
-							unpack(this._path.base, __path, (err) => {
-								if (err)
-									throw new Error(err.message);
-							});
-						});
-				});
-		}
-	}
-
-	async install(): Promise<{ archive: string }> {
+	private async installBaseResource(): Promise<void> {
 		try {
 			accessSync(this._path.temp);
 		} catch (___) {
 			await mkdir(this._path.temp);
 		}
-		await this.fetchRelease();
-		return new Promise((res, rej) => {
-			this.instanceDownload.default.get()
-				.then(() => {
-					unpack(this._path.archive, this.path.resourcepack, (err) => {
-						if (err)
-							rej(err);
-						res({ archive: this._path.archive });
-					});
+		await rm(this._path.archive, { recursive: true, force: true });
+		await rm(this.path.resourcepack, { recursive: true, force: true });
+		this.instanceDownload.default.get()
+			.then(() => {
+				unpack(this._path.archive, this.path.resourcepack, (err) => {
+					if (err)
+						throw new Error(err.message);
 				});
-		});
+			});
+	}
+
+	private async installDefaultResource(__path: string): Promise<void> {
+		try {
+			accessSync(this._path.temp);
+		} catch (___) {
+			await mkdir(this._path.temp);
+		}
+		await rm(this._path.base, { recursive: true, force: true });
+		await rm(__path, { recursive: true, force: true });
+		await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)
+			.then((d) => d.json())
+			.then((d) => {
+				this.release = d.releases[0] as { description: string, url: string, version: string };
+				this.instanceDownload.base = new download(this.release.url, this._path.base);
+				this.instanceDownload.base.get()
+					.then(() => {
+						unpack(this._path.base, __path, (err) => {
+							if (err)
+								throw new Error(err.message);
+						});
+					});
+			});
+	}
+
+	async install(): Promise<[void, void]> {
+		try {
+			accessSync(this._path.temp);
+		} catch (___) {
+			await mkdir(this._path.temp);
+		}
+		return Promise.all([
+			this.installDefaultResource(resolve(this.env.resource, 'mapcraft')),
+			this.installBaseResource()
+		]);
+	}
+
+	async update(): Promise<void> {
+		// default mapcraft resource pack
+		const __path_default = resolve(this.env.resource, 'mapcraft');
+		try {
+			accessSync(__path_default);
+			const localVersion = JSON.parse(await readFile(resolve(__path_default, 'pack.mcmeta'), { encoding: 'utf-8' })).mapcraft.version as string;
+			const remoteVersion = (await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)).json().releases[0].version as string;
+			if (localVersion !== remoteVersion)
+				throw new Error('update default mapcraft resource pack');
+		} catch (___) {
+			await this.installDefaultResource(__path_default);
+		}
+
+		// base resource pack
+		try {
+			accessSync(this.path.resourcepack);
+			await fetch(`${this.baseUrl}/files/minecraft/${this.version}/resourcepack/hash.json`)
+				.then((d) => d.json())
+				.then(async (newHash) => {
+					const currentHash = JSON.parse(await readFile(resolve(this.path.resourcepack, 'hash.json'), { encoding: 'utf-8' }));
+					if (Object.keys(this.compareHash(newHash, currentHash)).length)
+						throw new Error('hash is change');
+				});
+		} catch (___) {
+			await this.installBaseResource();
+		}
 	}
 
 	build(): Promise<string> {
@@ -87,7 +127,9 @@ export default class extends engine {
 	}
 
 	check(): boolean {
-		return this._check(this.path.resourcepack);
+		const base = this._check(resolve(this.env.resource, 'mapcraft'));
+		const _default = this._check(this.path.resourcepack);
+		return (base === true && _default === true);
 	}
 
 	clean(): Promise<void[]> {

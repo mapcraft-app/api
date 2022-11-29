@@ -1,5 +1,5 @@
 import { accessSync } from 'fs';
-import { mkdir, rm, writeFile } from 'fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { unpack } from '7zip-min';
 import download from 'misc/download';
@@ -8,10 +8,12 @@ import fetch from 'misc/fetch';
 import { envInterface } from './interface';
 import engine from './base';
 import versions from 'src/minecraft/version';
+import { tmpdir } from 'os';
 
 export default class extends engine {
 	private _path: { archive: string, custom: string, pack: string, temp: string };
 	private release: { description: string, url: string, version: string } | undefined;
+	private baseUrl: string;
 
 	public instanceDownload: download | undefined;
 
@@ -21,6 +23,9 @@ export default class extends engine {
 		version: '1.17' | '1.18' | '1.19' = '1.19'
 	) {
 		super(env, version, name);
+		this.baseUrl = (process.env.DEV)
+			? 'http://localhost:3000'
+			: 'https://api.mapcraft.app';
 		this._path = {
 			archive: resolve(this.env.temp, `mapcraft_${version}_dtp`, 'datapack.zip'),
 			custom: resolve(this.path.datapack, 'datapacks', 'mapcraft-data'),
@@ -29,7 +34,7 @@ export default class extends engine {
 		};
 	}
 
-	private async createCustomDatapack() {
+	private async installGeneratedDatapack(): Promise<void> {
 		const getFormat = (): number => {
 			for (const el of versions) {
 				if (el.version === this.version)
@@ -51,52 +56,91 @@ export default class extends engine {
 					pack_format: getFormat(),
 					description: 'Mapcraft generate mcfunction'
 				}
-			}, null, 2),
-			{
-				encoding: 'utf-8',
-				flag: 'w'
-			}
+			}, null, 4),
+			{ encoding: 'utf-8', flag: 'w' }
 		);
 	}
 
-	private async fetchRelease() {
-		const baseUrl = (process.env.DEV)
-			? 'http://localhost:3000'
-			: 'https://api.mapcraft.app';
-		return fetch(`${baseUrl}/software/datapack/${this.version}`)
-			.then((d) => d.json())
-			.then((d) => {
-				this.release = d.releases[0] as { description: string, url: string, version: string };
-				this.instanceDownload = new download(this.release.url, this._path.archive);
-			});
-	}
-
-	async install(): Promise<{ archive: string }> {
+	private async installDefaultPack(): Promise<void> {
 		try {
 			accessSync(this._path.temp);
 		} catch (___) {
 			await mkdir(this._path.temp);
 		}
-		await this.createCustomDatapack();
-		await this.fetchRelease();
-		return new Promise((res, rej) => {
-			this.instanceDownload?.get()
-				.then(() => {
-					unpack(this._path.archive, this._path.pack, (err) => {
-						if (err)
-							rej(err);
-						res({ archive: this._path.archive });
-					});
+		await rm(this._path.archive, { recursive: true, force: true });
+		await rm(this._path.pack, { recursive: true, force: true });
+		await mkdir(this._path.pack, { recursive: true });
+		await fetch(`${this.baseUrl}/software/datapack/${this.version}`)
+			.then((d) => d.json())
+			.then((d) => {
+				this.release = d.releases[0] as { description: string, url: string, version: string };
+				this.instanceDownload = new download(this.release.url, this._path.archive);
+			});
+		return this.instanceDownload?.get()
+			.then(() => {
+				unpack(this._path.archive, this._path.pack, (err) => {
+					if (err)
+						throw new Error(err.message);
 				});
-		});
+			});
 	}
 
-	build(): Promise<string> {
-		return this._build(this.path.datapack);
+	async install(): Promise<[void, void]> {
+		try {
+			accessSync(this._path.temp);
+		} catch (___) {
+			await mkdir(this._path.temp);
+		}
+		return Promise.all([
+			this.installGeneratedDatapack(),
+			this.installDefaultPack()
+		]);
+	}
+
+	async update(): Promise<void> {
+		// custom datapack
+		try {
+			accessSync(this._path.custom);
+		} catch (___) {
+			await this.installGeneratedDatapack();
+		}
+
+		// default datapack
+		try {
+			accessSync(this._path.pack);
+			const localVersion = JSON.parse(await readFile(resolve(this._path.pack, 'pack.mcmeta'), { encoding: 'utf-8' })).mapcraft.version as string;
+			const remoteVersion = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json().releases[0].version as string;
+			if (localVersion !== remoteVersion)
+				throw new Error('update default mapcraft data pack');
+		} catch (___) {
+			await this.installDefaultPack();
+		}
+	}
+
+	async build(): Promise<string> {
+		const tempDir = await mkdtemp(resolve(tmpdir(), 'mapcraft_'), 'utf-8');
+		const builtInDir = resolve(tempDir, 'data', 'mapcraft', 'functions', 'built_in');
+
+		await cp(this._path.pack, tempDir, { dereference: true, recursive: true });
+		await rm(resolve(tempDir, 'data', 'mapcraft', 'structures'), { recursive: true, force: true });
+		await rm(resolve(tempDir, 'data', 'mapcraft', 'functions', 'tools'), { recursive: true, force: true });
+		// built-in
+		await rm(resolve(builtInDir, 'copy'), { recursive: true, force: true });
+		await rm(resolve(builtInDir, 'cursor'), { recursive: true, force: true });
+		await rm(resolve(builtInDir, 'fill'), { recursive: true, force: true });
+		await rm(resolve(builtInDir, 'gui'), { recursive: true, force: true });
+		await rm(resolve(builtInDir, 'paintbrush'), { recursive: true, force: true });
+		await rm(resolve(builtInDir, 'selection'), { recursive: true, force: true });
+
+		return tempDir;
+		// return this._path.pack;
+		// return this._build(this.path.datapack);
 	}
 
 	check(): boolean {
-		return this._check(this.path.datapack);
+		const custom = this._check(this._path.custom);
+		const _default = this._check(this._path.pack);
+		return (custom === true && _default === true);
 	}
 
 	clean(): Promise<void[]> {

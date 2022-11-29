@@ -14,7 +14,7 @@
  */
 import minecraft from './minecraft';
 import { download, formatString } from './misc';
-import engine from './engine';
+import engine, { build } from './engine';
 
 import { envInterface } from './engine/interface';
 import datapack from './engine/datapack';
@@ -29,16 +29,16 @@ const envTest = {
 	save: 'C:\\Users\\Clement\\AppData\\Roaming\\.minecraft\\saves',
 	temp: 'C:\\Users\\Clement\\AppData\\Local\\Temp',
 } as envInterface;
-const test = new datapack(envTest, 'plip', '1.19');
+
+/*
 test.install()
 	.then((d) => console.log('plip', d))
 	.catch((e) => console.error('plop', e));
 test.instanceDownload?.on('data', (d) => {
 	console.log('test', d);
-});
+});*/
 
-const tutu = new resourcepack(envTest, 'plip', '1.19');
-tutu.install()
+/*tutu.install()
 	.then((d) => console.log('titi', d))
 	.catch((e) => console.error('tutu', e));
 tutu.instanceDownload.base?.on('data', (d) => {
@@ -46,32 +46,29 @@ tutu.instanceDownload.base?.on('data', (d) => {
 });
 tutu.instanceDownload.default.on('data', (d) => {
 	console.log('testing', d);
-});
+});*/
 
-/*
-import type { statFile } from 'misc/download';
-const test = new resourcepack({
-	app: 'C:\\Users\\Clement\\Desktop\\MAPCRAFT\\software\\dist',
-	appData: 'C:\\Users\\Clement\\AppData\\Roaming\\Electron\\appdata',
-	date: '2022_11_21T14_26_44_313Z',
-	game: 'C:\\Users\\Clement\\AppData\\Roaming\\.minecraft',
-	log: 'C:\\Users\\Clement\\AppData\\Roaming\\Electron\\logs',
-	resource: 'C:\\Users\\Clement\\AppData\\Roaming\\.minecraft\\resourcepacks',
-	save: 'C:\\Users\\Clement\\AppData\\Roaming\\.minecraft\\saves',
-	temp: 'C:\\Users\\Clement\\AppData\\Local\\Temp',
-} as envInterface, '1.19', 'test');
+(async() => {
+	const __datapack = new datapack(envTest, 'NewMapcraft', '1.19');
+	const __resourcepack = new resourcepack(envTest, 'NewMapcraft', '1.19');
 
-test.install()
-	.then((d) => {
-		console.log(d);
-	})
-	.catch((e) => {
-		console.log(e);
+	__datapack.instanceDownload?.on('data', (d) => {
+		console.log('datapack', d);
 	});
-test.instanceDownload.archive.on('data', (e: statFile) => {
-	process.stdout.write(`${e.percent}|`);
-});
-*/
+	__resourcepack.instanceDownload.default.on('data', (d) => {
+		console.log('resource default', d);
+	});
+	__resourcepack.instanceDownload.base?.on('data', (d) => {
+		console.log('resource base', d);
+	});
+
+	await __datapack.update();
+	// await __resourcepack.update();
+	console.log(await __datapack.build());
+	// await build(__datapack, __resourcepack);
+	// console.log(await __datapack.build());
+	// console.log(await __resourcepack.build());
+})();
 
 export {
 	minecraft,

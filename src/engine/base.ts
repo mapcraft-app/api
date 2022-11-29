@@ -1,14 +1,14 @@
 import { createHash, randomBytes } from 'crypto';
 import { accessSync } from 'fs';
-import { copyFile, mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
+import { copyFile, cp, mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { envInterface } from './interface';
 
 export default class {
-	protected env: envInterface;
-	protected version: '1.17' | '1.18' | '1.19';
-	protected name: string;
-	protected path: { datapack: string, resourcepack: string };
+	public env: envInterface;
+	public version: '1.17' | '1.18' | '1.19';
+	public name: string;
+	public path: { datapack: string, resourcepack: string };
 	
 	constructor(env: envInterface, version: '1.17' | '1.18' | '1.19' = '1.17', name: string) {
 		this.env = env;
@@ -48,10 +48,10 @@ export default class {
 		return ret;
 	}
 
-	protected async _build(pathToDirectory: string): Promise<string> {
+	protected async _build(pathToDirectory: string, toDir: string | undefined = undefined): Promise<string> {
 		await stat(resolve(pathToDirectory, 'hash.json'));
 
-		const dir = resolve(pathToDirectory, randomBytes(16).toString('hex').slice(0, 16));
+		const dir = toDir ?? resolve(pathToDirectory, randomBytes(16).toString('hex').slice(0, 16));
 		const hashMap = await this._generateHashMap(pathToDirectory);
 		const oldMap = JSON.parse(await readFile(resolve(pathToDirectory, 'hash.json'), { encoding: 'utf-8', flag: 'r' }));
 		const modifiedHash = this.compareHash(oldMap, hashMap);
@@ -73,10 +73,10 @@ export default class {
 		await writeFile(resolve(dir, 'pack.mcmeta'), JSON.stringify(mcMeta, null, 2), { encoding: 'utf-8', flag: 'w' });
 		await copyFile(resolve(pathToDirectory, 'pack.png'), resolve(dir, 'pack.png'));
 		for (const x in modifiedHash.assets) {
-			//if (x === 'mapcraft')
-			// await cp(resolve(pathToDirectory, 'assets', 'mapcraft'), resolve(dir, 'assets', 'mapcraft'), { recursive: true });
-			//else
-			await cpFiles(resolve(pathToDirectory, 'assets', x), resolve(dir, 'assets', x), modifiedHash.assets[x]);
+			if (x === 'mapcraft')
+				await cp(resolve(pathToDirectory, 'assets', 'mapcraft'), resolve(dir, 'assets', 'mapcraft'), { recursive: true });
+			else
+				await cpFiles(resolve(pathToDirectory, 'assets', x), resolve(dir, 'assets', x), modifiedHash.assets[x]);
 		}
 		return dir;
 	}
