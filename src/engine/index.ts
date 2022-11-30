@@ -93,8 +93,7 @@ export class buildMap extends EventEmitter {
 	}
 }
 
-
 export default {
-	resource,
-	data
+	data,
+	resource
 };

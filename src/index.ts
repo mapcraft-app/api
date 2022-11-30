@@ -54,5 +54,5 @@ const envTest = {
 export {
 	minecraft,
 	download, formatString,
-	engine
+	buildMap, engine
 };
