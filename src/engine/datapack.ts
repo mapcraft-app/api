@@ -1,7 +1,6 @@
 import { randomBytes } from 'crypto';
 import { accessSync } from 'fs';
-import { access, cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'fs/promises';
-import { tmpdir } from 'os';
+import { access, cp, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import download from 'misc/download';
 import fetch from 'misc/fetch';
@@ -108,9 +107,10 @@ export default class extends engine {
 	}
 
 	async build(): Promise<string> {
-		const tempDir = await mkdtemp(resolve(tmpdir(), 'mapcraft_'), 'utf-8');
+		const tempDir = resolve(this.env.temp, `mapcraft_${randomBytes(16).toString('hex').slice(0, 16)}`);
 		const builtInDir = resolve(tempDir, 'data', 'mapcraft', 'functions', 'built_in');
 
+		await mkdir(tempDir, { recursive: true });
 		await cp(this._path.pack, tempDir, { dereference: true, recursive: true });
 		await rm(resolve(tempDir, 'data', 'temp_slot'), { recursive: true, force: true });
 		await rm(resolve(tempDir, 'data', 'mapcraft', 'structures'), { recursive: true, force: true });

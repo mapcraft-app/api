@@ -103,7 +103,7 @@ export default class extends engine {
 	}
 
 	build(): Promise<string> {
-		return this._build(this.path.resourcepack);
+		return this._build(this.path.resourcepack, resolve(this.env.temp, `mapcraft_${randomBytes(16).toString('hex').slice(0, 16)}`));
 	}
 
 	check(): boolean {

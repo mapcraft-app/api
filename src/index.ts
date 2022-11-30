@@ -14,8 +14,8 @@
  */
 import minecraft from './minecraft';
 import { download, formatString } from './misc';
-import engine, { build } from './engine';
-
+import engine, { buildMap } from './engine';
+/*
 import { envInterface } from './engine/interface';
 import datapack from './engine/datapack';
 import resourcepack from './engine/resourcepack';
@@ -30,29 +30,11 @@ const envTest = {
 	temp: 'C:\\Users\\Clement\\AppData\\Local\\Temp',
 } as envInterface;
 
-/*
-test.install()
-	.then((d) => console.log('plip', d))
-	.catch((e) => console.error('plop', e));
-test.instanceDownload?.on('data', (d) => {
-	console.log('test', d);
-});*/
-
-/*tutu.install()
-	.then((d) => console.log('titi', d))
-	.catch((e) => console.error('tutu', e));
-tutu.instanceDownload.base?.on('data', (d) => {
-	console.log('plip', d);
-});
-tutu.instanceDownload.default.on('data', (d) => {
-	console.log('testing', d);
-});*/
-
 (async() => {
 	const __datapack = new datapack(envTest, 'mapcraft_vue', '1.19');
 	const __resourcepack = new resourcepack(envTest, 'mapcraft_vue', '1.19');
 
-	/*__datapack.instanceDownload?.on('data', (d) => {
+	__datapack.instanceDownload?.on('data', (d) => {
 		console.log('datapack', d);
 	});
 	__resourcepack.instanceDownload.default.on('data', (d) => {
@@ -60,15 +42,14 @@ tutu.instanceDownload.default.on('data', (d) => {
 	});
 	__resourcepack.instanceDownload.base?.on('data', (d) => {
 		console.log('resource base', d);
-	});*/
+	});
 
 	await __datapack.update().finally(() => console.log('datapack updated'));
 	await __resourcepack.update().finally(() => console.log('resource updated'));
-	// console.log('hello world');
-	// await build(__datapack, __resourcepack);
-	// console.log(await __datapack.build());
-	// console.log(await __resourcepack.build());
+	const instance = new buildMap(__datapack, __resourcepack);
+	await instance.start();
 })();
+*/
 
 export {
 	minecraft,
