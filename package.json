@@ -15,28 +15,39 @@
     "mapcraft-api"
   ],
   "version": "2.0.0",
-  "main": "dist/module.cjs.js",
-  "module": "dist/module.es.js",
   "files": [
     "dist"
   ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",
   "exports": {
     ".": {
-      "node": {
-        "import": {
-          "default": "./dist/module.es.js"
-        },
-        "require": {
-          "default": "./dist/module.cjs.js"
-        }
-      },
-      "import": "./dist/module.es.js",
-      "require": "./dist/module.cjs.js",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
       "types": "./dist/types/src/index.d.ts"
     },
-    "./package.json": "./package.json",
-    "./dist/*": "./dist/*"
+    "./backend": {
+      "import": "./dist/backend.es.js",
+      "require": "./dist/backend.cjs.js",
+      "types": "./dist/types/src/backend.d.ts"
+    },
+    "./frontend": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/src/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "backend": [
+        "dist/types/src/backend.d.ts"
+      ],
+      "frontend": [
+        "dist/types/src/index.d.ts"
+      ]
+    }
   },
   "engines": {
     "node": ">= 16.0"
@@ -48,7 +59,7 @@
     "mapcraft": "node ./dist/cli.js",
     "build": "rollup --bundleConfigAsCjs --config rollup.config.js",
     "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js ",
-		"dev": "SET DEV=true&& node .\\dist\\module.cjs.js"
+    "dev": "SET DEV=true&& node .\\dist\\module.cjs.js"
   },
   "dependencies": {
     "7zip-min": "^1.4.3",
@@ -63,6 +74,7 @@
     "@typescript-eslint/parser": "^5.43.0",
     "eslint": "^8.27.0",
     "rollup": "^3.3.0",
+    "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-ts-paths": "^1.0.5",
     "typescript": "^4.8.4"
   }

@@ -1,8 +1,8 @@
-import EventEmitter from 'events';
 import { createWriteStream, unlink } from 'fs';
 import http from 'http';
 import https from 'https';
 import { basename, resolve } from 'path';
+import EventEmitter from './eventEmitter';
 
 export interface statFile {
 	percent: number;
