@@ -1,8 +1,9 @@
-import { createWriteStream, unlink } from 'fs';
+import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import { basename, resolve } from 'path';
-import EventEmitter from './eventEmitter';
+import path from 'path';
+import EventEmitter from 'events';
+// import EventEmitter from './eventEmitter';
 
 export interface statFile {
 	percent: number;
@@ -22,7 +23,7 @@ export default class extends EventEmitter {
 	constructor(url: string, destination?: string) {
 		super();
 		this._url = url;
-		this._destination = destination ?? resolve('.', basename(new URL(url).pathname));
+		this._destination = destination ?? path.resolve('.', path.basename(new URL(url).pathname));
 		this.stat = {
 			percent: 0,
 			received: 0,
@@ -47,13 +48,16 @@ export default class extends EventEmitter {
 	}
 
 	get(): Promise<void> {
-		return new Promise((resolve, reject) => {
+		return new Promise((__resolve, reject) => {
+			if (!this._url.length)
+				return reject('url is undefined');
+			
 			let httpMethod = (this.url.indexOf(('https://')) !== -1)
 				? https
 				: http;
 			let request: http.ClientRequest;
 
-			const file = createWriteStream(this.destination);
+			const file = fs.createWriteStream(this.destination);
 
 			const chunkListener = (data: any) => {
 				this.stat.received += data.length;
@@ -65,6 +69,7 @@ export default class extends EventEmitter {
 						this.stat.percent = 100;
 				}
 				this.emit('data', this.stat);
+				window.dispatchEvent(new CustomEvent('download', { bubbles: true, composed: true, detail: '' }));
 			};
 
 			const navigateThrowLocation = async (_url: string, _callback: () => void) => {
@@ -84,8 +89,8 @@ export default class extends EventEmitter {
 						res.unpipe(file);
 						file.close((err) => {
 							if (err)
-								reject(err);
-							resolve();
+								return reject(err);
+							return __resolve();
 						});
 					});
 					return _callback();
@@ -97,18 +102,18 @@ export default class extends EventEmitter {
 			this.stat.size = 0;
 			return navigateThrowLocation(this.url, () => {
 				request.on('error', (err) => {
-					unlink(this.destination, (errFs) => {
+					fs.unlink(this.destination, (errFs) => {
 						if (errFs)
-							reject(errFs);
+							return reject(errFs);
 					});
-					reject(err);
+					return reject(err);
 				});
 				file.on('error', (err) => {
-					unlink(this.destination, (errFs) => {
+					fs.unlink(this.destination, (errFs) => {
 						if (errFs)
-							reject(errFs);
+							return reject(errFs);
 					});
-					reject(err);
+					return reject(err);
 				});
 			});
 		});

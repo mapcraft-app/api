@@ -10,14 +10,14 @@ import engine from './base';
 
 export default class extends engine {
 	private baseUrl: string;
-	private release: { description: string, url: string, version: string } | undefined;
 	private _path: {
 		archive: string,
 		base: string,
 		temp: string
 	};
+	private release: { description: string, url: string, version: string };
 
-	public instanceDownload: { base: download | undefined, default: download };
+	public instanceDownload: { base: download, default: download };
 
 	constructor(
 		env: envInterface,
@@ -34,8 +34,9 @@ export default class extends engine {
 			base: resolve(this.env.temp, `mapcraft_${randomId}`, 'base.zip'),
 			temp: resolve(this.env.temp, `mapcraft_${randomId}`)
 		};
+		this.release = { description: '', url: '', version: '' };
 		this.instanceDownload = {
-			base: undefined,
+			base: new download('', this._path.base),
 			default: new download(`${this.baseUrl}/files/minecraft/${this.version}/resourcepack/pack.7z`, this._path.archive)
 		};
 	}
@@ -62,7 +63,7 @@ export default class extends engine {
 		await rm(__path, { recursive: true, force: true });
 		const data = (await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)).json();
 		this.release = data.releases[0] as { description: string, url: string, version: string };
-		this.instanceDownload.base = new download(this.release.url, this._path.base);
+		this.instanceDownload.base.url = this.release.url;
 		await this.instanceDownload.base.get();
 		return this.unpackData(this._path.base, __path);
 	}

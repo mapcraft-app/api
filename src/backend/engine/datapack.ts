@@ -14,7 +14,8 @@ export default class extends engine {
 	private release: { description: string, url: string, version: string } | undefined;
 	private baseUrl: string;
 
-	public instanceDownload: download | undefined;
+	// public instanceDownload: download | undefined;
+	public instanceDownload: download;
 
 	constructor(
 		env: envInterface,
@@ -32,6 +33,8 @@ export default class extends engine {
 			pack: resolve(this.path.datapack, 'datapacks', 'mapcraft'),
 			temp: resolve(this.env.temp, `mapcraft_${randomId}`)
 		};
+		this.release = { description: '', url: '', version: '' };
+		this.instanceDownload = new download('', this._path.archive);
 	}
 
 	private async installGeneratedDatapack(): Promise<void> {
@@ -72,8 +75,20 @@ export default class extends engine {
 		await mkdir(this._path.pack, { recursive: true });
 		const data = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json();
 		this.release = data.releases[0] as { description: string, url: string, version: string };
+		this.instanceDownload.url = this.release.url;
+		/*
+		await fetch(`${this.baseUrl}/software/datapack/${this.version}`)
+			.then((d) => d.json())
+			.then((data) => {
+				this.release = data.releases[0] as { description: string, url: string, version: string };
+				this.instanceDownload.url = this.release.url;
+			});
+		
+		const data = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json();
+		this.release = data.releases[0] as { description: string, url: string, version: string };
 		this.instanceDownload = new download(this.release.url, this._path.archive);
-		await this.instanceDownload?.get();
+		*/
+		await this.instanceDownload.get();
 		return this.unpackData(this._path.archive, this._path.pack);
 	}
 

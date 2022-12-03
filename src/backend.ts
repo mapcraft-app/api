@@ -12,9 +12,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-
-import engine, { buildMap } from './engine';
+import engine, { buildMap } from './backend/engine';
+import editor from './backend/editor';
+import fs from './backend/fs';
+import sql from './backend/sql';
 
 export {
-	engine, buildMap
+	engine, buildMap,
+	editor,
+	fs,
+	sql
 };

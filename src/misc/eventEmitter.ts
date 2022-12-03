@@ -53,7 +53,7 @@ export default class {
 			Array.isArray(events[event])) {
 			listeners = this.listeners(event).slice();
 			for (let i = 0; i < listeners.length; i++) {
-				if (listeners[i]) 
+				if (listeners[i])
 					listeners[i].apply(this, args);
 			}
 		}
