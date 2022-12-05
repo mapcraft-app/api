@@ -1,4 +1,4 @@
-import databaseConstrutor, { Database } from 'better-sqlite3';
+import databaseConstrutor, { Database, Statement } from 'better-sqlite3';
 import { resolve } from 'path';
 import { envInterface } from './engine/interface';
 
@@ -11,9 +11,9 @@ export default class {
 	public db: Database;
 	public tables: tableInterface[];
 
-	constructor(env: envInterface, name: string, verb: (message: any, ...optional: any[]) => void, tables: tableInterface[] = []) {
+	constructor(env: envInterface, name: string, verb: ((message: any, ...optional: any[]) => void) | undefined = undefined, tables: tableInterface[] | undefined = undefined) {
 		this.db = new databaseConstrutor(resolve(env.save, name, 'mapcraft.db'), { verbose: verb });
-		this.tables = tables;
+		this.tables = tables ?? [];
 		for (const table of this.tables)
 			this.db.exec(table.sql);
 	}
@@ -74,5 +74,21 @@ export default class {
 				this.db.exec(`DROP TABLE ${this.tables[x].name}`);
 			}
 		}
+	}
+
+	prepare(req: string): Statement<any[]> {
+		return this.db.prepare(req);
+	}
+
+	exec(req: string, ...args: any[]): Promise<any> {
+		return new Promise((res, rej) => {
+			try {
+				const __sql = this.db.prepare(req);
+				const data = __sql.get(...args);
+				res(data);
+			} catch (e) {
+				rej(e);
+			}
+		});
 	}
 }
