@@ -11,10 +11,15 @@ export default class {
 	public db: Database;
 	public tables: tableInterface[];
 
-	constructor(env: envInterface, name: string, verb: ((message: any, ...optional: any[]) => void) | undefined = undefined, tables: tableInterface[] | undefined = undefined) {
+	constructor(env: envInterface, name: string, verb: ((message: any, ...optional: any[]) => void) | undefined = undefined, tables: tableInterface | tableInterface[] | undefined = undefined) {
 		this.db = new databaseConstrutor(resolve(env.save, name, 'mapcraft.db'), { verbose: verb });
 		this.db.pragma('journal_mode = WAL');
-		this.tables = tables ?? [];
+		if (tables) {
+			this.tables = Array.isArray(tables)
+				? tables
+				: [ tables ];
+		} else
+			this.tables = [];
 		for (const table of this.tables)
 			this.db.exec(table.sql);
 	}
