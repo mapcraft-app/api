@@ -3,7 +3,6 @@ import http from 'http';
 import https from 'https';
 import path from 'path';
 import EventEmitter from 'events';
-// import EventEmitter from './eventEmitter';
 
 export interface statFile {
 	percent: number;

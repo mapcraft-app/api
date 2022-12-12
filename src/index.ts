@@ -14,9 +14,11 @@
  */
 
 import minecraft from './minecraft';
-import { download, formatString } from './misc';
+import eventEmitter from './misc/eventEmitter';
+import formatString from './misc/formatString';
 
 export {
 	minecraft,
-	download, formatString,
+	eventEmitter,
+	formatString,
 };

@@ -2,7 +2,7 @@ import { randomBytes } from 'crypto';
 import { accessSync } from 'fs';
 import { mkdir, readFile, rm } from 'fs/promises';
 import { resolve } from 'path';
-import download from 'misc/download';
+import download from '../download';
 import fetch from 'misc/fetch';
 
 import { envInterface } from './interface';
