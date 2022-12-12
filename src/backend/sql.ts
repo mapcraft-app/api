@@ -1,4 +1,4 @@
-import databaseConstrutor, { Database, Statement } from 'better-sqlite3';
+import databaseConstrutor, { Database, RunResult, Statement } from 'better-sqlite3';
 import { resolve } from 'path';
 import { envInterface } from './engine/interface';
 
@@ -13,6 +13,7 @@ export default class {
 
 	constructor(env: envInterface, name: string, verb: ((message: any, ...optional: any[]) => void) | undefined = undefined, tables: tableInterface[] | undefined = undefined) {
 		this.db = new databaseConstrutor(resolve(env.save, name, 'mapcraft.db'), { verbose: verb });
+		this.db.pragma('journal_mode = WAL');
 		this.tables = tables ?? [];
 		for (const table of this.tables)
 			this.db.exec(table.sql);
@@ -76,16 +77,57 @@ export default class {
 		}
 	}
 
+	/**
+	 * Prepare request
+	 */
 	prepare(req: string): Statement<any[]> {
 		return this.db.prepare(req);
 	}
 
-	exec(req: string, ...args: any[]): Promise<any> {
+	/**
+	 * Exec sql, like SELECT, INSERT INTO, ...
+	 */
+	get(req: string, ...args: any[]): Promise<any> {
 		return new Promise((res, rej) => {
 			try {
 				const __sql = this.db.prepare(req);
-				const data = __sql.get(...args);
-				res(data);
+				res(__sql.get(...args));
+			} catch (e) {
+				rej(e);
+			}
+		});
+	}
+
+	/**
+	 * Exec all sql, like SELECT, INSERT INTO, ...
+	 */
+	all(req: string, ...args: any[]): Promise<any[]> {
+		return new Promise((res, rej) => {
+			try {
+				const __sql = this.db.prepare(req);
+				res(__sql.all(...args));
+			} catch (e) {
+				rej(e);
+			}
+		});
+	}
+
+	/**
+	 * Iterate throw data
+	 */
+	iterate(req: string, ...args: any[]): IterableIterator<any> {
+		const __sql = this.db.prepare(req);
+		return __sql.iterate(...args);
+	}
+
+	/**
+	 * Update data (UPDATE hello FROM ...)
+	 */
+	update(req: string, ...args: any[]): Promise<RunResult> {
+		return new Promise((res, rej) => {
+			try {
+				const __sql = this.db.prepare(req);
+				res(__sql.run(...args));
 			} catch (e) {
 				rej(e);
 			}

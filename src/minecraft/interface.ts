@@ -2,7 +2,18 @@ export interface versions {
 	version: string;
 	datapack: number;
 	resourcepack: number;
-	data: (biome[] | block[] | effect[] | enchantement[] | entities[] | items[] | potions[] | structures[] | tags | triggers[])[]
+	data: (
+		biome[]
+		| block[]
+		| effect[]
+		| enchantement[]
+		| entities[]
+		| items[]
+		| potions[]
+		| structures[]
+		| tags
+		| triggers[]
+	)[]
 }
 
 export interface biome {

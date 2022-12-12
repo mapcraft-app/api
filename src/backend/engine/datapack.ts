@@ -13,8 +13,6 @@ export default class extends engine {
 	private _path: { archive: string, custom: string, pack: string, temp: string };
 	private release: { description: string, url: string, version: string } | undefined;
 	private baseUrl: string;
-
-	// public instanceDownload: download | undefined;
 	public instanceDownload: download;
 
 	constructor(
@@ -76,18 +74,6 @@ export default class extends engine {
 		const data = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json();
 		this.release = data.releases[0] as { description: string, url: string, version: string };
 		this.instanceDownload.url = this.release.url;
-		/*
-		await fetch(`${this.baseUrl}/software/datapack/${this.version}`)
-			.then((d) => d.json())
-			.then((data) => {
-				this.release = data.releases[0] as { description: string, url: string, version: string };
-				this.instanceDownload.url = this.release.url;
-			});
-		
-		const data = (await fetch(`${this.baseUrl}/software/datapack/${this.version}`)).json();
-		this.release = data.releases[0] as { description: string, url: string, version: string };
-		this.instanceDownload = new download(this.release.url, this._path.archive);
-		*/
 		await this.instanceDownload.get();
 		return this.unpackData(this._path.archive, this._path.pack);
 	}
