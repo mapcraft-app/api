@@ -13,12 +13,14 @@
  * GNU General Public License for more details.
  */
 import engine, { buildMap } from './backend/engine';
+import download from './backend/download';
 import editor from './backend/editor';
 import fs from './backend/fs';
 import sql from './backend/sql';
 
 export {
 	engine, buildMap,
+	download,
 	editor,
 	fs,
 	sql
