@@ -11,8 +11,13 @@ export default class {
 	public db: Database;
 	public tables: tableInterface[];
 
-	constructor(env: envInterface, name: string, verb: ((message: any, ...optional: any[]) => void) | undefined = undefined, tables: tableInterface | tableInterface[] | undefined = undefined) {
-		this.db = new databaseConstrutor(resolve(env.save, name, 'mapcraft.db'), { timeout: 1000, verbose: verb });
+	constructor(
+		env: envInterface,
+		name: string,
+		verb: ((message: any, ...optional: any[]) => void) | undefined = undefined,
+		tables: tableInterface | tableInterface[] | undefined = undefined
+	) {
+		this.db = new databaseConstrutor(resolve(env.save, name, 'mapcraft.db'), { timeout: 250, verbose: verb });
 		if (tables) {
 			this.tables = Array.isArray(tables)
 				? tables
@@ -79,6 +84,22 @@ export default class {
 				this.db.exec(`DROP TABLE ${this.tables[x].name}`);
 			}
 		}
+	}
+
+	/**
+	 * Check if the database is available to perform transactions
+	 */
+	async check(): Promise<void> {
+		return new Promise((res, rej) => {
+			try {
+				this.db
+					.prepare('SELECT tbl_name FROM sqlite_schema')
+					.get();
+				return res();
+			} catch (e) {
+				return rej(e);
+			}
+		});
 	}
 
 	/**

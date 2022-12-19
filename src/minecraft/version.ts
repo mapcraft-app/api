@@ -4,18 +4,7 @@ import one_eightteen from './1.18';
 import one_nineteen from './1.19';
 import one_nineteen_three from './1.19.3';
 
-export enum dataType {
-	biome = 0,
-	block,
-	effect,
-	enchantement,
-	entity,
-	item,
-	potion,
-	structure,
-	tag,
-	trigger
-}
+export type dataType = 'biome' | 'block' | 'effect' | 'enchantement' | 'entity' | 'item' | 'potion' | 'structure' | 'tag' | 'trigger';
 
 export const minecraft = [
 	'1.17', '1.17.1', '1.17.2',

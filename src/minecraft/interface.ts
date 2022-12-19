@@ -1,9 +1,8 @@
-export interface versions {
-	version: string;
-	datapack: number;
-	resourcepack: number;
-	data: (
-		biome[]
+import { dataType } from './version';
+
+export interface baseDefinition {
+	type: dataType,
+	data: biome[]
 		| block[]
 		| effect[]
 		| enchantement[]
@@ -13,7 +12,13 @@ export interface versions {
 		| structures[]
 		| tags
 		| triggers[]
-	)[]
+}
+
+export interface versions {
+	version: string;
+	datapack: number;
+	resourcepack: number;
+	data: baseDefinition[]
 }
 
 export interface biome {
