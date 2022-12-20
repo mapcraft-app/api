@@ -293,9 +293,6 @@ export default [
 		name: 'diamond_pickaxe'
 	},
 	{
-		name: 'diamond_pickaxe'
-	},
-	{
 		name: 'diamond_shovel'
 	},
 	{
