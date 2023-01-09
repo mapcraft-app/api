@@ -49,8 +49,10 @@ export class buildMap extends EventEmitter {
 	}
 
 	async start(): Promise<string> {
-		// Copy map and create default directories
+		this.emit('change', 'create temp directory');
 		await mkdir(this.destpath);
+
+		this.emit('change', 'copy to temp directory');
 		await cp(
 			this.path.save,
 			this.destpath,
@@ -66,14 +68,18 @@ export class buildMap extends EventEmitter {
 				}
 			}
 		);
+		
+		this.emit('change', 'create datapack directory in temp');
 		await access(this.path.datapack)
 			.catch(async () => await mkdir(this.path.datapack, { recursive: true }));
 		
 		// Build resources.zip
+		this.emit('change', 'build resources pack');
 		const resourcepackPath = await this.__resourcepack.build();
 		await this.createResourceZip(resourcepackPath, resolve(this.destpath, 'resources.zip'));
 
 		// Build datapack
+		this.emit('change', 'build data pack');
 		const datapackPath = await this.__datapack.build();
 		await cp(datapackPath, resolve(this.path.datapack, 'mapcraft'), { dereference: true, recursive: true });
 		const mapcraftDataPath = resolve(this.path.save, 'datapacks', 'mapcraft-data');
@@ -81,14 +87,18 @@ export class buildMap extends EventEmitter {
 			.then(async () => await cp(mapcraftDataPath, resolve(this.path.datapack, 'mapcraft-data'), { dereference: true, recursive: true }));
 
 		// Clean dirty dir
+		this.emit('change', 'clean temp resources pack and data pack');
 		const mapZip = resolve(this.path.save, 'map.zip');
 		await Promise.all([
 			rm(datapackPath, { force: true, recursive: true }),
 			rm(resourcepackPath, { force: true, recursive: true }),
 			this.createResourceZip(this.destpath, mapZip)
 		]);
+
+		this.emit('change', 'clean temp directory');
 		await rm(this.destpath, { force: true, recursive: true });
 
+		this.emit('change', 'build finish');
 		return mapZip;
 	}
 }
