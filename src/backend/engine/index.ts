@@ -49,10 +49,15 @@ export class buildMap extends EventEmitter {
 	}
 
 	async start(): Promise<string> {
-		this.emit('change', 'create temp directory');
+		const mapZip = resolve(this.path.save, 'map.zip');
+		await access(mapZip)
+			.then(() => rm(mapZip, { force: true }))
+			.catch(() => { /* make nothing */ });
+
+		this.emit('change', '1'); // create temp directory
 		await mkdir(this.destpath);
 
-		this.emit('change', 'copy to temp directory');
+		this.emit('change', '2'); // copy to temp directory
 		await cp(
 			this.path.save,
 			this.destpath,
@@ -69,17 +74,17 @@ export class buildMap extends EventEmitter {
 			}
 		);
 		
-		this.emit('change', 'create datapack directory in temp');
+		this.emit('change', '3'); // create datapack directory in temp
 		await access(this.path.datapack)
 			.catch(async () => await mkdir(this.path.datapack, { recursive: true }));
 		
 		// Build resources.zip
-		this.emit('change', 'build resources pack');
+		this.emit('change', '4'); // build resources pack
 		const resourcepackPath = await this.__resourcepack.build();
 		await this.createResourceZip(resourcepackPath, resolve(this.destpath, 'resources.zip'));
 
 		// Build datapack
-		this.emit('change', 'build data pack');
+		this.emit('change', '5'); // build data pack
 		const datapackPath = await this.__datapack.build();
 		await cp(datapackPath, resolve(this.path.datapack, 'mapcraft'), { dereference: true, recursive: true });
 		const mapcraftDataPath = resolve(this.path.save, 'datapacks', 'mapcraft-data');
@@ -87,18 +92,17 @@ export class buildMap extends EventEmitter {
 			.then(async () => await cp(mapcraftDataPath, resolve(this.path.datapack, 'mapcraft-data'), { dereference: true, recursive: true }));
 
 		// Clean dirty dir
-		this.emit('change', 'clean temp resources pack and data pack');
-		const mapZip = resolve(this.path.save, 'map.zip');
+		this.emit('change', '6'); // clean temp resources pack and data pack
 		await Promise.all([
 			rm(datapackPath, { force: true, recursive: true }),
 			rm(resourcepackPath, { force: true, recursive: true }),
 			this.createResourceZip(this.destpath, mapZip)
 		]);
 
-		this.emit('change', 'clean temp directory');
+		this.emit('change', '7'); // clean temp directory
 		await rm(this.destpath, { force: true, recursive: true });
 
-		this.emit('change', 'build finish');
+		this.emit('change', '8'); // build finish
 		return mapZip;
 	}
 }
