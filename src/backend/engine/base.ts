@@ -1,9 +1,9 @@
-import { unpack } from '7zip-min';
 import { createHash, randomBytes } from 'crypto';
 import { accessSync } from 'fs';
 import { copyFile, cp, mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { envInterface } from './interface';
+import SevenZip from '../7zip';
 
 export default class {
 	public env: envInterface;
@@ -23,11 +23,14 @@ export default class {
 
 	protected unpackData(src: string, dest: string): Promise<void> {
 		return new Promise((res, rej) => {
-			unpack(src, dest, (err) => {
-				if (err)
-					rej(err);
-				res();
-			});
+			SevenZip()
+				.then((zip) => {
+					zip.unpack(src, dest, (err) => {
+						if (err)
+							rej(err);
+						res();
+					});
+				});
 		});
 	}
 

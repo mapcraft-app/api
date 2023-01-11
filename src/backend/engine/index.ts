@@ -1,10 +1,10 @@
-import { pack } from '7zip-min';
 import { randomBytes } from 'crypto';
 import EventEmitter from 'events';
 import { access, cp, mkdir, rm } from 'fs/promises';
 import { join, resolve, sep } from 'path';
 import resource from './resourcepack';
 import data from './datapack';
+import SevenZip from '../7zip';
 
 import type datapack from './datapack';
 import type resourcepack from './resourcepack';
@@ -40,15 +40,20 @@ export class buildMap extends EventEmitter {
 
 	private createResourceZip (pathToDir: string, pathToDest: string): Promise<void> {
 		return new Promise((res, rej) => {
-			pack(join(pathToDir, '*'), pathToDest, (err) => {
-				if (err)
-					rej(err);
-				res();
-			});
+			SevenZip()
+				.then((zip) => {
+					zip.pack(join(pathToDir, '*'), pathToDest, (err) => {
+						if (err)
+							rej(err);
+						res();
+					});
+				});
 		});
 	}
 
 	async start(): Promise<string> {
+		
+
 		const mapZip = resolve(this.path.save, 'map.zip');
 		await access(mapZip)
 			.then(() => rm(mapZip, { force: true }))
