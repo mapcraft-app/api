@@ -23,14 +23,11 @@ export default class {
 
 	protected unpackData(src: string, dest: string): Promise<void> {
 		return new Promise((res, rej) => {
-			SevenZip()
-				.then((zip) => {
-					zip.unpack(src, dest, (err) => {
-						if (err)
-							rej(err);
-						res();
-					});
-				});
+			SevenZip.unpack(src, dest, (err) => {
+				if (err)
+					rej(err);
+				res();
+			});
 		});
 	}
 

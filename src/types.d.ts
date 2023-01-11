@@ -1,8 +1,8 @@
 export declare global {
 	namespace NodeJS {
 		interface ProcessEnv {
-			DEV: boolean,
-			PACKAGED: boolean,
+			DEV: string,
+			PACKAGED: string,
 			APP: string,
 			APP_DATA: string,
 			GAME: string,

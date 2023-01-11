@@ -40,20 +40,15 @@ export class buildMap extends EventEmitter {
 
 	private createResourceZip (pathToDir: string, pathToDest: string): Promise<void> {
 		return new Promise((res, rej) => {
-			SevenZip()
-				.then((zip) => {
-					zip.pack(join(pathToDir, '*'), pathToDest, (err) => {
-						if (err)
-							rej(err);
-						res();
-					});
-				});
+			SevenZip.pack(join(pathToDir, '*'), pathToDest, (err) => {
+				if (err)
+					rej(err);
+				res();
+			});
 		});
 	}
 
 	async start(): Promise<string> {
-		
-
 		const mapZip = resolve(this.path.save, 'map.zip');
 		await access(mapZip)
 			.then(() => rm(mapZip, { force: true }))
