@@ -5,7 +5,7 @@ import effects from './effects';
 import enchantements from './enchantements';
 import entities from './entities';
 import items from './items';
-import potions from './potions';
+import potions from '../1.17/potions';
 import structures from './structures';
 import tags from './tags';
 import triggers from './triggers';

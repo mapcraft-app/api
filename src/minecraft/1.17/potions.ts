@@ -8,22 +8,29 @@ export default [
 		name: 'empty'
 	},
 	{
-		name: 'fire_resistance'
+		name: 'fire_resistance',
+		long: 'long_fire_resistance'
 	},
 	{
-		name: 'harming'
+		name: 'harming',
+		strong: 'strong_harming'
 	},
 	{
-		name: 'healing'
+		name: 'healing',
+		strong: 'strong_healing'
 	},
 	{
-		name: 'invisibility'
+		name: 'invisibility',
+		long: 'long_invisibility'
 	},
 	{
-		name: 'leaping'
+		name: 'leaping',
+		strong: 'strong_leaping',
+		long: 'long_leaping'
 	},
 	{
-		name: 'levitation'
+		name: 'levitation',
+
 	},
 	{
 		name: 'luck'
@@ -32,39 +39,55 @@ export default [
 		name: 'mundane'
 	},
 	{
-		name: 'night_vision'
+		name: 'night_vision',
+		long: 'long_night_vision',
 	},
 	{
-		name: 'poison'
+		name: 'poison',
+		strong: 'strong_poison',
+		long: 'long_poison'
 	},
 	{
-		name: 'regeneration'
+		name: 'regeneration',
+		strong: 'strong_regeneration',
+		long: 'long_regeneration'
 	},
 	{
-		name: 'slow_falling'
+		name: 'slow_falling',
+		long: 'long_slow_falling'
 	},
 	{
-		name: 'slowness'
+		name: 'slowness',
+		strong: 'strong_slowness',
+		long: 'long_slowness'
 	},
 	{
-		name: 'strength'
+		name: 'strength',
+		strong: 'strong_strength',
+		long: 'long_strength'
 	},
 	{
-		name: 'swiftness'
+		name: 'swiftness',
+		strong: 'strong_swiftness',
+		long: 'long_swiftness'
 	},
 	{
 		name: 'thick'
 	},
 	{
-		name: 'turtle_master'
+		name: 'turtle_master',
+		strong: 'strong_turtle_master',
+		long: 'long_turtle_master'
 	},
 	{
 		name: 'water'
 	},
 	{
-		name: 'water_breathing'
+		name: 'water_breathing',
+		long: 'long_water_breathing'
 	},
 	{
-		name: 'weakness'
+		name: 'weakness',
+		long: 'long_weakness'
 	}
 ] as potions[];

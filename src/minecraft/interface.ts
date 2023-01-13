@@ -64,6 +64,8 @@ export interface items {
 
 export interface potions {
 	name: string;
+	strong?: string;
+	long?: string;
 }
 
 export interface structures {
