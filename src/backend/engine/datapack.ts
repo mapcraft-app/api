@@ -8,6 +8,7 @@ import fetch from 'misc/fetch';
 import { envInterface } from './interface';
 import engine from './base';
 import versions from 'src/minecraft/version';
+import { minecraftVersion } from 'src/minecraft/interface';
 
 export default class extends engine {
 	private _path: { archive: string, custom: string, pack: string, temp: string };
@@ -18,7 +19,7 @@ export default class extends engine {
 	constructor(
 		env: envInterface,
 		name: string,
-		version: '1.17' | '1.17.1' | '1.17.2' | '1.18' | '1.18.1' | '1.18.2' | '1.19' | '1.19.1' | '1.19.2' | '1.19.3'
+		version: minecraftVersion
 	) {
 		super(env, version, name);
 		this.baseUrl = (process.env.DEV)

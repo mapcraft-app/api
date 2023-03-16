@@ -1,15 +1,5 @@
 import { biome } from 'minecraft/interface';
-
-export enum biomeType {
-	aquatic = 'aquatic',
-	cold = 'cold',
-	end = 'end',
-	nether = 'nether',
-	neutral = 'neutral',
-	snowy = 'snowy',
-	temperate = 'temperate',
-	warm = 'warm'
-}
+import { biomeType } from 'minecraft/interface';
 
 export default [
 	{

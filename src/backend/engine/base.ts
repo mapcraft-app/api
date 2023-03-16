@@ -4,14 +4,15 @@ import { copyFile, cp, mkdir, readdir, readFile, stat, writeFile } from 'fs/prom
 import { resolve } from 'path';
 import { envInterface } from './interface';
 import SevenZip from '../7zip';
+import { minecraftVersion } from 'src/minecraft/interface';
 
 export default class {
 	public env: envInterface;
-	public version: '1.17' | '1.17.1' | '1.17.2' | '1.18' | '1.18.1' | '1.18.2' | '1.19' | '1.19.1' | '1.19.2' | '1.19.3';
+	public version: minecraftVersion;
 	public name: string;
 	public path: { datapack: string, resourcepack: string };
 	
-	constructor(env: envInterface, version: '1.17' | '1.17.1' | '1.17.2' | '1.18' | '1.18.1' | '1.18.2' | '1.19' | '1.19.1' | '1.19.2' | '1.19.3' = '1.19.3', name: string) {
+	constructor(env: envInterface, version: minecraftVersion, name: string) {
 		this.env = env;
 		this.version = version;
 		this.name = name;

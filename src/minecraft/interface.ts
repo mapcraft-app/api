@@ -1,6 +1,6 @@
 import { dataType } from './version';
 
-export type minecraftVersion = '1.17' | '1.17.1' | '1.17.2' | '1.18' | '1.18.1' | '1.18.2' | '1.19' | '1.19.1' | '1.19.2' | '1.19.3';
+export type minecraftVersion = '1.17' | '1.17.1' | '1.17.2' | '1.18' | '1.18.1' | '1.18.2' | '1.19' | '1.19.1' | '1.19.2' | '1.19.3' | '1.19.4';
 
 export interface baseDefinition {
 	type: dataType,
