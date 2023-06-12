@@ -22,7 +22,8 @@ export default class extends engine {
 		version: minecraftVersion
 	) {
 		super(env, version, name);
-		this.baseUrl = (process.env.DEV)
+
+		this.baseUrl = (process.env.DEV as any === true)
 			? 'http://localhost:3000'
 			: 'https://api.mapcraft.app';
 		const randomId = randomBytes(16).toString('hex').slice(0, 16);
@@ -63,7 +64,7 @@ export default class extends engine {
 		);
 	}
 
-	private async installDefaultPack(): Promise<void> {
+	private async installDefaultPack(): Promise<Record<string, string>[]> {
 		try {
 			accessSync(this._path.temp);
 		} catch (___) {
@@ -79,7 +80,7 @@ export default class extends engine {
 		return this.unpackData(this._path.archive, this._path.pack);
 	}
 
-	async install(): Promise<[void, void]> {
+	async install(): Promise<[void, Record<string, string>[]]> {
 		try {
 			accessSync(this._path.temp);
 		} catch (___) {

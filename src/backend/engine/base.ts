@@ -3,14 +3,17 @@ import { accessSync } from 'fs';
 import { copyFile, cp, mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { envInterface } from './interface';
-import SevenZip from '../7zip';
-import { minecraftVersion } from 'src/minecraft/interface';
+import sevenZip from '../7zip';
+import version from 'minecraft/version';
+
+import type { minecraftVersion } from 'src/minecraft/interface';
 
 export default class {
 	public env: envInterface;
 	public version: minecraftVersion;
 	public name: string;
 	public path: { datapack: string, resourcepack: string };
+	private sevenZip: sevenZip;
 	
 	constructor(env: envInterface, version: minecraftVersion, name: string) {
 		this.env = env;
@@ -20,16 +23,11 @@ export default class {
 			datapack: resolve(this.env.save, this.name),
 			resourcepack: resolve(this.env.resource, this.name)
 		};
+		this.sevenZip = new sevenZip();
 	}
 
-	protected unpackData(src: string, dest: string): Promise<void> {
-		return new Promise((res, rej) => {
-			SevenZip.unpack(src, dest, (err) => {
-				if (err)
-					rej(err);
-				res();
-			});
-		});
+	protected unpackData(src: string, dest: string): Promise<Record<string, string>[]> {
+		return this.sevenZip.unpack(src, dest);
 	}
 
 	protected compareHash(original: Record<string, any>, modified: Record<string, any>): Record<string, any> {
@@ -104,9 +102,16 @@ export default class {
 	}
 
 	async _generateHashMap(pathToDirectory: string, write = false): Promise<Record<string, any>> {
+		const tempVersion = version.find((e) => e.version === this.version);
 		const ret: Record<string, any> = {
-			timestamp: new Date().toUTCString()
+			__mapcraft_info__: {
+				creationDate: new Date().toUTCString(),
+				version: tempVersion?.version ?? this.version,
+				datapack: tempVersion?.datapack,
+				resourcepack: tempVersion?.resourcepack 
+			}
 		};
+
 		const recFunc = async (base: string, data: Record<string, any>) => {
 			await readdir(base, { encoding: 'utf-8', withFileTypes: true })
 				.then(async (dirs) => {

@@ -4,7 +4,8 @@ import { access, cp, mkdir, rm } from 'fs/promises';
 import { join, resolve, sep } from 'path';
 import resource from './resourcepack';
 import data from './datapack';
-import SevenZip from '../7zip';
+// import SevenZip from '../7zip';
+import sevenZip from '../7zip';
 
 import type datapack from './datapack';
 import type resourcepack from './resourcepack';
@@ -21,6 +22,7 @@ export class buildMap extends EventEmitter {
 		datapack: string,
 		save: string
 	};
+	private sevenZip: sevenZip;
 	
 	constructor(datapack: datapack, resource: resourcepack) {
 		super();
@@ -36,16 +38,11 @@ export class buildMap extends EventEmitter {
 			datapack: resolve(this.destpath, 'datapacks'), // this.path to datapack destination dir
 			save: resolve(datapack.env.save, datapack.name) // this.path to save dir
 		};
+		this.sevenZip = new sevenZip();
 	}
 
-	private createResourceZip (pathToDir: string, pathToDest: string): Promise<void> {
-		return new Promise((res, rej) => {
-			SevenZip.pack(join(pathToDir, '*'), pathToDest, (err) => {
-				if (err)
-					rej(err);
-				res();
-			});
-		});
+	private createResourceZip (pathToDir: string, pathToDest: string) {
+		return this.sevenZip.pack(join(pathToDir, '*'), pathToDest);
 	}
 
 	async start(): Promise<string> {
