@@ -79,7 +79,7 @@ export default class sevenZip {
 	 * @param pathToDest path to archive you want to create.
 	 */
 	pack(pathToSrc: string, pathToDest: string): Promise<Record<string, string>[]> {
-		return this.cmd(['a', pathToDest, pathToSrc]);
+		return this.cmd(['a', pathToDest, pathToSrc], true, true);
 	}
 
 	/**
@@ -132,7 +132,6 @@ export default class sevenZip {
 			sevenZip.stdout.on('data', (chunk: Buffer) => {
 				const tempChunk = chunk.toString();
 				const tempStat = this.isStat(tempChunk);
-
 				if (tempStat)
 					this.percent = tempStat;
 				stdio.out.push(tempChunk);

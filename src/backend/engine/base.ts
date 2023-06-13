@@ -13,6 +13,7 @@ export default class {
 	public version: minecraftVersion;
 	public name: string;
 	public path: { datapack: string, resourcepack: string };
+	public hashStat: { current: number, total: number, percent: number };
 	private sevenZip: sevenZip;
 	
 	constructor(env: envInterface, version: minecraftVersion, name: string) {
@@ -23,6 +24,7 @@ export default class {
 			datapack: resolve(this.env.save, this.name),
 			resourcepack: resolve(this.env.resource, this.name)
 		};
+		this.hashStat = { current: 0, total: 0, percent: 0 };
 		this.sevenZip = new sevenZip();
 	}
 
@@ -112,14 +114,31 @@ export default class {
 			}
 		};
 
+		const countFileForHashMap = async (base: string) => {
+			await readdir(base, { encoding: 'utf-8', withFileTypes: true })
+				.then(async (dirs) => {
+					for (const dir of dirs) {
+						if (dir.isFile() && dir.name !== 'hash.json')
+							++this.hashStat.total;
+						if (dir.isDirectory())
+							await countFileForHashMap(resolve(base, dir.name));
+					}
+				})
+				.catch((e) => {
+					throw Error(e);
+				});
+		};
+
 		const recFunc = async (base: string, data: Record<string, any>) => {
 			await readdir(base, { encoding: 'utf-8', withFileTypes: true })
 				.then(async (dirs) => {
 					for (const dir of dirs) {
 						if (dir.isFile() && dir.name !== 'hash.json') {
-							const hash = createHash('sha256');
-							hash.update(await readFile(resolve(base, dir.name)));
-							data[dir.name] = hash.digest('hex');
+							++this.hashStat.current;
+							this.hashStat.percent = Math.round((this.hashStat.current / this.hashStat.total) * 100);
+							data[dir.name] = createHash('sha256')
+								.update(await readFile(resolve(base, dir.name)))
+								.digest('hex');
 						}
 						if (dir.isDirectory()) {
 							data[dir.name] = {};
@@ -132,12 +151,18 @@ export default class {
 				});
 		};
 	
+		this.hashStat = { current: 0, total: 0, percent: 0 };
+
 		const testIsDir = await stat(pathToDirectory);
 		if (!testIsDir.isDirectory())
 			throw new Error('Path is not a directory');
+
+		await countFileForHashMap(pathToDirectory);
 		await recFunc(pathToDirectory, ret);
+
 		if (write)
 			writeFile(resolve(pathToDirectory, 'hash.json'), JSON.stringify(ret), { encoding: 'utf-8', flag: 'w' });
+
 		return ret;
 	}
 }

@@ -1,3 +1,4 @@
+import { tags } from 'minecraft/interface';
 import tagsList from '../1.19.3/tags';
 
 delete tagsList['only_allows_snow_and_gold_rabbits'];
@@ -352,4 +353,4 @@ export default {
 		'netherite_leggings',
 		'turtle_helmet'
 	]
-};
+} as tags;

@@ -68,8 +68,8 @@ export default class extends base {
 	}
 
 	private calcStat(val: number, type: 'base' | 'textures' | 'sounds') {
-		this.stat[type] = Math.round(val);
-		this.stat.total = ((this.stat.base + this.stat.textures + this.stat.sounds) / 300) * 100;
+		this.stat[type] = val;
+		this.stat.total = Math.round(((this.stat.base + this.stat.textures + this.stat.sounds) / 300) * 100);
 	}
 
 	private async installBase() {
@@ -79,6 +79,7 @@ export default class extends base {
 		const interval = setInterval(() => this.calcStat(this.instanceExtract.percent, 'base'), 10);
 		await this.instanceExtract.unpack(pathOfPack.path, this.gamePath.resourcepack);
 		clearInterval(interval);
+		this.stat.base = 100;
 	}
 
 	private async textures() {

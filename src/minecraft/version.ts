@@ -4,13 +4,29 @@ import one_eightteen from './1.18';
 import one_nineteen from './1.19';
 import one_nineteen_three from './1.19.3';
 import one_nineteen_four from './1.19.4';
+import one_twenty from './1.20';
 
-export type dataType = 'biome' | 'block' | 'effect' | 'enchantement' | 'entity' | 'item' | 'potion' | 'structure' | 'tag' | 'trigger';
+/**
+ * Semantic Versioning Comparing
+ * @returns `-1: compare < to` `0: compare === to` `1: compare > to`
+ */
+export const semverCompare = (compare: minecraftVersion, to: minecraftVersion): number => {
+	if (compare.startsWith(to + '-'))
+		return -1;
+	if (to.startsWith(compare + '-'))
+		return  1;
+	return compare.localeCompare(to, undefined, { numeric: true, sensitivity: 'case', caseFirst: 'upper' });
+};
 
+
+/**
+ * List of all minecraft version supported by mapcraft
+ */
 export const minecraft = [
 	'1.17', '1.17.1', '1.17.2',
 	'1.18', '1.18.1', '1.18.2',
-	'1.19', '1.19.1', '1.19.2', '1.19.3', '1.19.4'
+	'1.19', '1.19.1', '1.19.2', '1.19.3', '1.19.4',
+	'1.20', '1.20.1'
 ] as minecraftVersion[];
 
 export default [
@@ -73,5 +89,17 @@ export default [
 		datapack: 12,
 		resourcepack: 13,
 		data: one_nineteen_four
+	},
+	{
+		version: '1.20',
+		datapack: 15,
+		resourcepack: 15,
+		data: one_twenty
+	},
+	{
+		version: '1.20.1',
+		datapack: 15,
+		resourcepack: 15,
+		data: one_twenty
 	}
 ] as versions[];

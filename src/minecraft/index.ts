@@ -1,5 +1,6 @@
+import data, { minecraft } from './version';
 import type { biome, block, effect, enchantement, entities, items, minecraftVersion, potions, structures, tags, triggers, versions } from './interface';
-import data, { dataType, minecraft } from './version';
+import type { dataType } from './interface';
 
 export default {
 	minecraft: (): string[] => minecraft,
