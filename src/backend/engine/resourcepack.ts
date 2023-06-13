@@ -70,13 +70,13 @@ export default class extends engine {
 	}
 
 	async install(): Promise<Record<string, any>> {
-		await this.installDefaultResource(resolve(this.env.resource, 'mapcraft')),
+		await this.installDefaultResource(resolve(this.env.resource, `mapcraft_${this.version}`)),
 		await this.installBaseResource();
 		return this._generateHashMap(this.instanceExtract.gamePath.resourcepack, true);
 	}
 
 	async update(): Promise<void> {
-		const __path_default = resolve(this.env.resource, 'mapcraft');
+		const __path_default = resolve(this.env.resource, `mapcraft_${this.version}`);
 		
 		try {
 			accessSync(this.path.resourcepack);
@@ -105,7 +105,7 @@ export default class extends engine {
 	}
 
 	check(): boolean {
-		const base = this._check(resolve(this.env.resource, 'mapcraft'));
+		const base = this._check(resolve(this.env.resource, `mapcraft_${this.version}`));
 		const _default = this._check(this.path.resourcepack);
 		return (base === true && _default === true);
 	}
