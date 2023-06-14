@@ -20,6 +20,7 @@ export interface versions {
 	version: string;
 	datapack: number;
 	resourcepack: number;
+	indexes: string;
 	data: baseDefinition[]
 }
 

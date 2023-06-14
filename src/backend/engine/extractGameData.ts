@@ -2,7 +2,7 @@ import { accessSync, constants } from 'fs';
 import { cp, readFile, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import base from './base';
-import version from 'minecraft/version';
+import versions from 'minecraft/version';
 import extractArchive from '../7zip';
 
 import type { minecraftVersion } from 'minecraft/interface';
@@ -24,7 +24,7 @@ export default class extends base {
 	public gamePath: {
 		textures: json | undefined,
 		sounds: string,
-		soundsJson: json | undefined,
+		soundsJson: string,
 		resourcepack: string
 	};
 	private instanceExtract: extractArchive;
@@ -32,12 +32,17 @@ export default class extends base {
 	
 	constructor(env: envInterface, version: minecraftVersion, name: string) {
 		super(env, version, name);
+		
+		const tempVersion = versions.find((e) => e.version === version);
+		if (!tempVersion)
+			throw new Error(`Version ${version} not exist`);
+		
 		this.splitVersion = version.split('.').filter((e) => e.length);
 		this.resourcePackBase = resolve(__dirname, 'assets');
 		this.gamePath = {
 			textures: this.isExist(resolve(this.env.game, 'versions')),
 			sounds: resolve(this.env.game, 'assets', 'objects'),
-			soundsJson: this.isExist(resolve(this.env.game, 'assets', 'indexes'), '.json'),
+			soundsJson: resolve(this.env.game, 'assets', 'indexes', tempVersion.indexes),
 			resourcepack: resolve(this.env.resource, this.name)
 		};
 		this.instanceExtract = new extractArchive();
@@ -114,26 +119,23 @@ export default class extends base {
 				: temp, 'sounds');
 		}, 10);
 		
-		if (this.gamePath.soundsJson) {
-			const objects: Record<string, hash> = JSON.parse(await readFile(this.gamePath.soundsJson.path, { encoding: 'utf-8', flag: 'r' })).objects;
-			objectsLength = Object.keys(objects).length;
-			for (const id in objects) {
-				if (
-					/sounds.json/.test(id) ||
+		const objects: Record<string, hash> = JSON.parse(await readFile(this.gamePath.soundsJson, { encoding: 'utf-8', flag: 'r' })).objects;
+		objectsLength = Object.keys(objects).length;
+		for (const id in objects) {
+			if (
+				/sounds.json/.test(id) ||
 					(
 						/\/(?:sounds)\//.test(id) &&
 						/\/(?:ambient|block|damage|dig|enchant|entity|event|fire|fireworks|item|liquid|minecart|mob|music|note|portal|random|records|step|title|ui)\//.test(id)
 					)
-				)
-					await cpSound(objects, id);
-			}
-		} else
-			throw new Error('Extract game data - Path of sounds.json is incorrect');
+			)
+				await cpSound(objects, id);
+		}
 		clearInterval(interval);
 	}
 
 	private async genMcMeta() {
-		const configOfVersion = version.find((e) => e.version === this.version);
+		const configOfVersion = versions.find((e) => e.version === this.version);
 		if (configOfVersion) {
 			await writeFile(
 				resolve(this.gamePath.resourcepack, 'pack.mcmeta'),
@@ -144,7 +146,7 @@ export default class extends base {
 					},
 					pack: {
 						description: `Mapcraft resource pack of ${this.name}`,
-						pack_format: configOfVersion.resourcepack.toString()
+						pack_format: configOfVersion.resourcepack
 					}
 				}, null, 2)
 			);

@@ -18,7 +18,6 @@ export const semverCompare = (compare: minecraftVersion, to: minecraftVersion): 
 	return compare.localeCompare(to, undefined, { numeric: true, sensitivity: 'case', caseFirst: 'upper' });
 };
 
-
 /**
  * List of all minecraft version supported by mapcraft
  */
@@ -34,72 +33,84 @@ export default [
 		version: '1.17',
 		datapack: 7,
 		resourcepack: 7,
+		indexes: '1.17.json',
 		data: one_seventeen
 	},
 	{
 		version: '1.17.1',
 		datapack: 7,
 		resourcepack: 7,
+		indexes: '1.17.json',
 		data: one_seventeen
 	},
 	{
 		version: '1.18',
 		datapack: 8,
 		resourcepack: 8,
+		indexes: '1.18.json',
 		data: one_eightteen
 	},
 	{
 		version: '1.18.1',
 		datapack: 8,
 		resourcepack: 8,
+		indexes: '1.18.json',
 		data: one_eightteen
 	},
 	{
 		version: '1.18.2',
 		datapack: 9,
 		resourcepack: 8,
+		indexes: '1.18.json',
 		data: one_eightteen
 	},
 	{
 		version: '1.19',
 		datapack: 10,
 		resourcepack: 9,
+		indexes: '1.19.json',
 		data: one_nineteen
 	},
 	{
 		version: '1.19.1',
 		datapack: 10,
 		resourcepack: 9,
+		indexes: '1.19.json',
 		data: one_nineteen
 	},
 	{
 		version: '1.19.2',
 		datapack: 10,
 		resourcepack: 9,
+		indexes: '2.json',
 		data: one_nineteen
 	},
 	{
 		version: '1.19.3',
 		datapack: 10,
 		resourcepack: 12,
+		indexes: '3.json',
 		data: one_nineteen_three
 	},
 	{
 		version: '1.19.4',
 		datapack: 12,
 		resourcepack: 13,
+		indexes: '4.json',
 		data: one_nineteen_four
 	},
 	{
 		version: '1.20',
 		datapack: 15,
 		resourcepack: 15,
+		indexes: '5.json',
 		data: one_twenty
 	},
 	{
 		version: '1.20.1',
 		datapack: 15,
 		resourcepack: 15,
+		indexes: '5.json',
 		data: one_twenty
 	}
 ] as versions[];

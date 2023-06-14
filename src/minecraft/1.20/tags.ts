@@ -1,12 +1,92 @@
 import { tags } from 'minecraft/interface';
 import inheritTags from '../1.19.4/tags';
 
+inheritTags['all_signs'].push('#all_hanging_signs');
+inheritTags['boats'].push('bamboo_boat', 'cherry_boat');
+inheritTags['wooden_buttons'].push('bamboo_button', 'cherry_button');
+inheritTags['chest_boats'].push('bamboo_chest_boat', 'cherry_chest_boat');
+inheritTags['wooden_doors '].push('bamboo_door', 'cherry_door');
+inheritTags['fence_gates'].push('bamboo_fence_gate', 'cherry_fence_gate');
+inheritTags['wooden_fences'].push('bamboo_fence', 'cherry_fence');
+inheritTags['slabs'].push('bamboo_mosaic_slab ');
+inheritTags['stairs'].push('bamboo_mosaic_stairs');
+inheritTags['planks'].push('bamboo_planks', 'cherry_planks');
+inheritTags['wooden_pressure_plates'].push('bamboo_pressure_plate', 'cherry_pressure_plate');
+inheritTags['standing_signs'].push('bamboo_sign', 'cherry_sign');
+inheritTags['signs'].push('bamboo_sign', 'cherry_sign');
+inheritTags['wooden_slabs'].push('bamboo_slab', 'cherry_slab');
+inheritTags['wooden_stairs'].push('bamboo_stairs', 'cherry_stairs');
+inheritTags['wooden_trapdoors'].push('bamboo_trapdoor', 'cherry_trapdoor');
+inheritTags['wall_signs'].push('bamboo_wall_sign', 'cherry_wall_sign');
+inheritTags['is_mountain'].push('cherry_grove');
+inheritTags['is_overworld'].push('cherry_grove');
+inheritTags['leaves'].push('cherry_leaves');
+inheritTags['flowers'].push('cherry_leaves', 'pink_petals');
+inheritTags['overworld_natural_logs'].push('cherry_log');
+inheritTags['logs_that_burn'].push('#cherry_logs');
+inheritTags['saplings'].push('cherry_sapling');
+inheritTags['non_flammable_wood'].push('crimson_hanging_sign', 'warped_hanging_sign');
+inheritTags['bypasses_invulnerability'].push('generic_kill');
+inheritTags['bypasses_resistance'].push('generic_kill');
+inheritTags['bypasses_armor'].push('generic_kill', 'outside_border');
+inheritTags['music_discs'].push('music_disc_relic');
+inheritTags['inside_step_sound_blocks'].push('pink_petals');
+inheritTags['tall_flowers'].push('pitcher_plant');
+inheritTags['flower_pots '].push('potted_torchflower');
+inheritTags['bamboo_plantable_on'].push('suspicious_gravel');
+inheritTags['overworld_carver_replaceables'].push('suspicious_gravel');
+inheritTags['sand'].push('suspicious_sand');
+inheritTags['small_flowers'].push('torchflower');
+inheritTags['crops'].push('torchflower_crop', 'pitcher_crop');
+
 delete inheritTags['ceiling_hanging_signs'];
 delete inheritTags['trim_templates'];
 delete inheritTags['trimmable_armor'];
+delete inheritTags['flower_pots'];
+delete inheritTags['buttons'];
+delete inheritTags['replaceable_plants'];
 
 export default {
 	...inheritTags,
+	'flower_pots': [
+		'potted_cherry_sapling',
+		'potted_acacia_sapling',
+		'potted_allium',
+		'potted_azalea_bush',
+		'potted_azure_bluet',
+		'potted_bamboo',
+		'potted_birch_sapling',
+		'potted_blue_orchid',
+		'potted_brown_mushroom',
+		'potted_cactus',
+		'potted_cornflower',
+		'potted_crimson_fungus',
+		'potted_crimson_roots',
+		'potted_dandelion',
+		'potted_dark_oak_sapling',
+		'potted_dead_bush',
+		'potted_fern',
+		'potted_flowering_azalea_bush',
+		'potted_jungle_sapling',
+		'potted_lily_of_the_valley',
+		'potted_oak_sapling',
+		'potted_orange_tulip',
+		'potted_oxeye_daisy',
+		'potted_pink_tulip',
+		'potted_poppy',
+		'potted_red_mushroom',
+		'potted_red_tulip',
+		'potted_spruce_sapling',
+		'potted_warped_fungus',
+		'potted_warped_roots',
+		'potted_white_tulip',
+		'potted_wither_rose'
+	],
+	'buttons': [
+		'#wooden_buttons',
+		'#stone_buttons'
+	],
+
 	'has_structure': [
 		'taiga', 'snowy_taiga', 'old_growth_pine_taiga', 'old_growth_spruce_taiga',
 		'old_growth_birch_forest', 'jungle'
