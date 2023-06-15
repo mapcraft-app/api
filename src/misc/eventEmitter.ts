@@ -14,7 +14,7 @@ export default class {
 			if (Object.prototype.hasOwnProperty.call(this.events, event) && Array.isArray(this.events[event]))
 				this.listeners(event).push(listener);
 			else 
-				events[event] = [listener]; 
+				events[event] = [ listener ]; 
 		}
 	}
 

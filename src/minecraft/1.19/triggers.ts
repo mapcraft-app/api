@@ -606,7 +606,8 @@ export default [
 			},
 			{
 				lang: 'Edit.Criteria.Player.Player',
-				key: ['entity', 'player'],
+				key: [ 'entity',
+					'player' ],
 				predefined: triggersForm.formPlayer
 			}
 		]

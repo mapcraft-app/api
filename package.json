@@ -60,7 +60,8 @@
     "build": "rollup --bundleConfigAsCjs --config rollup.config.js",
     "build:dev": "SET DEV=true&& rollup --bundleConfigAsCjs --config rollup.config.js",
     "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js ",
-    "dev": "SET DEV=true&& node .\\dist\\index.cjs.js"
+    "dev": "SET DEV=true&& node .\\dist\\index.cjs.js",
+		"lint": "eslint -c ./.eslintrc.js --fix ."
   },
   "dependencies": {
     "7zip-bin": "^5.2.0",

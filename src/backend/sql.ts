@@ -35,7 +35,7 @@ export default class {
 				ret.push(this.tables.findIndex((el) => el.name === names[x]));
 			return ret;
 		}
-		return [this.tables.findIndex((el) => el.name === names)];
+		return [ this.tables.findIndex((el) => el.name === names) ];
 	}
 
 	addTable(tables: tableInterface | tableInterface[]): void {

@@ -79,7 +79,9 @@ export default class sevenZip {
 	 * @param pathToDest path to archive you want to create.
 	 */
 	pack(pathToSrc: string, pathToDest: string): Promise<Record<string, string>[]> {
-		return this.cmd(['a', pathToDest, pathToSrc], true, true);
+		return this.cmd([ 'a',
+			pathToDest,
+			pathToSrc ], true, true);
 	}
 
 	/**
@@ -89,8 +91,11 @@ export default class sevenZip {
 	 */
 	unpack(pathToArchive: string, pathToDir: string | undefined = undefined): Promise<Record<string, string>[]> {
 		return (!pathToDir)
-			? this.cmd(['x', pathToArchive], true, true)
-			: this.cmd(['x', pathToArchive, `-o${pathToDir}`], true, true);
+			? this.cmd([ 'x',
+				pathToArchive ], true, true)
+			: this.cmd([ 'x',
+				pathToArchive,
+				`-o${pathToDir}` ], true, true);
 	}
 
 	/**
@@ -98,7 +103,10 @@ export default class sevenZip {
 	 * @param pathToSrc path to file its content you want to list.
 	 */
 	list(pathToSrc: string): Promise<Record<string, string>[]> {
-		return this.cmd(['l', '-slt', '-ba', pathToSrc]);
+		return this.cmd([ 'l',
+			'-slt',
+			'-ba',
+			pathToSrc ]);
 	}
 
 	/**

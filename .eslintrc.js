@@ -28,23 +28,25 @@ module.exports = {
 			}
 		],
 	
-		indent: ['error', 'tab'],
-		'linebreak-style': ['error', 'unix'],
-		quotes: ['error', 'single'],
-		semi: ['error', 'always'],
+		indent: [ 'error', 'tab' ],
+		'linebreak-style': [ 'error', 'unix' ],
+		quotes: [ 'error', 'single' ],
+		semi: [ 'error', 'always' ],
+		'array-bracket-spacing': [ 'error', 'always' ],
+		'array-element-newline': [ 'error', 'always' ],
 	
-		'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-		eqeqeq: ['error', 'always'],
-		curly: ['error', 'multi-or-nest'],
-		'multiline-ternary': ['error', 'always'],
-		'no-tabs': ['error', { allowIndentationTabs: true }]
+		'brace-style': [ 'error', '1tbs', { allowSingleLine: true } ],
+		eqeqeq: [ 'error', 'always' ],
+		curly: [ 'error', 'multi-or-nest' ],
+		'multiline-ternary': [ 'error', 'always' ],
+		'no-tabs': [ 'error', { allowIndentationTabs: true } ]
 	},
-	ignorePatterns: ['dist'],
+	ignorePatterns: [ 'dist' ],
 	overrides: [
 		{
-			files: ['*.ts', '*.tsx'],
+			files: [ '*.ts', '*.tsx' ],
 			rules: {
-				'@typescript-eslint/explicit-module-boundary-types': ['error']
+				'@typescript-eslint/explicit-module-boundary-types': [ 'error' ]
 			}
 		}
 	]

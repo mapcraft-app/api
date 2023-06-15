@@ -12,7 +12,7 @@ const main = () => {
 		throw new Error('Blocks not founds');
 
 	const id = '__slot__';
-	const ret = [`# Slot ${id} - ${currentVersion}`];
+	const ret = [ `# Slot ${id} - ${currentVersion}` ];
 	const path = resolve('.', '..', 'data_pack', 'data', 'mapcraft', 'functions', 'built_in', 'player', 'get_block');
 	const code = (block: string, diff?: string) => `execute if entity @s[nbt={Inventory:[{Slot:${id},id:"minecraft:${block}"}]}] run setblock ~ ~ ~ minecraft:${diff ?? block}`;
 

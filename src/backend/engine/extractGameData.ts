@@ -93,9 +93,11 @@ export default class extends base {
 		const interval = setInterval(() => this.calcStat(this.instanceExtract.percent, 'textures'), 10);
 		await this.instanceExtract.cmd(
 			[
-				'x', resolve(this.gamePath.textures.path, `${this.gamePath.textures.version}.jar`),
+				'x',
+				resolve(this.gamePath.textures.path, `${this.gamePath.textures.version}.jar`),
 				`-o${this.path.resourcepack}`,
-				'assets/minecraft' , '-x!*.class'
+				'assets/minecraft' ,
+				'-x!*.class'
 			]
 		);
 		clearInterval(interval);

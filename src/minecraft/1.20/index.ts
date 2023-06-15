@@ -8,7 +8,7 @@ import entities from './entities';
 import items from './items';
 import structures from './structures';
 import tags from './tags';
-import triggers from '../1.19/triggers'; // change
+import triggers from '../1.19/triggers';
 
 export default [
 	{ type: 'biome', data: biomes },
