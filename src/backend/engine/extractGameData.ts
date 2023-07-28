@@ -16,7 +16,7 @@ type json = {
 type hash = {
 	hash: string;
 	size: number;
-}
+};
 
 export default class extends base {
 	private splitVersion: string[];

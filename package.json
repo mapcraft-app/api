@@ -14,7 +14,7 @@
     "api",
     "mapcraft-api"
   ],
-  "version": "2.2.1",
+  "version": "2.3.0",
   "files": [
     "dist"
   ],
@@ -56,7 +56,7 @@
     "mapcraft": "./dist/cli.cjs.js"
   },
   "scripts": {
-    "mapcraft": "node ./dist/cli.js",
+    "mapcraft": "node ./dist/cli.cjs.js",
     "build": "rollup --bundleConfigAsCjs --config rollup.config.js",
     "build:dev": "SET DEV=true&& rollup --bundleConfigAsCjs --config rollup.config.js",
     "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js ",

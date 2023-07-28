@@ -9,7 +9,7 @@ export default [
 	{ name: 'cherry_boat' },
 	{ name: 'cherry_chest_boat' },
 
-	{ name: 'raft_boat' },
-	{ name: 'raft_chest_boat' }
+	{ name: 'bamboo_raft' },
+	{ name: 'bamboo_chest_raft' }
 ] as entities[];
 
