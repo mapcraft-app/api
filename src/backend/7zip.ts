@@ -1,6 +1,9 @@
 import { spawn } from 'child_process';
 import { path7za } from '7zip-bin';
 
+/**
+ * Pack or unpack archive
+ */
 export default class sevenZip {
 	private percentReg = /(\d+)%/g;
 	public percent: number;
