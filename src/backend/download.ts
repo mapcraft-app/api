@@ -68,7 +68,7 @@ export default class extends EventEmitter {
 						this.stat.percent = 100;
 				}
 				this.emit('data', this.stat);
-				if (window instanceof Window)
+				if (typeof window !== 'undefined')
 					window.dispatchEvent(new CustomEvent('mapcraft-api::download', { bubbles: true, composed: true, detail: this.stat }));
 			};
 
