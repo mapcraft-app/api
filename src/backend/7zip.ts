@@ -14,6 +14,7 @@ export default class sevenZip {
 
 	private isStat(chunk: string) {
 		const __data__ = this.percentReg.exec(chunk);
+		
 		if (__data__ && __data__[1])
 			return Number(__data__[1]);
 		return null;

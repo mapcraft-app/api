@@ -68,7 +68,8 @@ export default class extends EventEmitter {
 						this.stat.percent = 100;
 				}
 				this.emit('data', this.stat);
-				window.dispatchEvent(new CustomEvent('download', { bubbles: true, composed: true, detail: '' }));
+				if (window instanceof Window)
+					window.dispatchEvent(new CustomEvent('mapcraft-api::download', { bubbles: true, composed: true, detail: this.stat }));
 			};
 
 			const navigateThrowLocation = async (_url: string, _callback: () => void) => {
