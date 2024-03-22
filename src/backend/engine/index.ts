@@ -4,7 +4,6 @@ import { access, cp, mkdir, rm } from 'fs/promises';
 import { join, resolve, sep } from 'path';
 import resource from './resourcepack';
 import data from './datapack';
-// import SevenZip from '../7zip';
 import sevenZip from '../7zip';
 
 import type datapack from './datapack';

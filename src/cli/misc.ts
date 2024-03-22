@@ -164,7 +164,7 @@ export const Spinner = {
 		string = title;
 	},
 	stop: (): void => {
-		clearInterval(saveInterval);
+		clearInterval(saveInterval as unknown as any);
 		process.stdout.write('\x1B[?25h');
 	}
 };
