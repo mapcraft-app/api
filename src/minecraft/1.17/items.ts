@@ -1,4 +1,4 @@
-import { items } from 'minecraft/interface';
+import { items } from '@/types';
 
 export default [
 	{

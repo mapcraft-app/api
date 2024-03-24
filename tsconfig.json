@@ -21,10 +21,12 @@
 		"types": ["node"],
 
 		"paths": {
+			"@/types": ["src/types.ts"],
+			"@/enums": ["src/types.enum.ts"],
 			"@/*": ["src/*"],
-			"cli/*": ["src/cli/*"],
-			"minecraft/*": ["src/minecraft/*"],
-			"misc/*": ["src/misc/*"]
+			"@cli/*": ["src/cli/*"],
+			"@/minecraft/*": ["src/minecraft/*"],
+			"@misc/*": ["src/misc/*"]
 		}
 	},
 	"exclude": ["node_modules/*"],

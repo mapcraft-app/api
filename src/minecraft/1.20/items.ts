@@ -1,4 +1,4 @@
-import { items } from 'minecraft/interface';
+import { items } from '@/types';
 import inheritItems from '../1.19/items';
 
 export default [

@@ -1,6 +1,19 @@
 import data, { minecraft, semverCompare } from './version';
-import type { biome, block, effect, enchantement, entities, items, minecraftVersion, potions, structures, tags, triggers, versions } from './interface';
-import type { dataType } from './interface';
+import type {
+	biome,
+	block,
+	dataType,
+	effect,
+	enchantement,
+	entities,
+	items,
+	minecraftVersion,
+	potions,
+	structures,
+	tags,
+	triggers,
+	versions
+} from '@/types';
 
 export default {
 	/**

@@ -1,13 +1,6 @@
 import http from 'http';
 import https from 'https';
-
-export interface fetchResponse {
-	body: string,
-	headers: http.IncomingHttpHeaders,
-	status: number,
-	statusText: string | undefined,
-	json: () => Record<any, any>
-}
+import type { fetchResponse } from '@/types';
 
 export default function fetch(url: string): Promise<fetchResponse> {
 	return new Promise((res, rej) => {

@@ -2,12 +2,9 @@ import { randomBytes } from 'crypto';
 import EventEmitter from 'events';
 import { access, cp, mkdir, rm } from 'fs/promises';
 import { join, resolve, sep } from 'path';
-import resource from './resourcepack';
-import data from './datapack';
-import sevenZip from '../7zip';
-
-import type datapack from './datapack';
-import type resourcepack from './resourcepack';
+import sevenZip from '@/backend/7zip';
+import resourcepack from '@/backend/engine/resourcepack';
+import datapack from '@/backend/engine/datapack';
 
 export class buildMap extends EventEmitter {
 	private __datapack: datapack;
@@ -104,6 +101,6 @@ export class buildMap extends EventEmitter {
 }
 
 export default {
-	data,
-	resource
+	datapack,
+	resourcepack
 };

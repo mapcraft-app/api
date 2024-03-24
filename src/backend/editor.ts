@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import { existsSync, readFileSync, writeFile } from 'fs';
+import { basename, extname } from 'path';
 
 class editor {
 	public state: {
@@ -21,10 +21,10 @@ class editor {
 	openFile(link: string): { filename: string, extension: string, data: string } {
 		this.state.isEdit = true;
 		this.state.link = link;
-		this.state.filename = path.basename(link, path.extname(link));
-		this.state.extension = path.extname(link).slice(1);
-		if (fs.existsSync(this.state.link)) {
-			const _data = fs.readFileSync(this.state.link, 'utf-8');
+		this.state.filename = basename(link, extname(link));
+		this.state.extension = extname(link).slice(1);
+		if (existsSync(this.state.link)) {
+			const _data = readFileSync(this.state.link, 'utf-8');
 			return ({
 				filename: this.state.filename,
 				extension: this.state.extension,
@@ -36,7 +36,7 @@ class editor {
 
 	saveFile(data: string): void {
 		if (this.state.isEdit) {
-			fs.writeFile(this.state.link, data, (err) => {
+			writeFile(this.state.link, data, (err) => {
 				if (err)
 					throw new Error('Editor:', err);
 				this.closeFile();

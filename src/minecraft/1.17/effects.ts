@@ -1,4 +1,4 @@
-import { effect } from 'minecraft/interface';
+import { effect } from '@/types';
 
 export default [
 	{

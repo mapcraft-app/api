@@ -1,11 +1,6 @@
 import databaseConstrutor, { Database, RunResult, Statement } from 'better-sqlite3';
 import { resolve } from 'path';
-import { envInterface } from './engine/interface';
-
-export interface tableInterface {
-	name: string;
-	sql: string;
-}
+import { envInterface, tableInterface } from '@/types';
 
 export default class {
 	public db: Database;

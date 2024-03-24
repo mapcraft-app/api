@@ -1,4 +1,4 @@
-import { structures } from 'minecraft/interface';
+import { structures } from '@/types';
 import inheritStructures from '../1.19/structures';
 
 export default [

@@ -2,13 +2,11 @@ import { randomBytes } from 'crypto';
 import { accessSync } from 'fs';
 import { access, cp, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import download from '../download';
-import fetch from 'misc/fetch';
-
-import { envInterface } from './interface';
-import engine from './base';
-import versions from 'src/minecraft/version';
-import { minecraftVersion } from 'src/minecraft/interface';
+import download from '@/backend/download';
+import fetch from '@/misc/fetch';
+import engine from '@/backend/engine/base';
+import versions from '@/minecraft/version';
+import type { envInterface, minecraftVersion } from '@/types';
 
 export default class extends engine {
 	private _path: { archive: string, custom: string, pack: string, temp: string };

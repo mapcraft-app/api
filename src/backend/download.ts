@@ -1,14 +1,9 @@
-import fs from 'fs';
+import { createWriteStream, unlink } from 'fs';
 import http from 'http';
 import https from 'https';
-import path from 'path';
+import { basename, resolve } from 'path';
 import EventEmitter from 'events';
-
-export interface statFile {
-	percent: number;
-	received: number;
-	size: number;
-}
+import type { statFile } from '@/types';
 
 /**
 	* Download file from web, accept http and https url
@@ -22,7 +17,7 @@ export default class extends EventEmitter {
 	constructor(url: string, destination?: string) {
 		super();
 		this._url = url;
-		this._destination = destination ?? path.resolve('.', path.basename(new URL(url).pathname));
+		this._destination = destination ?? resolve('.', basename(new URL(url).pathname));
 		this.stat = {
 			percent: 0,
 			received: 0,
@@ -56,7 +51,7 @@ export default class extends EventEmitter {
 				: http;
 			let request: http.ClientRequest;
 
-			const file = fs.createWriteStream(this.destination);
+			const file = createWriteStream(this.destination);
 
 			const chunkListener = (data: any) => {
 				this.stat.received += data.length;
@@ -102,14 +97,14 @@ export default class extends EventEmitter {
 			this.stat.size = 0;
 			return navigateThrowLocation(this.url, () => {
 				request.on('error', (err) => {
-					fs.unlink(this.destination, (errFs) => {
+					unlink(this.destination, (errFs) => {
 						if (errFs)
 							return reject(errFs);
 					});
 					return reject(err);
 				});
 				file.on('error', (err) => {
-					fs.unlink(this.destination, (errFs) => {
+					unlink(this.destination, (errFs) => {
 						if (errFs)
 							return reject(errFs);
 					});

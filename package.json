@@ -20,34 +20,21 @@
   ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "types": "dist/frontend.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js",
-      "types": "./dist/frontend.d.ts"
-    },
+		".": {
+			"types": "./dist/types/src/types.d.ts"
+		},
     "./backend": {
       "import": "./dist/backend.es.js",
       "require": "./dist/backend.cjs.js",
       "types": "./dist/types/src/backend.d.ts"
     },
     "./frontend": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js",
-      "types": "./dist/frontend.d.ts"
+      "import": "./dist/frontend.es.js",
+      "require": "./dist/frontend.cjs.js",
+      "types": "./dist/types/src/frontend.d.ts"
     },
     "./package.json": "./package.json"
-  },
-  "typesVersions": {
-    "*": {
-      "backend": [
-        "dist/backend.d.ts"
-      ],
-      "frontend": [
-        "dist/frontend.d.ts"
-      ]
-    }
   },
   "engines": {
     "node": ">= 18.0"
@@ -79,7 +66,7 @@
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",
     "rollup": "^4.13.0",
-    "rollup-plugin-copy-assets": "^2.0.3",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-ts": "^3.4.5",
     "rollup-plugin-ts-paths": "^1.0.5",

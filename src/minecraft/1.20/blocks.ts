@@ -1,4 +1,4 @@
-import { block } from 'minecraft/interface';
+import type { block } from '@/types';
 import inheritBlock from '../1.19/blocks';
 
 export default [

@@ -1,4 +1,4 @@
-import { minecraftVersion, versions } from 'minecraft/interface';
+import { minecraftVersion, versions } from '@/types';
 import one_seventeen from './1.17';
 import one_eightteen from './1.18';
 import one_nineteen from './1.19';

@@ -1,4 +1,4 @@
-import { tags } from 'minecraft/interface';
+import { tags } from '@/types';
 import tagsList from '../1.19.3/tags';
 
 delete tagsList['only_allows_snow_and_gold_rabbits'];

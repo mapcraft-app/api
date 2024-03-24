@@ -1,4 +1,4 @@
-import { entities } from 'minecraft/interface';
+import { entities } from '@/types';
 
 export default [
 	{

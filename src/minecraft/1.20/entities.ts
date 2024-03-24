@@ -1,5 +1,5 @@
-import { entities } from '../interface';
 import inheritsEntities from '../1.19.4/entities';
+import type { entities } from '@/types';
 
 export default [
 	...inheritsEntities,

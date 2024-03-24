@@ -1,4 +1,4 @@
-import { structures } from 'minecraft/interface';
+import { structures } from '@/types';
 
 export default [
 	{

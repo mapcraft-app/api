@@ -1,4 +1,4 @@
-import { enchantement } from 'minecraft/interface';
+import { enchantement } from '@/types';
 
 export default [
 	{

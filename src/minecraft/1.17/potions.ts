@@ -1,4 +1,4 @@
-import { potions } from 'minecraft/interface';
+import { potions } from '@/types';
 
 export default [
 	{

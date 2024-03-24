@@ -2,7 +2,7 @@ import replace from '@rollup/plugin-replace';
 import tsConfigPaths from 'rollup-plugin-ts-paths';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
-import copy from 'rollup-plugin-copy-assets';
+import copy from 'rollup-plugin-copy';
 import terser from '@rollup/plugin-terser';
 import { dts } from 'rollup-plugin-dts';
 
@@ -17,7 +17,7 @@ export default [
 		input: {
 			'backend': 'src/backend.ts',
 			'cli': 'src/cli/index.ts',
-			'index': 'src/index.ts',
+			'frontend': 'src/frontend.ts',
 			'datapackGenSlot': 'src/datapack_gen/slot.ts'
 		},
 		output: [
@@ -49,50 +49,20 @@ export default [
 			tsConfigPaths(),
 			json(),
 			typescript(),
-			copy({
-				assets: [
-					'src/assets'
-				]
-			}),
 			terser({
 				compress: (process.env.DEV !== true),
 				format: {
 					comments: 'some'
 				}
+			}),
+			copy({
+				targets: [
+					{
+						src: 'src/assets',
+						dest: 'dist'
+					}
+				]
 			})
-		]
-	},
-	{
-		input: [
-			'./dist/types/src/index.d.ts',
-		],
-		output: [
-			{
-				dir: 'dist',
-				entryFileNames: 'frontend.d.ts',
-				format: 'es'
-			}
-		],
-		plugins: [
-			dts()
-		]
-	},
-	{
-		external: [
-			'events', 'minecraft/interface', 'src/minecraft/interface'
-		],
-		input: [
-			'./dist/types/src/backend.d.ts'
-		],
-		output: [
-			{
-				dir: 'dist',
-				entryFileNames: 'backend.d.ts',
-				format: 'es'
-			}
-		],
-		plugins: [
-			dts()
 		]
 	}
 ];

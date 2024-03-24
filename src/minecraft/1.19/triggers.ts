@@ -1,4 +1,4 @@
-import { triggers, triggersForm } from 'minecraft/interface';
+import type { triggers } from '@/types';
 
 export default [
 	{
@@ -8,17 +8,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: 'player',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: 'location',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -29,7 +29,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: 'player',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -40,17 +40,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: 'player',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'killing_blow',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -61,12 +61,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Block',
 				key: 'block',
-				predefined: triggersForm.searchBlocks
+				predefined: 'searchBlocks'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			},
 			{
 				lang: 'Edit.Criteria.Form.NumberOfBeesInside',
@@ -87,17 +87,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Child',
 				key: 'child',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Form.Parent',
 				key: 'parent',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Form.Partner',
 				key: 'partner',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -108,7 +108,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Potion',
 				key: 'potion',
-				predefined: triggersForm.searchPotions
+				predefined: 'searchPotions'
 			}
 		]
 	},
@@ -175,7 +175,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Victims.Victims',
 				key: 'victims',
-				predefined: triggersForm.formVictims
+				predefined: 'formVictims'
 			}
 		]
 	},
@@ -217,7 +217,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -228,12 +228,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Villager',
 				key: 'villager',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Form.Zombie',
 				key: 'zombie',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -244,7 +244,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Effect',
 				key: 'effects',
-				predefined: triggersForm.formEffects
+				predefined: 'formEffects'
 			}
 		]
 	},
@@ -280,7 +280,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -291,12 +291,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Block',
 				key: 'block',
-				predefined: triggersForm.searchBlocks
+				predefined: 'searchBlocks'
 			},
 			{
 				lang: 'Edit.Criteria.State.State',
 				key: 'state',
-				predefined: triggersForm.formState
+				predefined: 'formState'
 			}
 		]
 	},
@@ -307,7 +307,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Damage.Damage',
 				key: 'damage',
-				predefined: triggersForm.formDamage
+				predefined: 'formDamage'
 			}
 		]
 	},
@@ -318,12 +318,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Form.KillingBlow',
 				key: 'killing_blow',
-				predefined: triggersForm.formType
+				predefined: 'formType'
 			}
 		]
 	},
@@ -334,17 +334,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: 'player',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: 'start_position',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			},
 			{
 				lang: 'Edit.Criteria.Distance.Distance',
 				key: 'distance',
-				predefined: triggersForm.formDistance
+				predefined: 'formDistance'
 			}
 		]
 	},
@@ -355,7 +355,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -366,17 +366,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			},
 			{
 				lang: 'Edit.Criteria.Form.Rod',
 				key: 'rod',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -387,7 +387,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: '__ROOT',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			}
 		]
 	},
@@ -403,12 +403,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Items',
 				key: 'items',
-				predefined: triggersForm.formItemsList
+				predefined: 'formItemsList'
 			},
 			{
 				lang: 'Edit.Criteria.Slots.Slots',
 				key: 'slots',
-				predefined: triggersForm.formSlot
+				predefined: 'formSlot'
 			}
 		]
 	},
@@ -419,7 +419,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Durability.EditDurability',
 				key: '__ROOT',
-				predefined: triggersForm.formDurability
+				predefined: 'formDurability'
 			}
 		]
 	},
@@ -430,12 +430,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: 'location',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -471,7 +471,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Victims.Victims',
 				key: 'victims',
-				predefined: triggersForm.formVictims
+				predefined: 'formVictims'
 			}
 		]
 	},
@@ -482,7 +482,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Distance.Distance',
 				key: 'distance',
-				predefined: triggersForm.formDistance
+				predefined: 'formDistance'
 			},
 			{
 				lang: 'Edit.Criteria.Effects.Duration',
@@ -518,12 +518,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Lightning.Lightning',
 				key: 'lightning',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Lightning.Bystander',
 				key: 'bystander',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -534,7 +534,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: '__ROOT',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			}
 		]
 	},
@@ -545,7 +545,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Distance.Distance',
 				key: 'distance',
-				predefined: triggersForm.formDistance
+				predefined: 'formDistance'
 			}
 		]
 	},
@@ -556,22 +556,22 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Block',
 				key: 'block',
-				predefined: triggersForm.searchBlocks
+				predefined: 'searchBlocks'
 			},
 			{
 				lang: 'Edit.Criteria.State.State',
 				key: 'state',
-				predefined: triggersForm.formState
+				predefined: 'formState'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			},
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: 'location',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			}
 		]
 	},
@@ -597,18 +597,18 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Damage.Damage',
 				key: 'damage',
-				predefined: triggersForm.formDamage
+				predefined: 'formDamage'
 			},
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: [ 'entity',
 					'player' ],
-				predefined: triggersForm.formPlayer
+				predefined: 'formPlayer'
 			}
 		]
 	},
@@ -619,12 +619,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			},
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -635,12 +635,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Form.KillingBlow',
 				key: 'killing_blow',
-				predefined: triggersForm.formType
+				predefined: 'formType'
 			}
 		]
 	},
@@ -666,17 +666,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: 'player',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: 'start_position',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			},
 			{
 				lang: 'Edit.Criteria.Distance.Distance',
 				key: 'distance',
-				predefined: triggersForm.formDistance
+				predefined: 'formDistance'
 			}
 		]
 	},
@@ -687,7 +687,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -698,7 +698,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: '__ROOT',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			}
 		]
 	},
@@ -709,7 +709,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Block',
 				key: 'block',
-				predefined: triggersForm.searchBlocks
+				predefined: 'searchBlocks'
 			}
 		]
 	},
@@ -724,7 +724,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -735,7 +735,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -765,7 +765,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Form.Shooter',
 				key: 'shooter',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -776,12 +776,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -792,17 +792,17 @@ export default [
 			{
 				lang: 'Edit.Criteria.Player.Player',
 				key: 'player',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Entity.Entity',
 				key: 'entity',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			},
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -848,7 +848,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -859,7 +859,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			}
 		]
 	},
@@ -870,12 +870,12 @@ export default [
 			{
 				lang: 'Edit.Criteria.Item.Item',
 				key: 'item',
-				predefined: triggersForm.formItems
+				predefined: 'formItems'
 			},
 			{
 				lang: 'Edit.Criteria.Form.Villager',
 				key: 'villager',
-				predefined: triggersForm.formEntities
+				predefined: 'formEntities'
 			}
 		]
 	},
@@ -886,7 +886,7 @@ export default [
 			{
 				lang: 'Edit.Criteria.Location.Location',
 				key: '__ROOT',
-				predefined: triggersForm.formLocation
+				predefined: 'formLocation'
 			}
 		]
 	}

@@ -1,5 +1,5 @@
 import lastEntites from '../1.19/entities';
-import { entities } from '../interface';
+import type { entities } from '@/types';
 
 export default [
 	...lastEntites,

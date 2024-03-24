@@ -1,8 +1,8 @@
 import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import minecraft from 'minecraft/index';
-import { minecraft as version, semverCompare } from 'minecraft/version';
-import type { block, minecraftVersion } from 'minecraft/interface';
+import minecraft from '@/minecraft';
+import { minecraft as version, semverCompare } from '@/minecraft/version';
+import type { block, minecraftVersion } from '@/types';
 
 const currentVersion = process.argv[2] as minecraftVersion ?? version[version.length - 1];
 const blocks: any = minecraft.get(currentVersion, 'block');

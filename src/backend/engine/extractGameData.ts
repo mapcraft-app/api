@@ -1,12 +1,10 @@
 import { accessSync, constants } from 'fs';
 import { cp, readFile, writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import base from './base';
-import versions from 'minecraft/version';
-import extractArchive from '../7zip';
-
-import type { minecraftVersion } from 'minecraft/interface';
-import type { envInterface } from './interface';
+import base from '@/backend/engine/base';
+import versions from '@/minecraft/version';
+import extractArchive from '@/backend/7zip';
+import type { envInterface, minecraftVersion } from '@/types';
 
 type json = {
 	path: string;

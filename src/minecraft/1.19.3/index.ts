@@ -1,4 +1,3 @@
-import { baseDefinition } from '../interface';
 import biomes from '../1.19/biomes';
 import blocks from '../1.19/blocks';
 import effects from '../1.19/effects';
@@ -9,6 +8,7 @@ import potions from '../1.17/potions';
 import structures from '../1.19/structures';
 import tags from './tags';
 import triggers from '../1.19/triggers';
+import type { baseDefinition } from '@/types';
 
 
 export default [

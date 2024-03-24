@@ -2,11 +2,10 @@ import { createHash, randomBytes } from 'crypto';
 import { accessSync } from 'fs';
 import { copyFile, cp, mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
 import { resolve } from 'path';
-import { envInterface } from './interface';
-import sevenZip from '../7zip';
-import version from 'minecraft/version';
-
-import type { minecraftVersion } from 'src/minecraft/interface';
+import { envInterface } from '@/types';
+import sevenZip from '@/backend/7zip';
+import version from '@/minecraft/version';
+import type { minecraftVersion } from '@/types';
 
 export default class {
 	public env: envInterface;

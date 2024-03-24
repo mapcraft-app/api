@@ -1,325 +1,324 @@
-import { biome } from 'minecraft/interface';
-import { biomeType } from 'minecraft/interface';
+import type { biome } from '@/types';
 
 export default [
 	{
 		id: 'ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'deep_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'frozen_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'deep_frozen_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'cold_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'deep_cold_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'lukewarm_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'deep_lukewarm_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'warm_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'deep_warm_ocean',
-		type: biomeType.aquatic
+		type: 'aquatic'
 	},
 	{
 		id: 'river',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'frozen_river',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'beach',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'stone_shore',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'snowy_beach',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'forest',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'wooded_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'flower_forest',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'birch_forest',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'birch_forest_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'tall_birch_forest',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'tall_birch_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'dark_forest',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'dark_forest_hills',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'jungle',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'jungle_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'modified_jungle',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'jungle_edge',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'modified_jungle_edge',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'bamboo_jungle',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'bamboo_jungle_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'taiga',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'taiga_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'taiga_mountains',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'snowy_taiga',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'snowy_taiga_mountains',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'giant_tree_taiga',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'giant_tree_taiga_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'giant_spruce_taiga',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'giant_spruce_taiga_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'mushroom_fields',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'mushroom_field_shore',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'swamp',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'swamp_hills',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'savanna',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'savanna_plateau',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'shattered_savanna',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'shattered_savanna_plateau',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'plains',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'sunflower_plains',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'desert',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'desert_hills',
-		type: biomeType.neutral
+		type: 'neutral'
 	},
 	{
 		id: 'desert_lakes',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'snowy_tundra',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'snowy_mountains',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'ice_spikes',
-		type: biomeType.snowy
+		type: 'snowy'
 	},
 	{
 		id: 'mountains',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'wooded_mountains',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'gravelly_mountains',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'modified_gravelly_mountains',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'mountain_edge',
-		type: biomeType.cold
+		type: 'cold'
 	},
 	{
 		id: 'badlands',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'badlands_plateau',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'modified_badlands_plateau',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'wooded_badlands_plateau',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'modified_wooded_badlands_plateau',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'eroded_badlands',
-		type: biomeType.warm
+		type: 'warm'
 	},
 	{
 		id: 'dripstone_caves',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'lush_caves',
-		type: biomeType.temperate
+		type: 'temperate'
 	},
 	{
 		id: 'nether_wastes',
-		type: biomeType.nether
+		type: 'nether'
 	},
 	{
 		id: 'crimson_forest',
-		type: biomeType.nether
+		type: 'nether'
 	},
 	{
 		id: 'warped_forest',
-		type: biomeType.nether
+		type: 'nether'
 	},
 	{
 		id: 'soul_sand_valley',
-		type: biomeType.nether
+		type: 'nether'
 	},
 	{
 		id: 'basalt_deltas',
-		type: biomeType.nether
+		type: 'nether'
 	},
 	{
 		id: 'the_end',
-		type: biomeType.end
+		type: 'end'
 	},
 	{
 		id: 'small_end_islands',
-		type: biomeType.end
+		type: 'end'
 	},
 	{
 		id: 'end_midlands',
-		type: biomeType.end
+		type: 'end'
 	},
 	{
 		id: 'end_highlands',
-		type: biomeType.end
+		type: 'end'
 	},
 	{
 		id: 'end_barrens',
-		type: biomeType.end
+		type: 'end'
 	},
 	{
 		id: 'the_void',
-		type: biomeType.neutral
+		type: 'neutral'
 	}
 ] as biome[];

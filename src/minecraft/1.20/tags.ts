@@ -1,4 +1,4 @@
-import { tags } from 'minecraft/interface';
+import { tags } from '@/types';
 import inheritTags from '../1.19.4/tags';
 
 const add = (tag: string, tags: string[]) => {

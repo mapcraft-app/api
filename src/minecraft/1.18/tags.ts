@@ -1,4 +1,4 @@
-import { tags } from 'minecraft/interface';
+import { tags } from '@/types';
 
 export default {
 	'acacia_logs' : [
