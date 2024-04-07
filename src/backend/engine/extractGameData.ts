@@ -1,6 +1,7 @@
 import { accessSync, constants } from 'fs';
 import { cp, readFile, writeFile } from 'fs/promises';
-import { resolve } from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import base from '@/backend/engine/base';
 import versions from '@/minecraft/version';
 import extractArchive from '@/backend/7zip';
@@ -31,6 +32,7 @@ export default class extends base {
 	constructor(env: envInterface, version: minecraftVersion, name: string) {
 		super(env, version, name);
 		
+		const __dirname = dirname(fileURLToPath(import.meta.url));
 		const tempVersion = versions.find((e) => e.version === version);
 		if (!tempVersion)
 			throw new Error(`Version ${version} not exist`);

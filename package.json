@@ -8,30 +8,28 @@
     "type": "git",
     "url": "https://github.com/mapcraft-app/api"
   },
+	
   "keywords": [
     "mapcraft",
     "minecraft",
     "api",
     "mapcraft-api"
   ],
+	"type": "module",
   "version": "2.3.3",
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
   "exports": {
-		".": {
-			"types": "./dist/types/src/types.d.ts"
-		},
+    ".": {
+      "types": "./dist/types/src/types.d.ts"
+    },
     "./backend": {
       "import": "./dist/backend.es.js",
-      "require": "./dist/backend.cjs.js",
       "types": "./dist/types/src/backend.d.ts"
     },
     "./frontend": {
       "import": "./dist/frontend.es.js",
-      "require": "./dist/frontend.cjs.js",
       "types": "./dist/types/src/frontend.d.ts"
     },
     "./package.json": "./package.json"
@@ -69,7 +67,7 @@
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-ts": "^3.4.5",
-    "rollup-plugin-ts-paths": "^1.0.5",
+    "rollup-plugin-typescript-paths": "^1.5.0",
     "tslib": "^2.6.2",
     "typescript": "^5.4.2"
   }

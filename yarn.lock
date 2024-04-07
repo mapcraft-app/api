@@ -1465,14 +1465,6 @@ rollup-plugin-dts@^6.1.0:
   optionalDependencies:
     "@babel/code-frame" "^7.22.13"
 
-rollup-plugin-ts-paths@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-ts-paths/-/rollup-plugin-ts-paths-1.0.5.tgz#bc43245b400d5a87df90191ac74ef184a45ae9be"
-  integrity sha512-Ca2FK0SEb6SicXQAAyI6Lfibyd7BNuTUERnMS8Dl28sYDS2vu/i8L012FMRjNcuHFzQTlU3QUpb+t4wP/Qb7Kw==
-  dependencies:
-    strip-bom "^4.0.0"
-    strip-json-comments "^3.0.1"
-
 rollup-plugin-ts@^3.4.5:
   version "3.4.5"
   resolved "https://registry.yarnpkg.com/rollup-plugin-ts/-/rollup-plugin-ts-3.4.5.tgz#2e04fb121c67f711ba800c3b4349782243def388"
@@ -1488,6 +1480,11 @@ rollup-plugin-ts@^3.4.5:
     magic-string "^0.30.2"
     ts-clone-node "^3.0.0"
     tslib "^2.6.1"
+
+rollup-plugin-typescript-paths@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript-paths/-/rollup-plugin-typescript-paths-1.5.0.tgz#81922ad686623ab1b2549ec3fb6769ba7bdbe1ec"
+  integrity sha512-zly2aiGNjYJNq5YUi6eyGrQnCYUQ8b5czOtHZIGriwG9U3Ba2F9hlSklafXCdsNulK/IlNmE0Kzj0h+fVV32pA==
 
 rollup@^4.13.0:
   version "4.13.0"
@@ -1605,12 +1602,7 @@ strip-ansi@^6.0.1:
   dependencies:
     ansi-regex "^5.0.1"
 
-strip-bom@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/strip-bom/-/strip-bom-4.0.0.tgz#9c3505c1db45bcedca3d9cf7a16f5c5aa3901878"
-  integrity sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==
-
-strip-json-comments@^3.0.1, strip-json-comments@^3.1.1:
+strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
