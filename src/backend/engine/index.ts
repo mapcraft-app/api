@@ -6,7 +6,7 @@ import sevenZip from '@/backend/7zip';
 import resourcepack from '@/backend/engine/resourcepack';
 import datapack from '@/backend/engine/datapack';
 
-export class buildMap extends EventEmitter {
+export default class extends EventEmitter {
 	private __datapack: datapack;
 	private __resourcepack: resourcepack;
 	private check: {
@@ -99,8 +99,3 @@ export class buildMap extends EventEmitter {
 		return mapZip;
 	}
 }
-
-export default {
-	datapack,
-	resourcepack
-};

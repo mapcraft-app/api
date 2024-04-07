@@ -41,7 +41,10 @@ export type minecraftVersion =
 	| '1.19.3'
 	| '1.19.4'
 	| '1.20'
-	| '1.20.1';
+	| '1.20.1'
+	| '1.20.2'
+	| '1.20.3'
+	| '1.20.4';
 
 export type dataType =
 	'biome'
@@ -70,7 +73,7 @@ export interface baseDefinition {
 }
 
 export interface versions {
-	version: string;
+	version: minecraftVersion;
 	datapack: number;
 	resourcepack: number;
 	indexes: string;

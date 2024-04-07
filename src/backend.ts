@@ -3,7 +3,9 @@ import download from './backend/download';
 import editor from './backend/editor';
 import fs from './backend/fs';
 import sql from './backend/sql';
-import engine, { buildMap } from './backend/engine';
+import datapack from './backend/engine/datapack';
+import resourcepack from './backend/engine/resourcepack';
+import buildMap from './backend/engine';
 import extractGameData from './backend/engine/extractGameData';
 
 export {
@@ -12,7 +14,8 @@ export {
 	editor,
 	fs,
 	sql,
-	engine,
+	datapack,
+	resourcepack,
 	buildMap,
 	extractGameData
 };

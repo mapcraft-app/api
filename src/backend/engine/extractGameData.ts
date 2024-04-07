@@ -148,7 +148,10 @@ export default class extends base {
 					},
 					pack: {
 						description: `Mapcraft resource pack of ${this.name}`,
-						pack_format: configOfVersion.resourcepack
+						pack_format: configOfVersion.resourcepack,
+						supported_formats: (configOfVersion.datapack >= 18)
+							? { min_inclusive: configOfVersion.datapack, max_inclusive: configOfVersion.datapack }
+							: undefined
 					}
 				}, null, 2)
 			);
