@@ -8,14 +8,13 @@
     "type": "git",
     "url": "https://github.com/mapcraft-app/api"
   },
-	
   "keywords": [
     "mapcraft",
     "minecraft",
     "api",
     "mapcraft-api"
   ],
-	"type": "module",
+  "type": "module",
   "version": "2.3.4",
   "files": [
     "dist"
@@ -54,7 +53,9 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",

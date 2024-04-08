@@ -12,15 +12,23 @@ export default class {
 		verb: ((message: any, ...optional: any[]) => void) | undefined = undefined,
 		tables: tableInterface | tableInterface[] | undefined = undefined
 	) {
-		this.db = new databaseConstrutor(resolve(env.save, name, 'mapcraft.db'), { timeout: 250, verbose: verb });
+		const toto = resolve(env.save, name, 'mapcraft.db');
+		console.log(toto);
+		this.db = new databaseConstrutor(
+			toto,
+			{ timeout: 250, verbose: verb }
+		);
+		console.log('one');
 		if (tables) {
 			this.tables = Array.isArray(tables)
 				? tables
 				: [ tables ];
 		} else
 			this.tables = [];
+		console.log('two');
 		for (const table of this.tables)
 			this.db.exec(table.sql);
+		console.log('three');
 	}
 
 	isExistTable(names: string | string[]): number | number[] {
