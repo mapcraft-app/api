@@ -1,50 +1,74 @@
 {
   "name": "mapcraft-api",
-  "version": "1.9.6",
   "description": "Official API for developping your own plugin for Mapcraft ecosystem",
-  "main": "index.js",
-  "bin": {
-    "mapcraft": "cli/cli.js"
-  },
-  "out": "out",
-  "engines": {
-    "node": ">= 16.0"
-  },
-  "types": "declaration/index.d.ts",
-  "files": [
-    "declaration/*",
-    "modules/**/*",
-    "cli/**/*",
-    "index.js",
-    "package-lock.json"
-  ],
+  "author": "Clément Bertrand (https://github.com/c-bertran)",
+  "license": "GPL-3.0",
+  "homepage": "https://mapcraft.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/mapcraft-app/api"
   },
   "keywords": [
     "mapcraft",
-    "minecraft"
+    "minecraft",
+    "api",
+    "mapcraft-api"
   ],
-  "author": "Clément Bertrand (https://github.com/c-bertran)",
-  "license": "GPL-3.0",
-  "homepage": "https://mapcraft.app",
+  "type": "module",
+  "version": "2.3.4",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/src/types.d.ts"
+    },
+    "./backend": {
+      "import": "./dist/backend.es.js",
+      "types": "./dist/types/src/backend.d.ts"
+    },
+    "./frontend": {
+      "import": "./dist/frontend.es.js",
+      "types": "./dist/types/src/frontend.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">= 18.0"
+  },
+  "bin": {
+    "mapcraft": "./dist/cli.cjs.js"
+  },
   "scripts": {
-    "mapcraft": "node cli/cli.js",
-    "lint": "eslint .",
-    "declar": "tsc"
+    "mapcraft": "node ./dist/cli.cjs.js",
+    "build": "rollup --bundleConfigAsCjs --config rollup.config.js --environment DEV:false",
+    "build:dev": "rollup --bundleConfigAsCjs --config rollup.config.js --environment DEV:true",
+    "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js --environment DEV:true",
+    "lint": "eslint -c ./.eslintrc.js --fix ."
   },
   "dependencies": {
-    "7zip-min": "^1.4.1",
-    "better-sqlite3": "^7.5.0",
-    "prompts": "^2.4.2",
-    "read-last-lines": "^1.8.0"
+    "7zip-bin": "^5.2.0",
+    "better-sqlite3": "^9.4.3",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "electron": "^16.0.8",
-    "eslint": "^8.8.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "typescript": "^4.5.5"
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/node": "^20.11.28",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "rollup": "^4.13.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-ts": "^3.4.5",
+    "rollup-plugin-typescript-paths": "^1.5.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.2"
   }
 }

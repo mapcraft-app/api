@@ -1,0 +1,8 @@
+/dist
+/node_modules
+/old
+package.json
+tsconfig.*
+rollup.config.*
+*.d.ts
+.eslintrc.js
