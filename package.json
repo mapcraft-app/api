@@ -41,10 +41,9 @@
   },
   "scripts": {
     "mapcraft": "node ./dist/cli.cjs.js",
-    "build": "rollup --bundleConfigAsCjs --config rollup.config.js",
-    "build:dev": "SET DEV=true&& rollup --bundleConfigAsCjs --config rollup.config.js",
-    "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js ",
-    "dev": "SET DEV=true&& node .\\dist\\index.cjs.js",
+    "build": "rollup --bundleConfigAsCjs --config rollup.config.js --environment DEV:false",
+    "build:dev": "rollup --bundleConfigAsCjs --config rollup.config.js --environment DEV:true",
+    "watch": "rollup -w --bundleConfigAsCjs --config rollup.config.js --environment DEV:true",
     "lint": "eslint -c ./.eslintrc.js --fix ."
   },
   "dependencies": {
