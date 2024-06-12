@@ -6,7 +6,7 @@
   "homepage": "https://mapcraft.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mapcraft-app/api"
+    "url": "git+https://github.com/mapcraft-app/api.git"
   },
   "keywords": [
     "mapcraft",
@@ -24,11 +24,11 @@
       "types": "./dist/types/src/types.d.ts"
     },
     "./backend": {
-      "import": "./dist/backend.es.js",
+      "import": "./dist/backend.js",
       "types": "./dist/types/src/backend.d.ts"
     },
     "./frontend": {
-      "import": "./dist/frontend.es.js",
+      "import": "./dist/frontend.js",
       "types": "./dist/types/src/frontend.d.ts"
     },
     "./package.json": "./package.json"
@@ -37,7 +37,7 @@
     "node": ">= 18.0"
   },
   "bin": {
-    "mapcraft": "./dist/cli.cjs.js"
+    "mapcraft": "dist/cli.js"
   },
   "scripts": {
     "mapcraft": "node ./dist/cli.cjs.js",

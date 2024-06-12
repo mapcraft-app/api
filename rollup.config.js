@@ -11,9 +11,9 @@ const banner = `/**\n* @license\n* mapcraft-api\n* Copyright (C) 2021 - ${new Da
 export default [
 	{
 		external: [
-			'7zip-bin', 'better-sqlite3', 'child_process', 'crypto', 'events', 'fs',
-			'fs/promises', 'http', 'https', 'os', 'path', 'process',
-			'prompts', 'url'
+			'7zip-bin', 'better-sqlite3', 'child_process', 'crypto',
+			'events', 'fs', 'fs/promises', 'http', 'https', 'os',
+			'path', 'process', 'prompts', 'url'
 		],
 		input: {
 			'backend': 'src/backend.ts',
@@ -24,9 +24,8 @@ export default [
 		output: [
 			{
 				banner,
-				chunkFileNames: '[name]_[hash].[format].js',
 				dir: 'dist',
-				entryFileNames: '[name].[format].js',
+				entryFileNames: '[name].js',
 				format: 'es'
 			}
 		],
