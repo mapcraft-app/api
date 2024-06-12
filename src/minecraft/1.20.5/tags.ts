@@ -1,13 +1,12 @@
-import { tags } from '@/types';
 import inheritTags from '../1.20.3/tags';
 
-inheritTags['#wolves_spawnable_on'].push(...['coarse_dirt', 'podzol']);
 inheritTags['axolotl_food'] = inheritTags['axolotl_tempt_items'];
 delete inheritTags['axolotl_tempt_items'];
 delete inheritTags['tools'];
 
 export default {
 	...inheritTags,
+	'#wolves_spawnable_on': ['coarse_dirt', 'podzol'],
 	'#armadillo_spawnable_on': [
 		'#animals_spawnable_on', '#badlands_terracotta', 'red_sand', 'coarse_dirt'
 	],
