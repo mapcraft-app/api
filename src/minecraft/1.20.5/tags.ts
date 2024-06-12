@@ -1,3 +1,4 @@
+import type { tags } from '@/types';
 import inheritTags from '../1.20.3/tags';
 
 inheritTags['axolotl_food'] = inheritTags['axolotl_tempt_items'];
@@ -139,4 +140,4 @@ export default {
 	'#skulls': [
 		'player_head', 'creeper_head', 'zombie_head', 'skeleton_skull', 'wither_skeleton_skull', 'dragon_head', 'piglin_head'
 	]
-};
+} as tags;
