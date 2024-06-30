@@ -46,7 +46,8 @@ export type minecraftVersion =
 	| '1.20.3'
 	| '1.20.4'
 	| '1.20.5'
-	| '1.20.6';
+	| '1.20.6'
+	| '1.21';
 
 export type dataType =
 	'biome'

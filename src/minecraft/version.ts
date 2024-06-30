@@ -8,6 +8,7 @@ import one_twenty from './1.20';
 import one_twenty_two from './1.20.2';
 import one_twenty_three from './1.20.3';
 import one_twenty_five from './1.20.5';
+import one_twenty_one from './1.21';
 
 /**
  * Semantic Versioning Comparing
@@ -42,7 +43,8 @@ export const minecraft = [
 	'1.20.3',
 	'1.20.4',
 	'1.20.5',
-	'1.20.6'
+	'1.20.6',
+	'1.21'
 ] as minecraftVersion[];
 
 export default [
@@ -164,5 +166,12 @@ export default [
 		resourcepack: 32,
 		indexes: '16.json',
 		data: one_twenty_five
+	},
+	{
+		version: '1.21',
+		datapack: 48,
+		resourcepack: 34,
+		indexes: '17.json',
+		data: one_twenty_one
 	}
 ] as versions[];
