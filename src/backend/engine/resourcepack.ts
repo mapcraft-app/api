@@ -67,7 +67,7 @@ export default class extends engine {
 	}
 
 	async install(): Promise<Record<string, any>> {
-		await this.installDefaultResource(resolve(this.env.resource, `mapcraft_${this.version}`)),
+		await this.installDefaultResource(resolve(this.env.resource, `mapcraft_${this.version}`));
 		await this.installBaseResource();
 		return this._generateHashMap(this.instanceExtract.gamePath.resourcepack, true);
 	}
