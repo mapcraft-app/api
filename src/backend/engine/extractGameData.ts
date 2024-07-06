@@ -1,11 +1,12 @@
 import { accessSync, constants } from 'fs';
-import { cp, readFile, writeFile } from 'fs/promises';
+import { cp, readFile, rm, writeFile } from 'fs/promises';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import base from '@/backend/engine/base';
 import versions from '@/minecraft/version';
 import extractArchive from '@/backend/7zip';
 import type { envInterface, minecraftVersion } from '@/types';
+import { randomBytes } from 'crypto';
 
 type json = {
 	path: string;
@@ -82,7 +83,10 @@ export default class extends base {
 		if (!pathOfPack)
 			throw new Error('Extract game data - Path of base resource pack is incorrect');
 		const interval = setInterval(() => this.calcStat(this.instanceExtract.percent, 'base'), 10);
-		await this.instanceExtract.unpack(pathOfPack.path, this.gamePath.resourcepack);
+		const temp = resolve(this.env.temp, `${randomBytes(32).toString('base64').slice(0, 8)}.zip`);
+		await cp(pathOfPack.path, temp, { dereference: true, force: true });
+		await this.instanceExtract.unpack(temp, this.gamePath.resourcepack);
+		await rm(temp, { force: true });
 		clearInterval(interval);
 		this.stat.base = 100;
 	}

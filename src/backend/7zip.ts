@@ -1,5 +1,6 @@
 import { spawn } from 'child_process';
-import { path7za } from '7zip-bin';
+import { join, resolve as pathResolve } from 'path';
+//import { path7za } from '7zip-bin';
 
 /**
  * Pack or unpack archive
@@ -110,6 +111,7 @@ export default class sevenZip {
 	 * @param args array of parameter. Each array item is one parameter.
 	 * @param genStat generate stat
 	 * @param yesForAll response to all question(s) with yes
+	 * @param isElectron specify if is electron context
 	 */
 	cmd(args: string[], genStat = true, yesForAll = false): Promise<Record<string, string>[]> {
 		const __args = args;
@@ -122,9 +124,14 @@ export default class sevenZip {
 		if (yesForAll)
 			__args.push('-y');
 		this.percent = 0;
-		const sevenZip = spawn(path7za, __args, { windowsHide: true });
-
-		return new Promise((resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
+			const seven: { path7za: string, path7x: string } = await import(
+				(process.env.PACKAGED && process.env.PACKAGED === 'true')
+					? 'file://' + pathResolve('.', 'resources', 'app.asar.unpacked', 'node_modules', 'mapcraft-api', 'node_modules', '7zip-bin', 'index.js')
+					: 'file://' + join('7zip-bin', 'index.js')
+				)
+					.then((d) => d.default);
+			const sevenZip = spawn(seven.path7za, __args, { windowsHide: true });
 			sevenZip
 				.on('error', (e: unknown) => reject(e))
 				.on('exit', (code: string) => {
