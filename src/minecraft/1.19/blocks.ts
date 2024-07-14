@@ -1073,7 +1073,7 @@ export default [
 		name: 'large_fern'
 	},
 	{
-		name: 'lava_bucket'
+		name: 'lava'
 	},
 	{
 		name: 'lectern'
@@ -2144,7 +2144,7 @@ export default [
 		name: 'warped_wart_block'
 	},
 	{
-		name: 'water_bucket'
+		name: 'water'
 	},
 	{
 		name: 'waxed_copper_block'
