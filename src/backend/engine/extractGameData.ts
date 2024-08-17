@@ -2,11 +2,11 @@ import { accessSync, constants } from 'fs';
 import { cp, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { randomBytes } from 'crypto';
 import base from '@/backend/engine/base';
 import versions from '@/minecraft/version';
 import extractArchive from '@/backend/7zip';
 import type { envInterface, minecraftVersion } from '@/types';
-import { randomBytes } from 'crypto';
 
 type json = {
 	path: string;
@@ -105,9 +105,8 @@ export default class extends base {
 				'-x!*.class'
 			]
 		);
-		await rm(backgroundDir, { force: true });
+		await rm(backgroundDir, { recursive: true, force: true });
 		await mkdir(backgroundDir, { recursive: true });
-		await cp(resolve(this.resourcePackBase, 'panorama_overlay.png'), resolve(backgroundDir, 'panorama_overlay.png'), { force: true });
 		clearInterval(interval);
 	}
 

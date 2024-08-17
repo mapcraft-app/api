@@ -1,7 +1,9 @@
 import { randomBytes } from 'crypto';
 import { accessSync } from 'fs';
-import { mkdir, readFile, rm } from 'fs/promises';
-import { resolve } from 'path';
+import { cp, mkdir, readFile, rm } from 'fs/promises';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+import { semverCompare } from '@/minecraft/version';
 import fetch from '@/misc/fetch';
 import download from '@/backend/download';
 import engine from '@/backend/engine/base';
@@ -10,6 +12,7 @@ import type { envInterface, minecraftVersion } from '@/types';
 
 export default class extends engine {
 	private baseUrl: string;
+	private resourcePackBase: string;
 	private _path: {
 		base: string,
 		temp: string
@@ -25,10 +28,12 @@ export default class extends engine {
 	) {
 		super(env, version, name);
 
+		const __dirname = dirname(fileURLToPath(import.meta.url));
+		const randomId = randomBytes(16).toString('hex').slice(0, 16);
 		this.baseUrl = (process.env.DEV as any === true)
 			? 'http://localhost:3000'
 			: 'https://api.mapcraft.app';
-		const randomId = randomBytes(16).toString('hex').slice(0, 16);
+		this.resourcePackBase = resolve(__dirname, 'assets');
 		this._path = {
 			base: resolve(this.env.temp, `mapcraft_${randomId}`, 'base.zip'),
 			temp: resolve(this.env.temp, `mapcraft_${randomId}`)
@@ -49,12 +54,14 @@ export default class extends engine {
 	/**
 	 * Install mapcraft datapack
 	 */
-	private async installDefaultResource(__path: string): Promise<Record<string, string>[]> {
+	private async installDefaultResource(__path: string): Promise<void> {
 		try {
 			accessSync(this._path.temp);
 		} catch (___) {
 			await mkdir(this._path.temp);
 		}
+		const backgroundDir = resolve(__path, 'assets', 'minecraft', 'textures', 'gui', 'title', 'background');
+
 		await rm(this._path.base, { recursive: true, force: true });
 		await rm(__path, { recursive: true, force: true });
 		const data = (await fetch(`${this.baseUrl}/software/resourcepack/${this.version}`)).json();
@@ -63,7 +70,12 @@ export default class extends engine {
 		this.release = data.releases[0] as { description: string, url: string, version: string };
 		this.instanceDownload.url = this.release.url;
 		await this.instanceDownload.get();
-		return this.unpackData(this._path.base, __path);
+		await this.unpackData(this._path.base, __path);
+		if (semverCompare(this.version, '1.21') >= 0) {
+			await rm(backgroundDir, { recursive: true, force: true });
+			await mkdir(backgroundDir, { recursive: true });
+			await cp(resolve(this.resourcePackBase, 'panorama_overlay.png'), resolve(backgroundDir, 'panorama_overlay.png'), { force: true });
+		}
 	}
 
 	async install(): Promise<Record<string, any>> {
