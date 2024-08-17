@@ -1,5 +1,5 @@
 import { accessSync, constants } from 'fs';
-import { cp, readFile, rm, writeFile } from 'fs/promises';
+import { cp, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import base from '@/backend/engine/base';
@@ -94,6 +94,7 @@ export default class extends base {
 	private async textures() {
 		if (!this.gamePath.textures)
 			throw new Error('Extract game data - Path of textures is incorrect');
+		const backgroundDir = resolve(this.gamePath.resourcepack, 'assets', 'minecraft', 'textures', 'gui', 'title', 'background');
 		const interval = setInterval(() => this.calcStat(this.instanceExtract.percent, 'textures'), 10);
 		await this.instanceExtract.cmd(
 			[
@@ -104,6 +105,9 @@ export default class extends base {
 				'-x!*.class'
 			]
 		);
+		await rm(backgroundDir, { force: true });
+		await mkdir(backgroundDir, { recursive: true });
+		await cp(resolve(this.resourcePackBase, 'panorama_overlay.png'), resolve(backgroundDir, 'panorama_overlay.png'), { force: true });
 		clearInterval(interval);
 	}
 
