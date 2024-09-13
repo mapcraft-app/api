@@ -44,7 +44,8 @@ export const minecraft = [
 	'1.20.4',
 	'1.20.5',
 	'1.20.6',
-	'1.21'
+	'1.21',
+	'1.21.1'
 ] as minecraftVersion[];
 
 export default [
@@ -169,6 +170,13 @@ export default [
 	},
 	{
 		version: '1.21',
+		datapack: 48,
+		resourcepack: 34,
+		indexes: '17.json',
+		data: one_twenty_one
+	},
+	{
+		version: '1.21.1',
 		datapack: 48,
 		resourcepack: 34,
 		indexes: '17.json',

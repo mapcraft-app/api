@@ -136,7 +136,7 @@ export default class {
 							++this.hashStat.current;
 							this.hashStat.percent = Math.round((this.hashStat.current / this.hashStat.total) * 100);
 							data[dir.name] = createHash('sha256')
-								.update(await readFile(resolve(base, dir.name)))
+								.update(new Uint8Array((await readFile(resolve(base, dir.name))).buffer))
 								.digest('hex');
 						}
 						if (dir.isDirectory()) {
